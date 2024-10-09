@@ -1,0 +1,17 @@
+# AccountResponse
+
+An object containing information about the User's account and balance
+
+
+## Fields
+
+| Field                                                             | Type                                                              | Required                                                          | Description                                                       | Example                                                           |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `login`                                                           | *?string*                                                         | :heavy_minus_sign:                                                | User Login                                                        | some_login                                                        |
+| `accountType`                                                     | [?Components\AccountType](../../Models/Components/AccountType.md) | :heavy_minus_sign:                                                | Account type                                                      | PRE-PAID                                                          |
+| `limit`                                                           | *?float*                                                          | :heavy_minus_sign:                                                | Acount limit                                                      | 0                                                                 |
+| `credit`                                                          | *?float*                                                          | :heavy_minus_sign:                                                | Current account balance                                           | 130.44                                                            |
+| `currency`                                                        | *?string*                                                         | :heavy_minus_sign:                                                | Account currency                                                  | PLN                                                               |
+| `name`                                                            | *?string*                                                         | :heavy_minus_sign:                                                | User name and surname                                             | Andrzej Nowak                                                     |
+| `isMain`                                                          | *?bool*                                                           | :heavy_minus_sign:                                                | Is main account?                                                  | true                                                              |
+| `subcredit`                                                       | *?float*                                                          | :heavy_minus_sign:                                                | Subaccount credit balance (null if unlimited)                     | 65.32                                                             |
