@@ -1,0 +1,364 @@
+lockVersion: 2.0.0
+id: 19069acb-6eff-4f1e-8e22-29a240d1bd26
+management:
+  docChecksum: 755f4097c019f5de1dda967bcd4c61fc
+  docVersion: 0.9.0
+  speakeasyVersion: 1.415.0
+  generationVersion: 2.438.1
+  releaseVersion: 0.38.3
+  configChecksum: d4fe299758e62313d2c766bf1625a8cb
+features:
+  php:
+    constsAndDefaults: 0.2.0
+    core: 3.5.0
+    enums: 2.81.1
+    examples: 2.81.3
+    flattening: 2.81.1
+    globalSecurity: 2.81.7
+    globalSecurityFlattening: 0.1.1
+    globalServerURLs: 2.82.1
+    groups: 2.81.2
+    inputOutputModels: 2.83.0
+    methodArguments: 0.1.0
+    nameOverrides: 2.81.2
+    nullables: 1.0.0
+    responseFormat: 0.1.0
+    serverIDs: 2.81.1
+    unions: 0.1.3
+generatedFiles:
+  - .gitattributes
+  - CONTRIBUTING.md
+  - USAGE.md
+  - composer.json
+  - docs/Models/Components/AccountResponse.md
+  - docs/Models/Components/AccountType.md
+  - docs/Models/Components/CancelledMessage.md
+  - docs/Models/Components/ErrorResponse.md
+  - docs/Models/Components/IncomingMessage.md
+  - docs/Models/Components/Message.md
+  - docs/Models/Components/MessageType.md
+  - docs/Models/Components/PhoneNumberWithCid.md
+  - docs/Models/Components/PingResponse.md
+  - docs/Models/Components/Price.md
+  - docs/Models/Components/Recipients.md
+  - docs/Models/Components/Security.md
+  - docs/Models/Components/Sender.md
+  - docs/Models/Components/SenderInput.md
+  - docs/Models/Components/Sms.md
+  - docs/Models/Components/SmsType.md
+  - docs/Models/Errors/ErrorResponse.md
+  - docs/Models/Operations/AddSenderResponse.md
+  - docs/Models/Operations/CancelMessagesRequest.md
+  - docs/Models/Operations/CancelMessagesResponse.md
+  - docs/Models/Operations/DeleteSenderRequest.md
+  - docs/Models/Operations/DeleteSenderResponse.md
+  - docs/Models/Operations/GetAccountDetailsResponse.md
+  - docs/Models/Operations/GetIncomingMessagesRequest.md
+  - docs/Models/Operations/GetIncomingMessagesResponse.md
+  - docs/Models/Operations/GetMessagesRequest.md
+  - docs/Models/Operations/GetMessagesResponse.md
+  - docs/Models/Operations/GetSmsPriceRequestBody.md
+  - docs/Models/Operations/GetSmsPriceResponse.md
+  - docs/Models/Operations/GetSubaccountDetailsRequest.md
+  - docs/Models/Operations/GetSubaccountDetailsResponse.md
+  - docs/Models/Operations/ListIncomingMessagesRequest.md
+  - docs/Models/Operations/ListIncomingMessagesResponse.md
+  - docs/Models/Operations/ListMessagesRequest.md
+  - docs/Models/Operations/ListMessagesResponse.md
+  - docs/Models/Operations/ListSendersResponse.md
+  - docs/Models/Operations/PingResponse.md
+  - docs/Models/Operations/SendSmsRequestBody.md
+  - docs/Models/Operations/SendSmsResponse.md
+  - docs/Models/Operations/SetDefaultSenderRequest.md
+  - docs/Models/Operations/SetDefaultSenderResponse.md
+  - docs/sdks/accounts/README.md
+  - docs/sdks/client/README.md
+  - docs/sdks/common/README.md
+  - docs/sdks/incoming/README.md
+  - docs/sdks/outgoing/README.md
+  - docs/sdks/senders/README.md
+  - docs/sdks/sms/README.md
+  - phpstan.neon
+  - phpunit.xml
+  - pint.json
+  - rector.php
+  - src/Accounts.php
+  - src/Client.php
+  - src/ClientBuilder.php
+  - src/Common.php
+  - src/Incoming.php
+  - src/Models/Components/AccountResponse.php
+  - src/Models/Components/AccountType.php
+  - src/Models/Components/CancelledMessage.php
+  - src/Models/Components/ErrorResponse.php
+  - src/Models/Components/IncomingMessage.php
+  - src/Models/Components/Message.php
+  - src/Models/Components/MessageType.php
+  - src/Models/Components/PhoneNumberWithCid.php
+  - src/Models/Components/PingResponse.php
+  - src/Models/Components/Price.php
+  - src/Models/Components/Security.php
+  - src/Models/Components/Sender.php
+  - src/Models/Components/SenderInput.php
+  - src/Models/Components/Sms.php
+  - src/Models/Components/SmsType.php
+  - src/Models/Errors/ErrorResponse.php
+  - src/Models/Errors/ErrorResponseThrowable.php
+  - src/Models/Errors/SDKException.php
+  - src/Models/Operations/AddSenderResponse.php
+  - src/Models/Operations/CancelMessagesRequest.php
+  - src/Models/Operations/CancelMessagesResponse.php
+  - src/Models/Operations/DeleteSenderRequest.php
+  - src/Models/Operations/DeleteSenderResponse.php
+  - src/Models/Operations/GetAccountDetailsResponse.php
+  - src/Models/Operations/GetIncomingMessagesRequest.php
+  - src/Models/Operations/GetIncomingMessagesResponse.php
+  - src/Models/Operations/GetMessagesRequest.php
+  - src/Models/Operations/GetMessagesResponse.php
+  - src/Models/Operations/GetSmsPriceResponse.php
+  - src/Models/Operations/GetSubaccountDetailsRequest.php
+  - src/Models/Operations/GetSubaccountDetailsResponse.php
+  - src/Models/Operations/ListIncomingMessagesRequest.php
+  - src/Models/Operations/ListIncomingMessagesResponse.php
+  - src/Models/Operations/ListMessagesRequest.php
+  - src/Models/Operations/ListMessagesResponse.php
+  - src/Models/Operations/ListSendersResponse.php
+  - src/Models/Operations/PingResponse.php
+  - src/Models/Operations/SendSmsResponse.php
+  - src/Models/Operations/SetDefaultSenderRequest.php
+  - src/Models/Operations/SetDefaultSenderResponse.php
+  - src/Outgoing.php
+  - src/SDKConfiguration.php
+  - src/Senders.php
+  - src/Sms.php
+  - src/Utils/BigDecimalHandler.php
+  - src/Utils/BigIntHandler.php
+  - src/Utils/DateHandler.php
+  - src/Utils/DateTimeHandler.php
+  - src/Utils/DefaultRequest.php
+  - src/Utils/DefaultResponse.php
+  - src/Utils/DefaultStream.php
+  - src/Utils/DefaultUri.php
+  - src/Utils/EnumHandler.php
+  - src/Utils/FormMetadata.php
+  - src/Utils/Headers.php
+  - src/Utils/JSON.php
+  - src/Utils/MixedJSONHandler.php
+  - src/Utils/MultipartMetadata.php
+  - src/Utils/ParamsMetadata.php
+  - src/Utils/PathParameters.php
+  - src/Utils/PhpDocTypeParser.php
+  - src/Utils/QueryParameters.php
+  - src/Utils/RequestBodies.php
+  - src/Utils/RequestMetadata.php
+  - src/Utils/Security.php
+  - src/Utils/SecurityClient.php
+  - src/Utils/SecurityMetadata.php
+  - src/Utils/SpeakeasyMetadata.php
+  - src/Utils/UnionHandler.php
+  - src/Utils/Utils.php
+examples:
+  getAccountDetails:
+    "":
+      responses:
+        "401":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/unauthorized/", "status": 401, "title": "Unauthorized", "detail": "Authorization token is invalid or missing and the requested resource could not be returned", "code": "401-7", "instance": "/rest-sandbox/account/"}
+  getSubaccountDetails:
+    "":
+      parameters:
+        path:
+          user_login: "some-login"
+      responses:
+        "401":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/unauthorized/", "status": 401, "title": "Unauthorized", "detail": "Authorization token is invalid or missing and the requested resource could not be returned", "code": "401-7", "instance": "/rest-sandbox/account/"}
+  getMessages:
+    speakeasy-default-get-messages:
+      parameters:
+        path:
+          ids: [43456]
+      responses:
+        "200":
+          application/json: [{"id": 323234, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "sent_date": "2024-06-01T16:22:05Z", "status_date": "2024-06-01T16:22:07Z", "status_code": "QUEUED", "status_description": "The message has been accepted", "unicode": true, "flash": false, "price": 0.16}, {"id": 323234, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "sent_date": "2024-06-01T16:22:05Z", "status_date": "2024-06-01T16:22:07Z", "status_code": "QUEUED", "status_description": "The message has been accepted", "unicode": true, "flash": false, "price": 0.16}, {"id": 323234, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "sent_date": "2024-06-01T16:22:05Z", "status_date": "2024-06-01T16:22:07Z", "status_code": "QUEUED", "status_description": "The message has been accepted", "unicode": true, "flash": false, "price": 0.16}]
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+  cancelMessages:
+    speakeasy-default-cancel-messages:
+      parameters:
+        path:
+          ids: [43456]
+      responses:
+        "200":
+          application/json: [{"id": 43456, "status": 400, "error": {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}}]
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+  listMessages:
+    speakeasy-default-list-messages:
+      parameters:
+        query:
+          page: 1
+          limit: 10
+      responses:
+        "200":
+          application/json: [{"id": 323234, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "sent_date": "2024-06-01T16:22:05Z", "status_date": "2024-06-01T16:22:07Z", "status_code": "QUEUED", "status_description": "The message has been accepted", "unicode": true, "flash": false, "price": 0.16}, {"id": 323234, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "sent_date": "2024-06-01T16:22:05Z", "status_date": "2024-06-01T16:22:07Z", "status_code": "QUEUED", "status_description": "The message has been accepted", "unicode": true, "flash": false, "price": 0.16}, {"id": 323234, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "sent_date": "2024-06-01T16:22:05Z", "status_date": "2024-06-01T16:22:07Z", "status_code": "QUEUED", "status_description": "The message has been accepted", "unicode": true, "flash": false, "price": 0.16}]
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+  getSmsPrice:
+    single:
+      requestBody:
+        application/json: {"recipients": "+48999999999", "message": "This is SMS message content.", "sender": "Bramka SMS", "type": 1, "unicode": true, "flash": false, "date": null}
+      responses:
+        "200":
+          application/json: [{"error": null, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "unicode": true, "flash": false, "price": 0.16}, {"error": null, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "unicode": true, "flash": false, "price": 0.16}, {"error": null, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "unicode": true, "flash": false, "price": 0.16}]
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+    bulk:
+      requestBody:
+        application/json: [{"recipients": "+48999999999", "message": "This is first SMS message content", "sender": "Bramka SMS", "type": 1, "unicode": true, "flash": false, "date": null}, {"recipients": "+48999888777", "message": "This is second SMS message content", "sender": "Bramka SMS", "type": 1, "unicode": true, "flash": false, "date": null}]
+      responses:
+        "200":
+          application/json: [{"error": null, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "unicode": true, "flash": false, "price": 0.16}, {"error": null, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "unicode": true, "flash": false, "price": 0.16}]
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+    multi:
+      requestBody:
+        application/json: {"recipients": ["+48999999999", "+48999888777"], "message": "This is SMS message content.", "sender": "Bramka SMS", "type": 1, "unicode": true, "flash": false, "date": null}
+      responses:
+        "200":
+          application/json: [{"error": null, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "unicode": true, "flash": false, "price": 0.16}, {"error": null, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "unicode": true, "flash": false, "price": 0.16}]
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+    single_cid:
+      requestBody:
+        application/json: {"recipients": {"nr": "+48999999999", "cid": "custom-id-A44445T"}, "message": "This is SMS message content", "sender": "Bramka SMS", "type": 1, "unicode": true, "flash": false, "date": null}
+      responses:
+        "200":
+          application/json: [{"error": null, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "unicode": true, "flash": false, "price": 0.16}, {"error": null, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "unicode": true, "flash": false, "price": 0.16}]
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+    bulk_cid:
+      requestBody:
+        application/json: [{"recipients": {"nr": "+48999999999", "cid": "custom-id-A44445T"}, "message": "This is first SMS message content", "sender": "Bramka SMS", "type": 1, "unicode": true, "flash": false, "date": null}, {"recipients": {"nr": "+48999888777", "cid": "custom-id-F44445R"}, "message": "This is second SMS message content", "sender": "Bramka SMS", "type": 1, "unicode": true, "flash": false, "date": null}]
+      responses:
+        "200":
+          application/json: [{"error": null, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "unicode": true, "flash": false, "price": 0.16}]
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+    multi_cid:
+      requestBody:
+        application/json: {"recipients": [{"nr": "+48999999999", "cid": "custom-id-A44445T"}, {"nr": "+48999888777", "cid": "custom-id-F44445R"}], "message": "This is SMS message content", "sender": "Bramka SMS", "type": 1, "unicode": true, "flash": false, "date": null}
+      responses:
+        "200":
+          application/json: []
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+  sendSms:
+    single:
+      requestBody:
+        application/json: {"recipients": "+48999999999", "message": "This is SMS message content.", "sender": "Bramka SMS", "type": 1, "unicode": true, "flash": false, "date": null}
+      responses:
+        "200":
+          application/json: [{"id": 323234, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "sent_date": "2024-06-01T16:22:05Z", "status_date": "2024-06-01T16:22:07Z", "status_code": "QUEUED", "status_description": "The message has been accepted", "unicode": true, "flash": false, "price": 0.16}, {"id": 323234, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "sent_date": "2024-06-01T16:22:05Z", "status_date": "2024-06-01T16:22:07Z", "status_code": "QUEUED", "status_description": "The message has been accepted", "unicode": true, "flash": false, "price": 0.16}]
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+    bulk:
+      requestBody:
+        application/json: [{"recipients": "+48999999999", "message": "This is first SMS message content", "sender": "Bramka SMS", "type": 1, "unicode": true, "flash": false, "date": null}, {"recipients": "+48999888777", "message": "This is second SMS message content", "sender": "Bramka SMS", "type": 1, "unicode": true, "flash": false, "date": null}]
+      responses:
+        "200":
+          application/json: [{"id": 323234, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "sent_date": "2024-06-01T16:22:05Z", "status_date": "2024-06-01T16:22:07Z", "status_code": "QUEUED", "status_description": "The message has been accepted", "unicode": true, "flash": false, "price": 0.16}]
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+    multi:
+      requestBody:
+        application/json: {"recipients": ["+48999999999", "+48999888777"], "message": "This is SMS message content.", "sender": "Bramka SMS", "type": 1, "unicode": true, "flash": false, "date": null}
+      responses:
+        "200":
+          application/json: [{"id": 323234, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "sent_date": "2024-06-01T16:22:05Z", "status_date": "2024-06-01T16:22:07Z", "status_code": "QUEUED", "status_description": "The message has been accepted", "unicode": true, "flash": false, "price": 0.16}, {"id": 323234, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "sent_date": "2024-06-01T16:22:05Z", "status_date": "2024-06-01T16:22:07Z", "status_code": "QUEUED", "status_description": "The message has been accepted", "unicode": true, "flash": false, "price": 0.16}]
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+    single_cid:
+      requestBody:
+        application/json: {"recipients": {"nr": "+48999999999", "cid": "custom-id-A44445T"}, "message": "This is SMS message content", "sender": "Bramka SMS", "type": 1, "unicode": true, "flash": false, "date": null}
+      responses:
+        "200":
+          application/json: []
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+    bulk_cid:
+      requestBody:
+        application/json: [{"recipients": {"nr": "+48999999999", "cid": "custom-id-A44445T"}, "message": "This is first SMS message content", "sender": "Bramka SMS", "type": 1, "unicode": true, "flash": false, "date": null}, {"recipients": {"nr": "+48999888777", "cid": "custom-id-F44445R"}, "message": "This is second SMS message content", "sender": "Bramka SMS", "type": 1, "unicode": true, "flash": false, "date": null}]
+      responses:
+        "200":
+          application/json: [{"id": 323234, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "sent_date": "2024-06-01T16:22:05Z", "status_date": "2024-06-01T16:22:07Z", "status_code": "QUEUED", "status_description": "The message has been accepted", "unicode": true, "flash": false, "price": 0.16}, {"id": 323234, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "sent_date": "2024-06-01T16:22:05Z", "status_date": "2024-06-01T16:22:07Z", "status_code": "QUEUED", "status_description": "The message has been accepted", "unicode": true, "flash": false, "price": 0.16}]
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+    multi_cid:
+      requestBody:
+        application/json: {"recipients": [{"nr": "+48999999999", "cid": "custom-id-A44445T"}, {"nr": "+48999888777", "cid": "custom-id-F44445R"}], "message": "This is SMS message content", "sender": "Bramka SMS", "type": 1, "unicode": true, "flash": false, "date": null}
+      responses:
+        "200":
+          application/json: [{"id": 323234, "cid": "custom-id-A44445T", "type": 1, "recipient": "+48999999999", "sender": "Bramka SMS", "parts": 1, "sent_date": "2024-06-01T16:22:05Z", "status_date": "2024-06-01T16:22:07Z", "status_code": "QUEUED", "status_description": "The message has been accepted", "unicode": true, "flash": false, "price": 0.16}]
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+  listIncomingMessages:
+    speakeasy-default-list-incoming-messages:
+      parameters:
+        query:
+          page: 1
+          limit: 10
+      responses:
+        "200":
+          application/json: [{"id": 45544, "login": "some-user", "recipient": "+48999000555", "sender": "+48999888777", "phonebook_sender_name": "Jan Nowak", "date": "2024-05-31T05:17:35Z", "message": "To jest treść odebranego SMSa", "dedicated_number": "+48111222444", "dedicated_prefix": "LATO"}, {"id": 45544, "login": "some-user", "recipient": "+48999000555", "sender": "+48999888777", "phonebook_sender_name": "Jan Nowak", "date": "2024-05-31T05:17:35Z", "message": "To jest treść odebranego SMSa", "dedicated_number": "+48111222444", "dedicated_prefix": "LATO"}, {"id": 45544, "login": "some-user", "recipient": "+48999000555", "sender": "+48999888777", "phonebook_sender_name": "Jan Nowak", "date": "2024-05-31T05:17:35Z", "message": "To jest treść odebranego SMSa", "dedicated_number": "+48111222444", "dedicated_prefix": "LATO"}]
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+  getIncomingMessages:
+    speakeasy-default-get-incoming-messages:
+      parameters:
+        path:
+          ids: [43456]
+      responses:
+        "200":
+          application/json: [{"id": 45544, "login": "some-user", "recipient": "+48999000555", "sender": "+48999888777", "phonebook_sender_name": "Jan Nowak", "date": "2024-05-31T05:17:35Z", "message": "To jest treść odebranego SMSa", "dedicated_number": "+48111222444", "dedicated_prefix": "LATO"}, {"id": 45544, "login": "some-user", "recipient": "+48999000555", "sender": "+48999888777", "phonebook_sender_name": "Jan Nowak", "date": "2024-05-31T05:17:35Z", "message": "To jest treść odebranego SMSa", "dedicated_number": "+48111222444", "dedicated_prefix": "LATO"}, {"id": 45544, "login": "some-user", "recipient": "+48999000555", "sender": "+48999888777", "phonebook_sender_name": "Jan Nowak", "date": "2024-05-31T05:17:35Z", "message": "To jest treść odebranego SMSa", "dedicated_number": "+48111222444", "dedicated_prefix": "LATO"}]
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+  ping:
+    speakeasy-default-ping:
+      responses:
+        "200":
+          application/json: {"status": "OK", "version": "1.0", "sandbox": false}
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+  listSenders:
+    speakeasy-default-list-senders:
+      responses:
+        "200":
+          application/json: [{"sender": "Bramka SMS", "status": "Active", "is_default": true}, {"sender": "Bramka SMS", "status": "Active", "is_default": true}, {"sender": "Bramka SMS", "status": "Active", "is_default": true}]
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+  addSender:
+    speakeasy-default-add-sender:
+      requestBody:
+        application/json: {"sender": "Bramka SMS", "description": "This is our company name. It contains our registered trademark."}
+      responses:
+        "201":
+          application/json: {"sender": "Bramka SMS", "status": "Active", "is_default": true}
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+  deleteSender:
+    "":
+      parameters:
+        path:
+          sender: "Podpis"
+      responses:
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+  setDefaultSender:
+    "":
+      parameters:
+        path:
+          sender: "Podpis"
+      responses:
+        "400":
+          application/problem+json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}
+        "404":
+          application/json: {"type": "https://problems-registry.smartbear.com/invalid-body-property-format", "status": 400, "title": "Invalid Body property format", "detail": "The request body contains a malformed property", "code": "400-21", "instance": "/rest/messages/sms"}

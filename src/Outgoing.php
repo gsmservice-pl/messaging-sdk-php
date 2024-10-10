@@ -40,9 +40,8 @@ class Outgoing
      * @return Operations\GetMessagesResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
-    public function getByIds(
-        array $ids,
-    ): Operations\GetMessagesResponse {
+    public function getByIds(array $ids): Operations\GetMessagesResponse
+    {
         $request = new Operations\GetMessagesRequest(
             ids: $ids,
         );
@@ -103,9 +102,8 @@ class Outgoing
      * @return Operations\CancelMessagesResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
-    public function cancelScheduled(
-        array $ids,
-    ): Operations\CancelMessagesResponse {
+    public function cancelScheduled(array $ids): Operations\CancelMessagesResponse
+    {
         $request = new Operations\CancelMessagesRequest(
             ids: $ids,
         );
@@ -166,10 +164,8 @@ class Outgoing
      * @return Operations\ListMessagesResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
-    public function list(
-        ?int $page = null,
-        ?int $limit = null,
-    ): Operations\ListMessagesResponse {
+    public function list(?int $page = null, ?int $limit = null): Operations\ListMessagesResponse
+    {
         $request = new Operations\ListMessagesRequest(
             page: $page,
             limit: $limit,

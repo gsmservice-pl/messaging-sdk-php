@@ -1,0 +1,19 @@
+workflowVersion: 1.0.0
+speakeasyVersion: latest
+sources:
+    messaging-sdk-php -OAS:
+        inputs:
+            - location: ..\..\..\app\libs\restApi\openapi.yaml
+        overlays:
+            - location: .speakeasy\speakeasy-modifications-overlay.yaml
+        registry:
+            location: registry.speakeasyapi.dev/intermedia/gsmservice-pl/messaging-sdk-php--oas
+targets:
+    messaging-sdk-php:
+        target: php
+        source: messaging-sdk-php -OAS
+        codeSamples:
+            output: .speakeasy\code-samples-overlay.yaml
+            langOverride: php
+            labelOverride:
+                fixedValue: PHP 8 SDK

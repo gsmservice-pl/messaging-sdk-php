@@ -34,8 +34,8 @@ class Accounts
      * @return Operations\GetAccountDetailsResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
-    public function get(
-    ): Operations\GetAccountDetailsResponse {
+    public function get(): Operations\GetAccountDetailsResponse
+    {
         $baseUrl = $this->sdkConfiguration->getServerUrl();
         $url = Utils\Utils::generateUrl($baseUrl, '/account');
         $options = ['http_errors' => false];
@@ -90,9 +90,8 @@ class Accounts
      * @return Operations\GetSubaccountDetailsResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
-    public function getSubaccount(
-        string $userLogin,
-    ): Operations\GetSubaccountDetailsResponse {
+    public function getSubaccount(string $userLogin): Operations\GetSubaccountDetailsResponse
+    {
         $request = new Operations\GetSubaccountDetailsRequest(
             userLogin: $userLogin,
         );

@@ -6,7 +6,6 @@ require 'vendor/autoload.php';
 
 use Gsmservice\Gateway;
 use Gsmservice\Gateway\Models\Components;
-use Gsmservice\Gateway\Utils;
 
 $security = '<YOUR API ACCESS TOKEN>';
 
@@ -22,7 +21,7 @@ $request = [
         type: Components\SmsType::SmsPro,
         unicode: true,
         flash: false,
-        date: Utils\Utils::parseDateTime('2024-06-01T14:34:41+02:00'),
+        date: null,
     ),
 ];
 

@@ -40,9 +40,8 @@ class Sms
      * @return Operations\GetSmsPriceResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
-    public function getPrice(
-        Components\Sms|array $request,
-    ): Operations\GetSmsPriceResponse {
+    public function getPrice(Components\Sms|array $request): Operations\GetSmsPriceResponse
+    {
         $baseUrl = $this->sdkConfiguration->getServerUrl();
         $url = Utils\Utils::generateUrl($baseUrl, '/messages/sms/price');
         $options = ['http_errors' => false];
@@ -104,9 +103,8 @@ class Sms
      * @return Operations\SendSmsResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
-    public function send(
-        Components\Sms|array $request,
-    ): Operations\SendSmsResponse {
+    public function send(Components\Sms|array $request): Operations\SendSmsResponse
+    {
         $baseUrl = $this->sdkConfiguration->getServerUrl();
         $url = Utils\Utils::generateUrl($baseUrl, '/messages/sms');
         $options = ['http_errors' => false];

@@ -35,8 +35,8 @@ class Senders
      * @return Operations\ListSendersResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
-    public function list(
-    ): Operations\ListSendersResponse {
+    public function list(): Operations\ListSendersResponse
+    {
         $baseUrl = $this->sdkConfiguration->getServerUrl();
         $url = Utils\Utils::generateUrl($baseUrl, '/senders');
         $options = ['http_errors' => false];
@@ -89,9 +89,8 @@ class Senders
      * @return Operations\AddSenderResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
-    public function add(
-        Components\SenderInput $request,
-    ): Operations\AddSenderResponse {
+    public function add(Components\SenderInput $request): Operations\AddSenderResponse
+    {
         $baseUrl = $this->sdkConfiguration->getServerUrl();
         $url = Utils\Utils::generateUrl($baseUrl, '/senders');
         $options = ['http_errors' => false];
@@ -151,9 +150,8 @@ class Senders
      * @return Operations\DeleteSenderResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
-    public function delete(
-        string $sender,
-    ): Operations\DeleteSenderResponse {
+    public function delete(string $sender): Operations\DeleteSenderResponse
+    {
         $request = new Operations\DeleteSenderRequest(
             sender: $sender,
         );
@@ -204,9 +202,8 @@ class Senders
      * @return Operations\SetDefaultSenderResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
-    public function setDefault(
-        string $sender,
-    ): Operations\SetDefaultSenderResponse {
+    public function setDefault(string $sender): Operations\SetDefaultSenderResponse
+    {
         $request = new Operations\SetDefaultSenderRequest(
             sender: $sender,
         );

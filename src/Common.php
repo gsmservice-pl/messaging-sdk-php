@@ -34,8 +34,8 @@ class Common
      * @return Operations\PingResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
-    public function ping(
-    ): Operations\PingResponse {
+    public function ping(): Operations\PingResponse
+    {
         $baseUrl = $this->sdkConfiguration->getServerUrl();
         $url = Utils\Utils::generateUrl($baseUrl, '/ping');
         $options = ['http_errors' => false];

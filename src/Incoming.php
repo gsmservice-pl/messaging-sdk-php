@@ -38,10 +38,8 @@ class Incoming
      * @return Operations\ListIncomingMessagesResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
-    public function list(
-        ?int $page = null,
-        ?int $limit = null,
-    ): Operations\ListIncomingMessagesResponse {
+    public function list(?int $page = null, ?int $limit = null): Operations\ListIncomingMessagesResponse
+    {
         $request = new Operations\ListIncomingMessagesRequest(
             page: $page,
             limit: $limit,
@@ -102,9 +100,8 @@ class Incoming
      * @return Operations\GetIncomingMessagesResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
-    public function getByIds(
-        array $ids,
-    ): Operations\GetIncomingMessagesResponse {
+    public function getByIds(array $ids): Operations\GetIncomingMessagesResponse
+    {
         $request = new Operations\GetIncomingMessagesRequest(
             ids: $ids,
         );

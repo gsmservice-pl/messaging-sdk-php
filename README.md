@@ -1,9 +1,9 @@
-# gsmservice-pl/php-sdk
+# gsmservice-pl/messaging-sdk-php
 
-Developer-friendly & type-safe Php SDK API.
+Developer-friendly & type-safe Php SDK specifically catered to leverage *gsmservice-pl/messaging-sdk-php* API.
 
 <div align="left">
-    <a href="https://www.speakeasy.com/?utm_source=gsmservice-pl/php-sdk&utm_campaign=php"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
+    <a href="https://www.speakeasy.com/?utm_source=gsmservice-pl/messaging-sdk-php&utm_campaign=php"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
     <a href="https://opensource.org/licenses/MIT">
         <img src="https://img.shields.io/badge/License-MIT-blue.svg" style="width: 100px; height: 28px;" />
     </a>
@@ -108,7 +108,7 @@ To install the SDK first add the below to your `composer.json` file:
         }
     ],
     "require": {
-        "gsmservice-pl/php-sdk": "*"
+        "gsmservice-pl/messaging-sdk-php": "*"
     }
 }
 ```
@@ -132,7 +132,6 @@ require 'vendor/autoload.php';
 
 use Gsmservice\Gateway;
 use Gsmservice\Gateway\Models\Components;
-use Gsmservice\Gateway\Utils;
 
 $security = '<YOUR API ACCESS TOKEN>';
 
@@ -148,7 +147,7 @@ $request = [
         type: Components\SmsType::SmsPro,
         unicode: true,
         flash: false,
-        date: Utils\Utils::parseDateTime('2024-06-01T14:34:41+02:00'),
+        date: null,
     ),
 ];
 
@@ -291,4 +290,4 @@ looking for the latest version.
 While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation. 
 We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
 
-### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=gsmservice-pl/php-sdk&utm_campaign=php)
+### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=gsmservice-pl/messaging-sdk-php&utm_campaign=php)

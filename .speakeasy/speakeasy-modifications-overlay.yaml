@@ -1,0 +1,49 @@
+overlay: 1.0.0
+info:
+  title: Speakeasy Modifications
+  version: 0.0.3
+  x-speakeasy-metadata:
+    after: ""
+    before: ""
+    type: speakeasy-modifications
+actions:
+  - target: $["paths"]["/messages"]["get"]
+    x-speakeasy-metadata:
+      type: method-name
+      before: sdk.outgoing.list()
+      after: sdk.messages.list()
+      reviewed_at: 1728567767742
+      created_at: 1728567590441
+      disabled: true
+  - target: $["paths"]["/messages/sms"]["post"]
+    x-speakeasy-metadata:
+      type: method-name
+      before: sdk.outgoing.sms.send()
+      after: sdk.messages.sms.send()
+      reviewed_at: 1728567769350
+      created_at: 1728567590441
+      disabled: true
+  - target: $["paths"]["/messages/{ids}"]["delete"]
+    x-speakeasy-metadata:
+      type: method-name
+      before: sdk.outgoing.cancelScheduled()
+      after: sdk.messages.cancelScheduled()
+      reviewed_at: 1728567770656
+      created_at: 1728567590441
+      disabled: true
+  - target: $["paths"]["/messages/sms/price"]["post"]
+    x-speakeasy-metadata:
+      type: method-name
+      before: sdk.outgoing.sms.getPrice()
+      after: sdk.messages.sms.getPrice()
+      reviewed_at: 1728567764614
+      created_at: 1728567590441
+      disabled: true
+  - target: $["paths"]["/messages/{ids}"]["get"]
+    x-speakeasy-metadata:
+      type: method-name
+      before: sdk.outgoing.getByIds()
+      after: sdk.messages.getByIds()
+      reviewed_at: 1728567766530
+      created_at: 1728567590441
+      disabled: true
