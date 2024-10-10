@@ -14,7 +14,7 @@ generation:
   comments:
     disabled: true
 php:
-  version: 0.38.13
+  version: 0.38.15
   clientServerStatusCodesAsErrors: true
   enumFormat: union
   flattenGlobalSecurity: true

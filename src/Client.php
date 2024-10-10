@@ -65,9 +65,9 @@ namespace Gsmservice\Gateway;
  * To install PHP SDK issue the following command:
  *
  * ```shell
- * composer require gsmservice-pl/php-sdk
+ * composer require gsmservice-pl/messaging-sdk-php
  * ```
- * More information and documentation you can find at [GitHub](https://ddd.pl) 
+ * More information and documentation you can find at our [GitHub](https://github.com/gsmservice-pl/messaging-sdk-php) 
  *
  * ## Typescript
  *
@@ -76,10 +76,10 @@ namespace Gsmservice\Gateway;
  * ### NPM
  *
  * ```
- * npm add <UNSET>
+ * npm install @gsmservice-pl/messaging-sdk-typescript
  * ```
  *
- * More information and documentation you can find at [GitHub](https://ddd.pl) 
+ * More information and documentation you can find at our [GitHub](https://github.com/gsmservice-pl/messaging-sdk-typescript) 
  *
  *
  */
