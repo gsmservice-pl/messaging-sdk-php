@@ -26,6 +26,10 @@ namespace Gsmservice\Gateway;
  *
  * > **We kindly ask you to read this documentation carefully before starting the integration. This will make the whole process easier and will help you avoid many problems.**
  *
+ * ## Documentation and Try-outs
+ *
+ * This documentation is available in two formats: [**REDOC*](https://api.gsmservice.pl/rest/) and [**SWAGGER**](https://api.gsmservice.pl/rest/swagger). You can test any endpoint directly from documentation using **Try Out** feature of Swagger format.
+ *
  * ## Account signup and setup
  *
  * Firstly, it is necessary to create your personal account at the GSMService.pl SMS Gateway platform if you haven't one and activate access to the API. To register a new account please [signup the form](https://panel.gsmservice.pl/rejestracja). After signing up and fully activation of an account you have to activate an access to the API.
