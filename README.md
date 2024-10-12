@@ -1,12 +1,10 @@
 [![Packagist Version](https://img.shields.io/packagist/v/gsmservice-pl/messaging-sdk-php)](https://packagist.org/packages/gsmservice-pl/messaging-sdk-php)
 [![GitHub License](https://img.shields.io/github/license/gsmservice-pl/messaging-sdk-php)](https://github.com/gsmservice-pl/messaging-sdk-php/blob/main/LICENSE)
 [![Static Badge](https://img.shields.io/badge/built_by-Speakeasy-yellow)](https://www.speakeasy.com/?utm_source=gsmservice-pl/messaging-sdk-php&utm_campaign=php)
-# GSMService.pl Messaging SDK for REST API
+# GSMService.pl Messaging REST API SDK for PHP
 
 This package includes Messaging SDK for PHP (>8.2) to send SMS & MMS messages directly from your app via https://bramka.gsmservice.pl messaging platform.
 
-## Minimal requirements:
-PHP version >= 8.2
 ## Additional documentation:
 
 A documentation of all methods and types is available below in section [Available Resources and Operations
@@ -35,7 +33,8 @@ To install the SDK and add it as a dependency to an existing `composer.json` fil
 composer require "gsmservice-pl/messaging-sdk-php"
 ```
 <!-- End SDK Installation [installation] -->
-
+## Requeirements:
+- Minimal PHP version: 8.2
 <!-- Start SDK Example Usage [usage] -->
 ## SDK Example Usage
 

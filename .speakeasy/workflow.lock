@@ -2,16 +2,16 @@ speakeasyVersion: 1.418.1
 sources:
     messaging-sdk-php -OAS:
         sourceNamespace: messaging-sdk-php--oas
-        sourceRevisionDigest: sha256:0df970407bdd074d6bef0bc60c8f733c60d1d89c9475df15e4d44061c26ab548
-        sourceBlobDigest: sha256:41f691ffae1eca5e3bafd3ff408cb2392a11e0f1c0329de91df3eb9abd462a3f
+        sourceRevisionDigest: sha256:727edfd532ccd6c1cfc034b30a97020b2d86ef9249a550633a8cac215b784cdc
+        sourceBlobDigest: sha256:58a642a6bb612b3a6fc2f0dc70c638ec51c7b47857cacd99cdf53804842e8f16
         tags:
             - latest
 targets:
     messaging-sdk-php:
         source: messaging-sdk-php -OAS
         sourceNamespace: messaging-sdk-php--oas
-        sourceRevisionDigest: sha256:0df970407bdd074d6bef0bc60c8f733c60d1d89c9475df15e4d44061c26ab548
-        sourceBlobDigest: sha256:41f691ffae1eca5e3bafd3ff408cb2392a11e0f1c0329de91df3eb9abd462a3f
+        sourceRevisionDigest: sha256:727edfd532ccd6c1cfc034b30a97020b2d86ef9249a550633a8cac215b784cdc
+        sourceBlobDigest: sha256:58a642a6bb612b3a6fc2f0dc70c638ec51c7b47857cacd99cdf53804842e8f16
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -27,6 +27,10 @@ workflow:
         messaging-sdk-php:
             target: php
             source: messaging-sdk-php -OAS
+            publish:
+                packagist:
+                    username: 'gsmservice '
+                    token: $packagist_token
             codeSamples:
                 output: .speakeasy\code-samples-overlay.yaml
                 langOverride: php
