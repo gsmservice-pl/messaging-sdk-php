@@ -2,16 +2,16 @@ speakeasyVersion: 1.417.0
 sources:
     messaging-sdk-php -OAS:
         sourceNamespace: messaging-sdk-php--oas
-        sourceRevisionDigest: sha256:a312e7c7e830c4bed7cc1cf86a67c51f5d9910d6f10c4342f7ec6e9a6143f350
-        sourceBlobDigest: sha256:701c9720e900e44c2aef3a0e306dc6a08d7bf70907e498c38400677d32efcc43
+        sourceRevisionDigest: sha256:2fb28127521b983f80b03970385b8a0fa7ae3f8d05830a73c7923ca891b77478
+        sourceBlobDigest: sha256:41f691ffae1eca5e3bafd3ff408cb2392a11e0f1c0329de91df3eb9abd462a3f
         tags:
             - latest
 targets:
     messaging-sdk-php:
         source: messaging-sdk-php -OAS
         sourceNamespace: messaging-sdk-php--oas
-        sourceRevisionDigest: sha256:a312e7c7e830c4bed7cc1cf86a67c51f5d9910d6f10c4342f7ec6e9a6143f350
-        sourceBlobDigest: sha256:701c9720e900e44c2aef3a0e306dc6a08d7bf70907e498c38400677d32efcc43
+        sourceRevisionDigest: sha256:2fb28127521b983f80b03970385b8a0fa7ae3f8d05830a73c7923ca891b77478
+        sourceBlobDigest: sha256:41f691ffae1eca5e3bafd3ff408cb2392a11e0f1c0329de91df3eb9abd462a3f
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

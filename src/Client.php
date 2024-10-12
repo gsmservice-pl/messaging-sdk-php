@@ -26,9 +26,9 @@ namespace Gsmservice\Gateway;
  *
  * > **We kindly ask you to read this documentation carefully before starting the integration. This will make the whole process easier and will help you avoid many problems.**
  *
- * ## Documentation and Try-outs
+ * ## Documentation and Try Outs
  *
- * This documentation is available in two formats: [**REDOC*](https://api.gsmservice.pl/rest/) and [**SWAGGER**](https://api.gsmservice.pl/rest/swagger). You can test any endpoint directly from documentation using **Try Out** feature of Swagger format.
+ * This documentation is available in two formats: [**REDOC**](https://api.gsmservice.pl/rest/) and [**SWAGGER**](https://api.gsmservice.pl/rest/swagger). You can test any endpoint directly from documentation using **Try Out** feature of Swagger. Also you can [download a **YAML** file](https://api.gsmservice.pl/rest/swagger/messaging.yaml) with doc in OpenApi 3.0 format.
  *
  * ## Account signup and setup
  *
