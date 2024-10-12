@@ -1,4 +1,8 @@
 <!-- Start SDK Example Usage [usage] -->
+### Sending single SMS Message
+
+This example demonstrates simple sending SMS message to a single recipient:
+
 ```php
 declare(strict_types=1);
 

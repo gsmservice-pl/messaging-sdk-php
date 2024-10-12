@@ -12,6 +12,10 @@ targets:
     messaging-sdk-php:
         target: php
         source: messaging-sdk-php -OAS
+        publish:
+            packagist:
+                username: 'gsmservice '
+                token: $packagist_token
         codeSamples:
             output: .speakeasy\code-samples-overlay.yaml
             langOverride: php

@@ -1,95 +1,19 @@
-# gsmservice-pl/messaging-sdk-php
+[![Packagist Version](https://img.shields.io/packagist/v/gsmservice-pl/messaging-sdk-php)](https://packagist.org/packages/gsmservice-pl/messaging-sdk-php)
+[![GitHub License](https://img.shields.io/github/license/gsmservice-pl/messaging-sdk-php)](https://github.com/gsmservice-pl/messaging-sdk-php/blob/main/LICENSE)
+[![Static Badge](https://img.shields.io/badge/built_by-Speakeasy-yellow)](https://www.speakeasy.com/?utm_source=gsmservice-pl/messaging-sdk-php&utm_campaign=php)
+# GSMService.pl Messaging SDK for REST API
 
-Developer-friendly & type-safe Php SDK specifically catered to leverage *gsmservice-pl/messaging-sdk-php* API.
+This package includes Messaging SDK for PHP (>8.2) to send SMS & MMS messages directly from your app via https://bramka.gsmservice.pl messaging platform.
 
-<div align="left">
-    <a href="https://www.speakeasy.com/?utm_source=gsmservice-pl/messaging-sdk-php&utm_campaign=php"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
-    <a href="https://opensource.org/licenses/MIT">
-        <img src="https://img.shields.io/badge/License-MIT-blue.svg" style="width: 100px; height: 28px;" />
-    </a>
-</div>
+## Minimal requirements:
+PHP version >= 8.2
+## Additional documentation:
 
+A documentation of all methods and types is available below in section [Available Resources and Operations
+](#available-resources-and-operations).
 
-<br /><br />
-> [!IMPORTANT]
-> This SDK is not yet ready for production use. To complete setup please follow the steps outlined in your [workspace](https://app.speakeasy.com/org/intermedia/gsmservice-pl). Delete this section before > publishing to a package manager.
-
-<!-- Start Summary [summary] -->
-## Summary
-
-Messaging Gateway GSMService.pl: 
-# Introduction
-
-This document was created to explain the process of integration any application or system with the **GSMService.pl** SMS Gateway via the *REST API*. Currently, there are several ways to send messages with the GSMService.pl platform:
-
-* Directly from the [https://bramka.gsmservice.pl](https://bramka.gsmservice.pl) website [User Panel](https://panel.gsmservice.pl)
-* Via this *REST API* and provided *SDKs*
-* Via the legacy (deprecated) versions API: *Webservices (SOAP)* and *HTTP* 
-* Via the *MAIL2SMS* service
-
-This document describes the possibilities offered by **REST API**.
-
-> **We kindly ask you to read this documentation carefully before starting the integration. This will make the whole process easier and will help you avoid many problems.**
-
-## Documentation and Try Outs
-
-This documentation is available in two formats: [**REDOC**](https://api.gsmservice.pl/rest/) and [**SWAGGER**](https://api.gsmservice.pl/rest/swagger). You can test any endpoint directly from documentation using **Try Out** feature of Swagger. Also you can [download a **YAML** file](https://api.gsmservice.pl/rest/swagger/messaging.yaml) with doc in OpenApi 3.0 format.
-
-## Account signup and setup
-
-Firstly, it is necessary to create your personal account at the GSMService.pl SMS Gateway platform if you haven't one and activate access to the API. To register a new account please [signup the form](https://panel.gsmservice.pl/rejestracja). After signing up and fully activation of an account you have to activate an access to the API.
-
-To do it please use [this site](https://panel.gsmservice.pl/api) - fill the *New API Access* form with your preferred API login, set your API password, select which API standard you want to activate for this account (select **REST API** there). Optionally you can add IP adresses (or IP pool with CIDR notation) from which access to your API account will be possible. You can also set a callback address there to collect any messages status updates automatically. When a status of a messaga changes, the callback address will be called with passing parameters with new message status.
-
-After setup an API access you will get an unique **API Access Token** - please write it down as there won't be possible to display it again (you will have the possibility to regenerate it only). This token will be required to authenticate all the requests made with API on your account.
-
-## Authentication of API requests
-
-All the endpoints of this REST API have to be authenticated using your API Access Token with one exception: */rest/ping* endpoint which doesn't need an authentication. 
-
-To make an authenticated request you should add to all requests an ***Authorization* header** which you have generated in previous step:
-
-```
-Authorization: Bearer <YOUR_API_ACCESS_TOKEN>
-```
-
-## URLs to connect to API
-
-Please use this SSL secured adresses to connect to REST API:
-
-* ```https://api.gsmservice.pl/rest``` - for production system
-
-* ```https://api.gsmservice.pl/rest-sandbox``` - for test system (Sandbox)
-
-> **When calling our API, make sure you are using TLS version 1.2 or higher. Older versions are no longer supported.**
-
-# SDK Client Libraries
-
-For developers integrating SMS functionality into their app, we provide a convenient SDK Libraries.
-
-Our SDKs allow you to quickly start interacting with the Gateway using your favorite programming language. Currently we support the following languages:
-
-## PHP 8
-
-To install PHP SDK issue the following command:
-
-```shell
-composer require gsmservice-pl/messaging-sdk-php
-```
-More information and documentation you can find at our [GitHub](https://github.com/gsmservice-pl/messaging-sdk-php) 
-
-## Typescript
-
-To install Typescript SDK issue the following command:
-
-### NPM
-
-```
-npm install @gsmservice-pl/messaging-sdk-typescript
-```
-
-More information and documentation you can find at our [GitHub](https://github.com/gsmservice-pl/messaging-sdk-typescript)
-<!-- End Summary [summary] -->
+Also you can refer to the [REST API documentation](https://api.gsmservice.pl/rest/) for additional details about the basics of this SDK.
+<!-- No Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
@@ -106,33 +30,18 @@ More information and documentation you can find at our [GitHub](https://github.c
 
 The SDK relies on [Composer](https://getcomposer.org/) to manage its dependencies.
 
-To install the SDK first add the below to your `composer.json` file:
-
-```json
-{
-    "repositories": [
-        {
-            "type": "github",
-            "url": "<UNSET>.git"
-        }
-    ],
-    "require": {
-        "gsmservice-pl/messaging-sdk-php": "*"
-    }
-}
-```
-
-Then run the following command:
-
+To install the SDK and add it as a dependency to an existing `composer.json` file:
 ```bash
-composer update
+composer require "gsmservice-pl/messaging-sdk-php"
 ```
 <!-- End SDK Installation [installation] -->
 
 <!-- Start SDK Example Usage [usage] -->
 ## SDK Example Usage
 
-### Example
+### Sending single SMS Message
+
+This example demonstrates simple sending SMS message to a single recipient:
 
 ```php
 declare(strict_types=1);
@@ -290,7 +199,7 @@ The default server can also be overridden globally by passing a URL to the `serv
 
 ## Maturity
 
-This SDK is in beta, and there may be breaking changes between versions without a major version update. Therefore, we recommend pinning usage
+This SDK is in continuous development and there may be breaking changes between a major version update. Therefore, we recommend pinning usage
 to a specific package version. This way, you can install the same version each time without breaking changes unless you are intentionally
 looking for the latest version.
 
@@ -298,5 +207,3 @@ looking for the latest version.
 
 While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation. 
 We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
-
-### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=gsmservice-pl/messaging-sdk-php&utm_campaign=php)
