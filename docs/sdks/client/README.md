@@ -35,7 +35,7 @@ All the endpoints of this REST API have to be authenticated using your API Acces
 To make an authenticated request you should add to all requests an ***Authorization* header** which you have generated in previous step:
 
 ```
-Authorization: Bearer <YOUR_API_ACCESS_TOKEN>
+Authorization: Bearer &lt;YOUR_API_ACCESS_TOKEN&gt;
 ```
 
 ## URLs to connect to API
@@ -46,6 +46,7 @@ Please use this SSL secured adresses to connect to REST API:
 
 * ```https://api.gsmservice.pl/rest-sandbox``` - for test system (Sandbox)
 
+> [!NOTE]
 > **When calling our API, make sure you are using TLS version 1.2 or higher. Older versions are no longer supported.**
 
 # SDK Client Libraries
@@ -69,8 +70,8 @@ To install Typescript SDK issue the following command:
 
 ### NPM
 
-```
-npm install @gsmservice-pl/messaging-sdk-typescript
+```shell
+npm add @gsmservice-pl/messaging-sdk-typescript
 ```
 
 More information and documentation you can find at our [GitHub](https://github.com/gsmservice-pl/messaging-sdk-typescript) 
