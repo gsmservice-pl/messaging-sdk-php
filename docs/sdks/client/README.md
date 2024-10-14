@@ -2,7 +2,7 @@
 
 ## Overview
 
-Messaging Gateway GSMService.pl: Client class is used to initialize SDK environment.
+Client class is used to initialize SDK environment.
 
 Please initialize it this way:
 

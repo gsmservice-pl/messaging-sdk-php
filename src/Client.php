@@ -11,7 +11,7 @@ namespace Gsmservice\Gateway;
 
 
 /**
- * Client - Messaging Gateway GSMService.pl: Client class is used to initialize SDK environment.
+ * Client - Client class is used to initialize SDK environment.
  *
  *
  * Please initialize it this way:

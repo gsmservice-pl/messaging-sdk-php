@@ -26,7 +26,7 @@ class Senders
     /**
      * List allowed senders names
      *
-     * Get a list of allowed senders defined in your account. The methot doesn't get any parameters.
+     * Get a list of allowed senders defined in your account. The method doesn't get any parameters.
      *
      * As a successful result a `ListSendersResponse` object will be returned with an array of `Sender` as `$senders` property, each object per single sender.
      *
