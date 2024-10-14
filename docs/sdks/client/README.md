@@ -7,6 +7,8 @@ Messaging Gateway GSMService.pl: Client class is used to initialize SDK environm
 Please initialize it this way:
 
 ```
+use Gsmservice\Gateway;
+
 $security = '<YOUR API ACCESS TOKEN>';
 $sdk = Gateway\Client::builder()->setSecurity($security)->build();
 ```

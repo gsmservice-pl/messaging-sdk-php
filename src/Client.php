@@ -17,6 +17,8 @@ namespace Gsmservice\Gateway;
  * Please initialize it this way:
  *
  * ```
+ * use Gsmservice\Gateway;
+ *
  * $security = '<YOUR API ACCESS TOKEN>';
  * $sdk = Gateway\Client::builder()->setSecurity($security)->build();
  * ```
