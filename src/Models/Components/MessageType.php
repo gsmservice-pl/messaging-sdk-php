@@ -9,17 +9,7 @@ declare(strict_types=1);
 namespace Gsmservice\Gateway\Models\Components;
 
 
-/**
- * Message type according to the table:
- *
- *
- * |type|Description|
- * |----|-----------|
- * |  SmsType::SmsPro | SMS PRO   |
- * |  SmsType::SmsEco | SMS ECO   |
- * |  SmsType::SmsTwoWay | SMS 2WAY  |
- * | SmsType::Mms | MMS       |
- */
+/** Message type (SmsType::SmsPro -> SMS PRO, SmsType::SmsEco -> SMS ECO, SmsType::SmsTwoWay ->SMS 2WAY, SmsType::Mms -> MMS) */
 enum MessageType: int
 {
     case SmsPro = 1;

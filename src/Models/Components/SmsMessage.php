@@ -39,14 +39,7 @@ class SmsMessage
     public ?string $sender = null;
 
     /**
-     * SMS type according to the table
-     *
-     *     
-     * |type|Description|
-     * |----|-----------|
-     * |  SmsType::SmsPro |  SMS PRO  |
-     * |  SmsType::SmsEco |  SMS ECO  |
-     * |  SmsType::SmsTwoWay |  SMS 2WAY |
+     * SMS type (SmsType::SmsPro -> SMS PRO, SmsType::SmsEco -> SMS ECO, SmsType::SmsTwoWay ->SMS 2WAY)
      *
      * @var ?SmsType $type
      */

@@ -1,13 +1,6 @@
 # MessageType
 
-Message type according to the table:
-
-|type|Description|
-|----|-----------|
-|  SmsType::SmsPro | SMS PRO   |
-|  SmsType::SmsEco | SMS ECO   |
-|  SmsType::SmsTwoWay | SMS 2WAY  |
-| SmsType::Mms | MMS       |
+Message type (SmsType::SmsPro -> SMS PRO, SmsType::SmsEco -> SMS ECO, SmsType::SmsTwoWay ->SMS 2WAY, SmsType::Mms -> MMS)
 
 
 ## Values
