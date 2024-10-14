@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Gsmservice\Gateway\Models\Errors;
 
 
-use Gsmservice\Gateway\Utils;
+
 /** ErrorResponse - An object that complies with RFC 9457 containing information about a request error */
 class ErrorResponse
 {
@@ -87,8 +87,11 @@ class ErrorResponse
 
     public function toException(): ErrorResponseThrowable
     {
-        $serializer = Utils\JSON::createSerializer();
-        $message = $serializer->serialize($this, 'json');
+        if ($this->detail !== null) {
+            $message = $this->detail;
+        } else {
+            $message = 'unknown error';
+        }
         if ($this->code !== null) {
             $code = $this->code;
         } else {
