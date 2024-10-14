@@ -33,7 +33,7 @@ class GetSmsPriceResponse
     public \Psr\Http\Message\ResponseInterface $rawResponse;
 
     /**
-     * The request was processed successfully. Please check the price and the details of particular messages in response body
+     * The request was processed successfully. Please check the price and the details of particular messages in `$prices`
      *
      * @var ?array<Components\Price> $prices
      */

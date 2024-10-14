@@ -33,7 +33,7 @@ class GetIncomingMessagesResponse
     public \Psr\Http\Message\ResponseInterface $rawResponse;
 
     /**
-     * The request was processed successfully. Please check received messages details in response body.
+     * The request was processed successfully. Please check received messages details in `$incomingMessages` array.
      *
      * @var ?array<Components\IncomingMessage> $incomingMessages
      */

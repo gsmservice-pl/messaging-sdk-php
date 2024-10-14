@@ -33,7 +33,7 @@ class CancelMessagesResponse
     public \Psr\Http\Message\ResponseInterface $rawResponse;
 
     /**
-     * The request was processed successfully. Please check the status of messages cancellation in response body.
+     * The request was processed successfully. Please check the status of messages cancellation in `$cancelledMessages` array.
      *
      * @var ?array<Components\CancelledMessage> $cancelledMessages
      */

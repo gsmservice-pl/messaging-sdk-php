@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Gsmservice\Gateway\Models\Components;
 
 
-/** CancelledMessage - An object containing information about results of cancelling single message */
+/** CancelledMessage - An  object containing information about results of cancelling single message */
 class CancelledMessage
 {
     /**

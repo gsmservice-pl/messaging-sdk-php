@@ -33,7 +33,7 @@ class ListSendersResponse
     public \Psr\Http\Message\ResponseInterface $rawResponse;
 
     /**
-     * The request was processed successfully. Please find senders details in response body
+     * The request was processed successfully. Please find senders details in `$senders` array
      *
      * @var ?array<Components\Sender> $senders
      */

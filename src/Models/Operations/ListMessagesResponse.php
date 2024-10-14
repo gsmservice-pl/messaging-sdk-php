@@ -33,7 +33,7 @@ class ListMessagesResponse
     public \Psr\Http\Message\ResponseInterface $rawResponse;
 
     /**
-     * The request was processed successfully. Please check messages details in response body.
+     * The request was processed successfully. Please check messages details in `$messages` array.
      *
      * @var ?array<Components\Message> $messages
      */

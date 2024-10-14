@@ -16,7 +16,7 @@ $security = '<YOUR API ACCESS TOKEN>';
 $sdk = Gateway\Client::builder()->setSecurity($security)->build();
 
 $request = [
-    new Components\Sms(
+    new Components\SmsMessage(
         recipients: [
             '+48999999999',
         ],

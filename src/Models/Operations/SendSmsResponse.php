@@ -33,7 +33,7 @@ class SendSmsResponse
     public \Psr\Http\Message\ResponseInterface $rawResponse;
 
     /**
-     * The request was processed successfully. Please check statuses of particular messages in response body.
+     * The request was processed successfully. Please check statuses of particular messages in `$messages` array.
      *
      * @var ?array<Components\Message> $messages
      */

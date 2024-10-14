@@ -4,9 +4,9 @@ SMS type according to the table
     
 |type|Description|
 |----|-----------|
-|  1 |  SMS PRO  |
-|  3 |  SMS ECO  |
-|  4 |  SMS 2WAY |
+|  SmsType::SmsPro |  SMS PRO  |
+|  SmsType::SmsEco |  SMS ECO  |
+|  SmsType::SmsTwoWay |  SMS 2WAY |
 
 
 ## Values

@@ -1,6 +1,6 @@
 # CancelledMessage
 
-An object containing information about results of cancelling single message
+An  object containing information about results of cancelling single message
 
 
 ## Fields
