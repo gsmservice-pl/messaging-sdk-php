@@ -37,4 +37,43 @@ if ($response->messages !== null) {
     // handle response
 }
 ```
+
+### Sending single MMS Message
+
+This example demonstrates simple sending MMS message to a single recipient:
+
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$security = '<YOUR API ACCESS TOKEN>';
+
+$sdk = Gateway\Client::builder()->setSecurity($security)->build();
+
+$request = [
+    new Components\MmsMessage(
+        recipients: [
+            '+48999999999',
+        ],
+        message: 'To jest treść wiadomości',
+        attachments: [
+            '<file_body in base64 format>',
+        ],
+        subject: 'To jest treść wiadomości',
+        date: null,
+    ),
+];
+
+$response = $sdk->outgoing->mms->send(
+    request: $request
+);
+
+if ($response->messages !== null) {
+    // handle response
+}
+```
 <!-- End SDK Example Usage [usage] -->

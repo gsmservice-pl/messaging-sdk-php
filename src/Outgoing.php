@@ -14,6 +14,8 @@ use JMS\Serializer\DeserializationContext;
 class Outgoing
 {
     private SDKConfiguration $sdkConfiguration;
+    public Mms $mms;
+
     public Sms $sms;
 
     /**
@@ -22,6 +24,7 @@ class Outgoing
     public function __construct(SDKConfiguration $sdkConfig)
     {
         $this->sdkConfiguration = $sdkConfig;
+        $this->mms = new Mms($this->sdkConfiguration);
         $this->sms = new Sms($this->sdkConfiguration);
     }
 

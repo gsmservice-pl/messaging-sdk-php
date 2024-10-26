@@ -41,6 +41,7 @@ class Price
     public ?MessageType $type = null;
 
     /**
+     * A telephone number in international format (with a plus sign and the country code at the beginning, e.g. +48 for Poland)
      *
      * @var ?string $recipient
      */
@@ -95,24 +96,24 @@ class Price
 
     /**
      * @param  ?MessageType  $type
+     * @param  ?string  $recipient
      * @param  ?bool  $unicode
      * @param  ?bool  $flash
      * @param  ?float  $price
      * @param  ?string  $error
      * @param  ?string  $cid
-     * @param  ?string  $recipient
      * @param  ?string  $sender
      * @param  ?int  $parts
      */
-    public function __construct(?MessageType $type = null, ?bool $unicode = null, ?bool $flash = null, ?float $price = null, ?string $error = null, ?string $cid = null, ?string $recipient = null, ?string $sender = null, ?int $parts = null)
+    public function __construct(?MessageType $type = null, ?string $recipient = null, ?bool $unicode = null, ?bool $flash = null, ?float $price = null, ?string $error = null, ?string $cid = null, ?string $sender = null, ?int $parts = null)
     {
         $this->type = $type;
+        $this->recipient = $recipient;
         $this->unicode = $unicode;
         $this->flash = $flash;
         $this->price = $price;
         $this->error = $error;
         $this->cid = $cid;
-        $this->recipient = $recipient;
         $this->sender = $sender;
         $this->parts = $parts;
     }
