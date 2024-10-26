@@ -102,7 +102,7 @@ $request = [
         attachments: [
             '<file_body in base64 format>',
         ],
-        subject: 'To jest treść wiadomości',
+        subject: 'To jest temat wiadomości',
         date: null,
     ),
 ];
