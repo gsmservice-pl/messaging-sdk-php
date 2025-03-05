@@ -21,6 +21,7 @@ class SetDefaultSenderRequest
 
     /**
      * @param  string  $sender
+     * @phpstan-pure
      */
     public function __construct(string $sender)
     {

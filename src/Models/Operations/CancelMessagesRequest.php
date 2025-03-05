@@ -21,6 +21,7 @@ class CancelMessagesRequest
 
     /**
      * @param  array<int>  $ids
+     * @phpstan-pure
      */
     public function __construct(array $ids)
     {

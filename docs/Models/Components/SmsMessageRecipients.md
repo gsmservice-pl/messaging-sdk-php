@@ -8,24 +8,36 @@ The recipient number or multiple recipients numbers of single message. To set on
 ### `string`
 
 ```php
+/**
+* @var string
+*/
 string $value = /* values here */
 ```
 
 ### `array`
 
 ```php
+/**
+* @var array<string>
+*/
 array $value = /* values here */
 ```
 
 ### `Components\PhoneNumberWithCid`
 
 ```php
+/**
+* @var Components\PhoneNumberWithCid
+*/
 Components\PhoneNumberWithCid $value = /* values here */
 ```
 
 ### `array`
 
 ```php
+/**
+* @var array<Components\PhoneNumberWithCid>
+*/
 array $value = /* values here */
 ```
 

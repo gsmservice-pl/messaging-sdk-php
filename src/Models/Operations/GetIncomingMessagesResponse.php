@@ -33,13 +33,6 @@ class GetIncomingMessagesResponse
     public \Psr\Http\Message\ResponseInterface $rawResponse;
 
     /**
-     * The request was processed successfully. Please check received messages details in `$incomingMessages` array.
-     *
-     * @var ?array<Components\IncomingMessage> $incomingMessages
-     */
-    public ?array $incomingMessages = null;
-
-    /**
      * $headers
      *
      * @var array<string, array<string>> $headers
@@ -47,11 +40,19 @@ class GetIncomingMessagesResponse
     public array $headers;
 
     /**
+     * The request was processed successfully. Please check received messages details in `$incomingMessages` array.
+     *
+     * @var ?array<Components\IncomingMessage> $incomingMessages
+     */
+    public ?array $incomingMessages = null;
+
+    /**
      * @param  string  $contentType
      * @param  int  $statusCode
      * @param  \Psr\Http\Message\ResponseInterface  $rawResponse
      * @param  array<string, array<string>>  $headers
      * @param  ?array<Components\IncomingMessage>  $incomingMessages
+     * @phpstan-pure
      */
     public function __construct(string $contentType, int $statusCode, \Psr\Http\Message\ResponseInterface $rawResponse, ?array $incomingMessages = null, ?array $headers = [])
     {

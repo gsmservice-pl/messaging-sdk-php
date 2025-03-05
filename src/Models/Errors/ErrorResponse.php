@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Gsmservice\Gateway\Models\Errors;
 
 
-
 /** ErrorResponse - An object that complies with RFC 9457 containing information about a request error */
 class ErrorResponse
 {
@@ -18,8 +17,8 @@ class ErrorResponse
      *
      * @var ?string $type
      */
-    #[\JMS\Serializer\Annotation\SerializedName('type')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('type')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $type = null;
 
     /**
@@ -27,8 +26,8 @@ class ErrorResponse
      *
      * @var ?int $status
      */
-    #[\JMS\Serializer\Annotation\SerializedName('status')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('status')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?int $status = null;
 
     /**
@@ -36,8 +35,8 @@ class ErrorResponse
      *
      * @var ?string $title
      */
-    #[\JMS\Serializer\Annotation\SerializedName('title')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('title')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $title = null;
 
     /**
@@ -45,8 +44,8 @@ class ErrorResponse
      *
      * @var ?string $detail
      */
-    #[\JMS\Serializer\Annotation\SerializedName('detail')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('detail')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $detail = null;
 
     /**
@@ -54,8 +53,8 @@ class ErrorResponse
      *
      * @var ?string $code
      */
-    #[\JMS\Serializer\Annotation\SerializedName('code')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('code')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $code = null;
 
     /**
@@ -63,8 +62,8 @@ class ErrorResponse
      *
      * @var ?string $instance
      */
-    #[\JMS\Serializer\Annotation\SerializedName('instance')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('instance')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $instance = null;
 
     /**
@@ -74,6 +73,7 @@ class ErrorResponse
      * @param  ?string  $detail
      * @param  ?string  $code
      * @param  ?string  $instance
+     * @phpstan-pure
      */
     public function __construct(?string $type = null, ?int $status = null, ?string $title = null, ?string $detail = null, ?string $code = null, ?string $instance = null)
     {

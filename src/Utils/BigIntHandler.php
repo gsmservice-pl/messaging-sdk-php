@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Gsmservice\Gateway\Utils;
 
-use JMS\Serializer\Context;
-use JMS\Serializer\GraphNavigator;
-use JMS\Serializer\Handler\SubscribingHandlerInterface;
-use JMS\Serializer\JsonDeserializationVisitor;
-use JMS\Serializer\JsonSerializationVisitor;
+use Speakeasy\Serializer\Context;
+use Speakeasy\Serializer\GraphNavigator;
+use Speakeasy\Serializer\Handler\SubscribingHandlerInterface;
+use Speakeasy\Serializer\JsonDeserializationVisitor;
+use Speakeasy\Serializer\JsonSerializationVisitor;
 
 class BigIntHandler implements SubscribingHandlerInterface
 {
@@ -58,7 +58,7 @@ class BigIntHandler implements SubscribingHandlerInterface
     }
 
     /** @phpstan-ignore-next-line */
-    public function deserialize(JsonDeserializationVisitor $visitor, string|int $data, array $type, Context $context): mixed
+    public function deserialize(JsonDeserializationVisitor $visitor, mixed $data, array $type, Context $context): mixed
     {
         return \Brick\Math\BigInteger::of($data);
     }

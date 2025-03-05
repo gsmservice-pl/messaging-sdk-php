@@ -27,9 +27,11 @@ require 'vendor/autoload.php';
 use Gsmservice\Gateway;
 use Gsmservice\Gateway\Models\Components;
 
-$security = '<YOUR API ACCESS TOKEN>';
-
-$sdk = Gateway\Client::builder()->setSecurity($security)->build();
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
 
 $request = [
     new Components\MmsMessage(
@@ -37,12 +39,11 @@ $request = [
             nr: '+48999999999',
             cid: 'my-id-1113',
         ),
-        message: 'To jest treść wiadomości',
         attachments: [
             '<file_body in base64 format>',
         ],
         subject: 'To jest temat wiadomości',
-        date: null,
+        message: 'To jest treść wiadomości',
     ),
 ];
 
@@ -57,9 +58,9 @@ if ($response->prices !== null) {
 
 ### Parameters
 
-| Parameter                                                                        | Type                                                                             | Required                                                                         | Description                                                                      |
-| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| `$request`                                                                       | [Components\MmsMessage\|array](../../Models/Operations/GetMmsPriceRequestBody.md) | :heavy_check_mark:                                                               | The request object to use for the request.                                       |
+| Parameter                                                                                               | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `$request`                                                                                              | [Components\MmsMessage\|array<Components\MmsMessage>](../../Models/Operations/GetMmsPriceRequestBody.md) | :heavy_check_mark:                                                                                      | The request object to use for the request.                                                              |
 
 ### Response
 
@@ -69,7 +70,8 @@ if ($response->prices !== null) {
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 400, 401, 4XX, 5XX       | application/problem+json |
+| Errors\ErrorResponse     | 400, 401, 4XX            | application/problem+json |
+| Errors\ErrorResponse     | 5XX                      | application/problem+json |
 
 ## send
 
@@ -89,21 +91,22 @@ require 'vendor/autoload.php';
 use Gsmservice\Gateway;
 use Gsmservice\Gateway\Models\Components;
 
-$security = '<YOUR API ACCESS TOKEN>';
-
-$sdk = Gateway\Client::builder()->setSecurity($security)->build();
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
 
 $request = [
     new Components\MmsMessage(
         recipients: [
             '+48999999999',
         ],
-        message: 'To jest treść wiadomości',
         attachments: [
             '<file_body in base64 format>',
         ],
         subject: 'To jest temat wiadomości',
-        date: null,
+        message: 'To jest treść wiadomości',
     ),
 ];
 
@@ -118,9 +121,9 @@ if ($response->messages !== null) {
 
 ### Parameters
 
-| Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
-| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `$request`                                                                   | [Components\MmsMessage\|array](../../Models/Operations/SendMmsRequestBody.md) | :heavy_check_mark:                                                           | The request object to use for the request.                                   |
+| Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `$request`                                                                                          | [Components\MmsMessage\|array<Components\MmsMessage>](../../Models/Operations/SendMmsRequestBody.md) | :heavy_check_mark:                                                                                  | The request object to use for the request.                                                          |
 
 ### Response
 
@@ -130,4 +133,5 @@ if ($response->messages !== null) {
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 400, 401, 403, 4XX, 5XX  | application/problem+json |
+| Errors\ErrorResponse     | 400, 401, 403, 4XX       | application/problem+json |
+| Errors\ErrorResponse     | 5XX                      | application/problem+json |

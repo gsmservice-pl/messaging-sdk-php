@@ -17,8 +17,8 @@ class AccountResponse
      *
      * @var ?string $login
      */
-    #[\JMS\Serializer\Annotation\SerializedName('login')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('login')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $login = null;
 
     /**
@@ -26,9 +26,9 @@ class AccountResponse
      *
      * @var ?AccountType $accountType
      */
-    #[\JMS\Serializer\Annotation\SerializedName('account_type')]
-    #[\JMS\Serializer\Annotation\Type('\Gsmservice\Gateway\Models\Components\AccountType|null')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('account_type')]
+    #[\Speakeasy\Serializer\Annotation\Type('\Gsmservice\Gateway\Models\Components\AccountType|null')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?AccountType $accountType = null;
 
     /**
@@ -36,8 +36,8 @@ class AccountResponse
      *
      * @var ?float $limit
      */
-    #[\JMS\Serializer\Annotation\SerializedName('limit')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('limit')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?float $limit = null;
 
     /**
@@ -45,26 +45,17 @@ class AccountResponse
      *
      * @var ?float $credit
      */
-    #[\JMS\Serializer\Annotation\SerializedName('credit')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('credit')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?float $credit = null;
-
-    /**
-     * Subaccount credit balance (null if unlimited)
-     *
-     * @var ?float $subcredit
-     */
-    #[\JMS\Serializer\Annotation\SerializedName('subcredit')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
-    public ?float $subcredit = null;
 
     /**
      * Account currency
      *
      * @var ?string $currency
      */
-    #[\JMS\Serializer\Annotation\SerializedName('currency')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('currency')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $currency = null;
 
     /**
@@ -72,8 +63,8 @@ class AccountResponse
      *
      * @var ?string $name
      */
-    #[\JMS\Serializer\Annotation\SerializedName('name')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('name')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $name = null;
 
     /**
@@ -81,9 +72,18 @@ class AccountResponse
      *
      * @var ?bool $isMain
      */
-    #[\JMS\Serializer\Annotation\SerializedName('is_main')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('is_main')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?bool $isMain = null;
+
+    /**
+     * Subaccount credit balance (null if unlimited)
+     *
+     * @var ?float $subcredit
+     */
+    #[\Speakeasy\Serializer\Annotation\SerializedName('subcredit')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
+    public ?float $subcredit = null;
 
     /**
      * @param  ?string  $login
@@ -94,6 +94,7 @@ class AccountResponse
      * @param  ?string  $name
      * @param  ?bool  $isMain
      * @param  ?float  $subcredit
+     * @phpstan-pure
      */
     public function __construct(?string $login = null, ?AccountType $accountType = null, ?float $limit = null, ?float $credit = null, ?string $currency = null, ?string $name = null, ?bool $isMain = null, ?float $subcredit = null)
     {

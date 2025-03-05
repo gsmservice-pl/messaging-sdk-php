@@ -27,9 +27,11 @@ require 'vendor/autoload.php';
 use Gsmservice\Gateway;
 use Gsmservice\Gateway\Models\Components;
 
-$security = '<YOUR API ACCESS TOKEN>';
-
-$sdk = Gateway\Client::builder()->setSecurity($security)->build();
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
 
 $request = [
     new Components\SmsMessage(
@@ -38,11 +40,6 @@ $request = [
             cid: 'my-id-1113',
         ),
         message: 'To jest treść wiadomości',
-        sender: 'Bramka SMS',
-        type: Components\SmsType::SmsPro,
-        unicode: true,
-        flash: false,
-        date: null,
     ),
 ];
 
@@ -57,9 +54,9 @@ if ($response->prices !== null) {
 
 ### Parameters
 
-| Parameter                                                                        | Type                                                                             | Required                                                                         | Description                                                                      |
-| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| `$request`                                                                       | [Components\SmsMessage\|array](../../Models/Operations/GetSmsPriceRequestBody.md) | :heavy_check_mark:                                                               | The request object to use for the request.                                       |
+| Parameter                                                                                               | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `$request`                                                                                              | [Components\SmsMessage\|array<Components\SmsMessage>](../../Models/Operations/GetSmsPriceRequestBody.md) | :heavy_check_mark:                                                                                      | The request object to use for the request.                                                              |
 
 ### Response
 
@@ -69,7 +66,8 @@ if ($response->prices !== null) {
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 400, 401, 4XX, 5XX       | application/problem+json |
+| Errors\ErrorResponse     | 400, 401, 4XX            | application/problem+json |
+| Errors\ErrorResponse     | 5XX                      | application/problem+json |
 
 ## send
 
@@ -89,9 +87,11 @@ require 'vendor/autoload.php';
 use Gsmservice\Gateway;
 use Gsmservice\Gateway\Models\Components;
 
-$security = '<YOUR API ACCESS TOKEN>';
-
-$sdk = Gateway\Client::builder()->setSecurity($security)->build();
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
 
 $request = [
     new Components\SmsMessage(
@@ -99,11 +99,6 @@ $request = [
             '+48999999999',
         ],
         message: 'To jest treść wiadomości',
-        sender: 'Bramka SMS',
-        type: Components\SmsType::SmsPro,
-        unicode: true,
-        flash: false,
-        date: null,
     ),
 ];
 
@@ -118,9 +113,9 @@ if ($response->messages !== null) {
 
 ### Parameters
 
-| Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
-| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `$request`                                                                   | [Components\SmsMessage\|array](../../Models/Operations/SendSmsRequestBody.md) | :heavy_check_mark:                                                           | The request object to use for the request.                                   |
+| Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `$request`                                                                                          | [Components\SmsMessage\|array<Components\SmsMessage>](../../Models/Operations/SendSmsRequestBody.md) | :heavy_check_mark:                                                                                  | The request object to use for the request.                                                          |
 
 ### Response
 
@@ -130,4 +125,5 @@ if ($response->messages !== null) {
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 400, 401, 403, 4XX, 5XX  | application/problem+json |
+| Errors\ErrorResponse     | 400, 401, 403, 4XX       | application/problem+json |
+| Errors\ErrorResponse     | 5XX                      | application/problem+json |

@@ -8,12 +8,18 @@ To send a single SMS or messages with the same content to multiple recipients, p
 ### `Components\SmsMessage`
 
 ```php
+/**
+* @var Components\SmsMessage
+*/
 Components\SmsMessage $value = /* values here */
 ```
 
 ### `array`
 
 ```php
+/**
+* @var array<Components\SmsMessage>
+*/
 array $value = /* values here */
 ```
 

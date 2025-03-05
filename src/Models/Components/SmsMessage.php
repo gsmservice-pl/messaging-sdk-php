@@ -17,8 +17,8 @@ class SmsMessage
      *
      * @var string|array<string>|PhoneNumberWithCid|array<PhoneNumberWithCid> $recipients
      */
-    #[\JMS\Serializer\Annotation\SerializedName('recipients')]
-    #[\JMS\Serializer\Annotation\Type('string|array<string>|\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid|array<\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid>')]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('recipients')]
+    #[\Speakeasy\Serializer\Annotation\Type('string|array<string>|\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid|array<\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid>')]
     public string|array|PhoneNumberWithCid $recipients;
 
     /**
@@ -26,7 +26,7 @@ class SmsMessage
      *
      * @var string $message
      */
-    #[\JMS\Serializer\Annotation\SerializedName('message')]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('message')]
     public string $message;
 
     /**
@@ -34,8 +34,8 @@ class SmsMessage
      *
      * @var ?string $sender
      */
-    #[\JMS\Serializer\Annotation\SerializedName('sender')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('sender')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $sender = null;
 
     /**
@@ -43,9 +43,9 @@ class SmsMessage
      *
      * @var ?SmsType $type
      */
-    #[\JMS\Serializer\Annotation\SerializedName('type')]
-    #[\JMS\Serializer\Annotation\Type('\Gsmservice\Gateway\Models\Components\SmsType|null')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('type')]
+    #[\Speakeasy\Serializer\Annotation\Type('\Gsmservice\Gateway\Models\Components\SmsType|null')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?SmsType $type = null;
 
     /**
@@ -53,8 +53,8 @@ class SmsMessage
      *
      * @var ?bool $unicode
      */
-    #[\JMS\Serializer\Annotation\SerializedName('unicode')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('unicode')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?bool $unicode = null;
 
     /**
@@ -62,8 +62,8 @@ class SmsMessage
      *
      * @var ?bool $flash
      */
-    #[\JMS\Serializer\Annotation\SerializedName('flash')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('flash')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?bool $flash = null;
 
     /**
@@ -71,8 +71,8 @@ class SmsMessage
      *
      * @var ?\DateTime $date
      */
-    #[\JMS\Serializer\Annotation\SerializedName('date')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('date')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?\DateTime $date = null;
 
     /**
@@ -83,6 +83,7 @@ class SmsMessage
      * @param  ?bool  $unicode
      * @param  ?bool  $flash
      * @param  ?\DateTime  $date
+     * @phpstan-pure
      */
     public function __construct(string|array|PhoneNumberWithCid $recipients, string $message, ?string $sender = 'Bramka SMS', ?SmsType $type = SmsType::SmsPro, ?bool $unicode = false, ?bool $flash = false, ?\DateTime $date = null)
     {

@@ -33,13 +33,6 @@ class CancelMessagesResponse
     public \Psr\Http\Message\ResponseInterface $rawResponse;
 
     /**
-     * The request was processed successfully. Please check the status of messages cancellation in `$cancelledMessages` array.
-     *
-     * @var ?array<Components\CancelledMessage> $cancelledMessages
-     */
-    public ?array $cancelledMessages = null;
-
-    /**
      * $headers
      *
      * @var array<string, array<string>> $headers
@@ -47,11 +40,19 @@ class CancelMessagesResponse
     public array $headers;
 
     /**
+     * The request was processed successfully. Please check the status of messages cancellation in `$cancelledMessages` array.
+     *
+     * @var ?array<Components\CancelledMessage> $cancelledMessages
+     */
+    public ?array $cancelledMessages = null;
+
+    /**
      * @param  string  $contentType
      * @param  int  $statusCode
      * @param  \Psr\Http\Message\ResponseInterface  $rawResponse
      * @param  array<string, array<string>>  $headers
      * @param  ?array<Components\CancelledMessage>  $cancelledMessages
+     * @phpstan-pure
      */
     public function __construct(string $contentType, int $statusCode, \Psr\Http\Message\ResponseInterface $rawResponse, ?array $cancelledMessages = null, ?array $headers = [])
     {

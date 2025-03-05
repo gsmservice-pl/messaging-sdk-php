@@ -8,12 +8,18 @@ To send a single MMS or messages with the same content to multiple recipients, p
 ### `Components\MmsMessage`
 
 ```php
+/**
+* @var Components\MmsMessage
+*/
 Components\MmsMessage $value = /* values here */
 ```
 
 ### `array`
 
 ```php
+/**
+* @var array<Components\MmsMessage>
+*/
 array $value = /* values here */
 ```
 

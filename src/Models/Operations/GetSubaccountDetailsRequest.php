@@ -21,6 +21,7 @@ class GetSubaccountDetailsRequest
 
     /**
      * @param  string  $userLogin
+     * @phpstan-pure
      */
     public function __construct(string $userLogin)
     {

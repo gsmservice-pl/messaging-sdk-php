@@ -17,7 +17,7 @@ class Sender
      *
      * @var string $sender
      */
-    #[\JMS\Serializer\Annotation\SerializedName('sender')]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('sender')]
     public string $sender;
 
     /**
@@ -25,7 +25,7 @@ class Sender
      *
      * @var string $status
      */
-    #[\JMS\Serializer\Annotation\SerializedName('status')]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('status')]
     public string $status;
 
     /**
@@ -33,13 +33,14 @@ class Sender
      *
      * @var bool $isDefault
      */
-    #[\JMS\Serializer\Annotation\SerializedName('is_default')]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('is_default')]
     public bool $isDefault;
 
     /**
      * @param  string  $sender
      * @param  string  $status
      * @param  bool  $isDefault
+     * @phpstan-pure
      */
     public function __construct(string $sender, string $status, bool $isDefault)
     {

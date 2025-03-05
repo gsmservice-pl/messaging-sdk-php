@@ -17,7 +17,7 @@ class PhoneNumberWithCid
      *
      * @var string $nr
      */
-    #[\JMS\Serializer\Annotation\SerializedName('nr')]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('nr')]
     public string $nr;
 
     /**
@@ -25,13 +25,14 @@ class PhoneNumberWithCid
      *
      * @var ?string $cid
      */
-    #[\JMS\Serializer\Annotation\SerializedName('cid')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('cid')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $cid = null;
 
     /**
      * @param  string  $nr
      * @param  ?string  $cid
+     * @phpstan-pure
      */
     public function __construct(string $nr, ?string $cid = null)
     {

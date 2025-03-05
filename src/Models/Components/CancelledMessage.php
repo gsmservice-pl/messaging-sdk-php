@@ -17,8 +17,8 @@ class CancelledMessage
      *
      * @var ?int $id
      */
-    #[\JMS\Serializer\Annotation\SerializedName('id')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('id')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?int $id = null;
 
     /**
@@ -26,8 +26,8 @@ class CancelledMessage
      *
      * @var ?int $status
      */
-    #[\JMS\Serializer\Annotation\SerializedName('status')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('status')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?int $status = null;
 
     /**
@@ -35,15 +35,16 @@ class CancelledMessage
      *
      * @var ?ErrorResponse $error
      */
-    #[\JMS\Serializer\Annotation\SerializedName('error')]
-    #[\JMS\Serializer\Annotation\Type('\Gsmservice\Gateway\Models\Components\ErrorResponse|null')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('error')]
+    #[\Speakeasy\Serializer\Annotation\Type('\Gsmservice\Gateway\Models\Components\ErrorResponse|null')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?ErrorResponse $error = null;
 
     /**
      * @param  ?int  $id
      * @param  ?int  $status
      * @param  ?ErrorResponse  $error
+     * @phpstan-pure
      */
     public function __construct(?int $id = null, ?int $status = null, ?ErrorResponse $error = null)
     {

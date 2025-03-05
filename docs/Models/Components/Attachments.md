@@ -8,12 +8,18 @@ Attachments for the message. You can pass here images, audio and video files bod
 ### `string`
 
 ```php
+/**
+* @var string
+*/
 string $value = /* values here */
 ```
 
 ### `array`
 
 ```php
+/**
+* @var array<string>
+*/
 array $value = /* values here */
 ```
 

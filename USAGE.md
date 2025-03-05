@@ -11,9 +11,11 @@ require 'vendor/autoload.php';
 use Gsmservice\Gateway;
 use Gsmservice\Gateway\Models\Components;
 
-$security = '<YOUR API ACCESS TOKEN>';
-
-$sdk = Gateway\Client::builder()->setSecurity($security)->build();
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
 
 $request = [
     new Components\SmsMessage(
@@ -21,11 +23,6 @@ $request = [
             '+48999999999',
         ],
         message: 'To jest treść wiadomości',
-        sender: 'Bramka SMS',
-        type: Components\SmsType::SmsPro,
-        unicode: true,
-        flash: false,
-        date: null,
     ),
 ];
 
@@ -50,21 +47,22 @@ require 'vendor/autoload.php';
 use Gsmservice\Gateway;
 use Gsmservice\Gateway\Models\Components;
 
-$security = '<YOUR API ACCESS TOKEN>';
-
-$sdk = Gateway\Client::builder()->setSecurity($security)->build();
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
 
 $request = [
     new Components\MmsMessage(
         recipients: [
             '+48999999999',
         ],
-        message: 'To jest treść wiadomości',
         attachments: [
             '<file_body in base64 format>',
         ],
         subject: 'To jest temat wiadomości',
-        date: null,
+        message: 'To jest treść wiadomości',
     ),
 ];
 

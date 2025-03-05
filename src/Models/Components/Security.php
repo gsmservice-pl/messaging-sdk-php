@@ -20,6 +20,7 @@ class Security
 
     /**
      * @param  ?string  $bearer
+     * @phpstan-pure
      */
     public function __construct(?string $bearer = null)
     {

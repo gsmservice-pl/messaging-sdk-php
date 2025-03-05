@@ -8,12 +8,18 @@ To check the price of a single message or messages with the same content to mult
 ### `Components\SmsMessage`
 
 ```php
+/**
+* @var Components\SmsMessage
+*/
 Components\SmsMessage $value = /* values here */
 ```
 
 ### `array`
 
 ```php
+/**
+* @var array<Components\SmsMessage>
+*/
 array $value = /* values here */
 ```
 

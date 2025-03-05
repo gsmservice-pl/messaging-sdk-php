@@ -23,9 +23,11 @@ require 'vendor/autoload.php';
 
 use Gsmservice\Gateway;
 
-$security = '<YOUR API ACCESS TOKEN>';
-
-$sdk = Gateway\Client::builder()->setSecurity($security)->build();
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
 
 
 
@@ -46,7 +48,8 @@ if ($response->accountResponse !== null) {
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 401, 403, 4XX, 5XX       | application/problem+json |
+| Errors\ErrorResponse     | 401, 403, 4XX            | application/problem+json |
+| Errors\ErrorResponse     | 5XX                      | application/problem+json |
 
 ## getSubaccount
 
@@ -65,9 +68,11 @@ require 'vendor/autoload.php';
 
 use Gsmservice\Gateway;
 
-$security = '<YOUR API ACCESS TOKEN>';
-
-$sdk = Gateway\Client::builder()->setSecurity($security)->build();
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
 
 
 
@@ -94,4 +99,5 @@ if ($response->accountResponse !== null) {
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 401, 403, 404, 4XX, 5XX  | application/problem+json |
+| Errors\ErrorResponse     | 401, 403, 404, 4XX       | application/problem+json |
+| Errors\ErrorResponse     | 5XX                      | application/problem+json |

@@ -68,12 +68,14 @@ class Client
      * @param  SDKConfiguration  $sdkConfiguration
      */
     public function __construct(
-        private SDKConfiguration $sdkConfiguration,
+        public SDKConfiguration $sdkConfiguration,
     ) {
         $this->accounts = new Accounts($this->sdkConfiguration);
         $this->outgoing = new Outgoing($this->sdkConfiguration);
         $this->incoming = new Incoming($this->sdkConfiguration);
         $this->common = new Common($this->sdkConfiguration);
         $this->senders = new Senders($this->sdkConfiguration);
+        $this->sdkConfiguration->client = $this->sdkConfiguration->initHooks($this->sdkConfiguration->client);
+
     }
 }

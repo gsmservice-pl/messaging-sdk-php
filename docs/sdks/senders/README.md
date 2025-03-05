@@ -5,50 +5,10 @@
 
 ### Available Operations
 
-* [list](#list) - List allowed senders names
 * [add](#add) - Add a new sender name
 * [delete](#delete) - Delete a sender name
+* [list](#list) - List allowed senders names
 * [setDefault](#setdefault) - Set default sender name
-
-## list
-
-Get a list of allowed senders defined in your account. The method doesn't get any parameters.
-
-As a successful result a `ListSendersResponse` object will be returned with an array of `Sender` as `$senders` property, each object per single sender.
-
-### Example Usage
-
-```php
-declare(strict_types=1);
-
-require 'vendor/autoload.php';
-
-use Gsmservice\Gateway;
-
-$security = '<YOUR API ACCESS TOKEN>';
-
-$sdk = Gateway\Client::builder()->setSecurity($security)->build();
-
-
-
-$response = $sdk->senders->list(
-
-);
-
-if ($response->senders !== null) {
-    // handle response
-}
-```
-
-### Response
-
-**[?Operations\ListSendersResponse](../../Models/Operations/ListSendersResponse.md)**
-
-### Errors
-
-| Error Type               | Status Code              | Content Type             |
-| ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 400, 401, 403, 4XX, 5XX  | application/problem+json |
 
 ## add
 
@@ -66,9 +26,11 @@ require 'vendor/autoload.php';
 use Gsmservice\Gateway;
 use Gsmservice\Gateway\Models\Components;
 
-$security = '<YOUR API ACCESS TOKEN>';
-
-$sdk = Gateway\Client::builder()->setSecurity($security)->build();
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
 
 $request = new Components\SenderInput(
     sender: 'Bramka SMS',
@@ -98,7 +60,8 @@ if ($response->sender !== null) {
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 400, 401, 403, 4XX, 5XX  | application/problem+json |
+| Errors\ErrorResponse     | 400, 401, 403, 4XX       | application/problem+json |
+| Errors\ErrorResponse     | 5XX                      | application/problem+json |
 
 ## delete
 
@@ -115,9 +78,11 @@ require 'vendor/autoload.php';
 
 use Gsmservice\Gateway;
 
-$security = '<YOUR API ACCESS TOKEN>';
-
-$sdk = Gateway\Client::builder()->setSecurity($security)->build();
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
 
 
 
@@ -142,9 +107,53 @@ if ($response->statusCode === 200) {
 
 ### Errors
 
-| Error Type                   | Status Code                  | Content Type                 |
-| ---------------------------- | ---------------------------- | ---------------------------- |
-| Errors\ErrorResponse         | 400, 401, 403, 404, 4XX, 5XX | application/problem+json     |
+| Error Type               | Status Code              | Content Type             |
+| ------------------------ | ------------------------ | ------------------------ |
+| Errors\ErrorResponse     | 400, 401, 403, 404, 4XX  | application/problem+json |
+| Errors\ErrorResponse     | 5XX                      | application/problem+json |
+
+## list
+
+Get a list of allowed senders defined in your account. The method doesn't get any parameters.
+
+As a successful result a `ListSendersResponse` object will be returned with an array of `Sender` as `$senders` property, each object per single sender.
+
+### Example Usage
+
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+
+
+$response = $sdk->senders->list(
+
+);
+
+if ($response->senders !== null) {
+    // handle response
+}
+```
+
+### Response
+
+**[?Operations\ListSendersResponse](../../Models/Operations/ListSendersResponse.md)**
+
+### Errors
+
+| Error Type               | Status Code              | Content Type             |
+| ------------------------ | ------------------------ | ------------------------ |
+| Errors\ErrorResponse     | 400, 401, 403, 4XX       | application/problem+json |
+| Errors\ErrorResponse     | 5XX                      | application/problem+json |
 
 ## setDefault
 
@@ -161,9 +170,11 @@ require 'vendor/autoload.php';
 
 use Gsmservice\Gateway;
 
-$security = '<YOUR API ACCESS TOKEN>';
-
-$sdk = Gateway\Client::builder()->setSecurity($security)->build();
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
 
 
 
@@ -190,5 +201,6 @@ if ($response->statusCode === 200) {
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 400, 401, 403, 4XX, 5XX  | application/problem+json |
 | Errors\ErrorResponse     | 404                      | application/json         |
+| Errors\ErrorResponse     | 400, 401, 403, 4XX       | application/problem+json |
+| Errors\ErrorResponse     | 5XX                      | application/problem+json |

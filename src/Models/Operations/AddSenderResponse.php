@@ -33,13 +33,6 @@ class AddSenderResponse
     public \Psr\Http\Message\ResponseInterface $rawResponse;
 
     /**
-     * The request was processed successfully (sender created)
-     *
-     * @var ?Components\Sender $sender
-     */
-    public ?Components\Sender $sender = null;
-
-    /**
      * $headers
      *
      * @var array<string, array<string>> $headers
@@ -47,11 +40,19 @@ class AddSenderResponse
     public array $headers;
 
     /**
+     * The request was processed successfully (sender created)
+     *
+     * @var ?Components\Sender $sender
+     */
+    public ?Components\Sender $sender = null;
+
+    /**
      * @param  string  $contentType
      * @param  int  $statusCode
      * @param  \Psr\Http\Message\ResponseInterface  $rawResponse
      * @param  array<string, array<string>>  $headers
      * @param  ?Components\Sender  $sender
+     * @phpstan-pure
      */
     public function __construct(string $contentType, int $statusCode, \Psr\Http\Message\ResponseInterface $rawResponse, ?Components\Sender $sender = null, ?array $headers = [])
     {

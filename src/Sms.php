@@ -8,9 +8,13 @@ declare(strict_types=1);
 
 namespace Gsmservice\Gateway;
 
+use Gsmservice\Gateway\Hooks\HookContext;
 use Gsmservice\Gateway\Models\Components;
 use Gsmservice\Gateway\Models\Operations;
-use JMS\Serializer\DeserializationContext;
+use Gsmservice\Gateway\Utils\Options;
+use Gsmservice\Gateway\Utils\Retry;
+use Gsmservice\Gateway\Utils\Retry\RetryUtils;
+use Speakeasy\Serializer\DeserializationContext;
 
 class Sms
 {
@@ -18,9 +22,29 @@ class Sms
     /**
      * @param  SDKConfiguration  $sdkConfig
      */
-    public function __construct(SDKConfiguration $sdkConfig)
+    public function __construct(public SDKConfiguration $sdkConfig)
     {
         $this->sdkConfiguration = $sdkConfig;
+    }
+    /**
+     * @param  string  $baseUrl
+     * @param  array<string, string>  $urlVariables
+     *
+     * @return string
+     */
+    public function getUrl(string $baseUrl, array $urlVariables): string
+    {
+        $serverDetails = $this->sdkConfiguration->getServerDetails();
+
+        if ($baseUrl == null) {
+            $baseUrl = $serverDetails->baseUrl;
+        }
+
+        if ($urlVariables == null) {
+            $urlVariables = $serverDetails->options;
+        }
+
+        return Utils\Utils::templateUrl($baseUrl, $urlVariables);
     }
 
     /**
@@ -37,29 +61,68 @@ class Sms
      * @return Operations\GetSmsPriceResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
-    public function getPrice(Components\SmsMessage|array $request): Operations\GetSmsPriceResponse
+    public function getPrice(Components\SmsMessage|array $request, ?Options $options = null): Operations\GetSmsPriceResponse
     {
+        $retryConfig = null;
+        if ($options) {
+            $retryConfig = $options->retryConfig;
+        }
+        if ($retryConfig === null && $this->sdkConfiguration->retryConfig) {
+            $retryConfig = $this->sdkConfiguration->retryConfig;
+        } else {
+            $retryConfig = new Retry\RetryConfigBackoff(
+                initialIntervalMs: 500,
+                maxIntervalMs: 60000,
+                exponent: 1.5,
+                maxElapsedTimeMs: 3600000,
+                retryConnectionErrors: true,
+            );
+        }
+        $retryCodes = null;
+        if ($options) {
+            $retryCodes = $options->retryCodes;
+        }
+        if ($retryCodes === null) {
+            $retryCodes = [
+                '5XX',
+            ];
+        }
         $baseUrl = $this->sdkConfiguration->getServerUrl();
         $url = Utils\Utils::generateUrl($baseUrl, '/messages/sms/price');
-        $options = ['http_errors' => false];
+        $urlOverride = null;
+        $httpOptions = ['http_errors' => false];
         $body = Utils\Utils::serializeRequestBody($request, 'request', 'json');
         if ($body === null) {
             throw new \Exception('Request body is required');
         }
-        $options = array_merge_recursive($options, $body);
-        $options['headers']['Accept'] = 'application/json';
-        $options['headers']['user-agent'] = $this->sdkConfiguration->userAgent;
+        $httpOptions = array_merge_recursive($httpOptions, $body);
+        $httpOptions['headers']['Accept'] = 'application/json';
+        $httpOptions['headers']['user-agent'] = $this->sdkConfiguration->userAgent;
         $httpRequest = new \GuzzleHttp\Psr7\Request('POST', $url);
-
-
-        $httpResponse = $this->sdkConfiguration->securityClient->send($httpRequest, $options);
+        $hookContext = new HookContext('getSmsPrice', null, $this->sdkConfiguration->securitySource);
+        $httpRequest = $this->sdkConfiguration->hooks->beforeRequest(new Hooks\BeforeRequestContext($hookContext), $httpRequest);
+        $httpOptions = Utils\Utils::convertHeadersToOptions($httpRequest, $httpOptions);
+        $httpRequest = Utils\Utils::removeHeaders($httpRequest);
+        try {
+            $httpResponse = RetryUtils::retryWrapper(fn () => $this->sdkConfiguration->client->send($httpRequest, $httpOptions), $retryConfig, $retryCodes);
+        } catch (\GuzzleHttp\Exception\GuzzleException $error) {
+            $res = $this->sdkConfiguration->hooks->afterError(new Hooks\AfterErrorContext($hookContext), null, $error);
+            $httpResponse = $res;
+        }
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 
         $statusCode = $httpResponse->getStatusCode();
-        if ($statusCode == 200) {
+        if (Utils\Utils::matchStatusCodes($statusCode, ['400', '401', '4XX', '5XX'])) {
+            $res = $this->sdkConfiguration->hooks->afterError(new Hooks\AfterErrorContext($hookContext), $httpResponse, null);
+            $httpResponse = $res;
+        }
+        if (Utils\Utils::matchStatusCodes($statusCode, ['200'])) {
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $httpResponse = $this->sdkConfiguration->hooks->afterSuccess(new Hooks\AfterSuccessContext($hookContext), $httpResponse);
+
                 $serializer = Utils\JSON::createSerializer();
-                $obj = $serializer->deserialize((string) $httpResponse->getBody(), 'array<\Gsmservice\Gateway\Models\Components\Price>', 'json', DeserializationContext::create()->setRequireAllRequiredProperties(true));
+                $responseData = (string) $httpResponse->getBody();
+                $obj = $serializer->deserialize($responseData, 'array<\Gsmservice\Gateway\Models\Components\Price>', 'json', DeserializationContext::create()->setRequireAllRequiredProperties(true));
                 $response = new Operations\GetSmsPriceResponse(
                     statusCode: $statusCode,
                     contentType: $contentType,
@@ -71,10 +134,24 @@ class Sms
             } else {
                 throw new \Gsmservice\Gateway\Models\Errors\SDKException('Unknown content type received', $statusCode, $httpResponse->getBody()->getContents(), $httpResponse);
             }
-        } elseif ($statusCode == 400 || $statusCode == 401 || $statusCode >= 400 && $statusCode < 500 || $statusCode >= 500 && $statusCode < 600) {
+        } elseif (Utils\Utils::matchStatusCodes($statusCode, ['400', '401', '4XX'])) {
             if (Utils\Utils::matchContentType($contentType, 'application/problem+json')) {
+                $httpResponse = $this->sdkConfiguration->hooks->afterSuccess(new Hooks\AfterSuccessContext($hookContext), $httpResponse);
+
                 $serializer = Utils\JSON::createSerializer();
-                $obj = $serializer->deserialize((string) $httpResponse->getBody(), '\Gsmservice\Gateway\Models\Errors\ErrorResponse', 'json', DeserializationContext::create()->setRequireAllRequiredProperties(true));
+                $responseData = (string) $httpResponse->getBody();
+                $obj = $serializer->deserialize($responseData, '\Gsmservice\Gateway\Models\Errors\ErrorResponse', 'json', DeserializationContext::create()->setRequireAllRequiredProperties(true));
+                throw $obj->toException();
+            } else {
+                throw new \Gsmservice\Gateway\Models\Errors\SDKException('Unknown content type received', $statusCode, $httpResponse->getBody()->getContents(), $httpResponse);
+            }
+        } elseif (Utils\Utils::matchStatusCodes($statusCode, ['5XX'])) {
+            if (Utils\Utils::matchContentType($contentType, 'application/problem+json')) {
+                $httpResponse = $this->sdkConfiguration->hooks->afterSuccess(new Hooks\AfterSuccessContext($hookContext), $httpResponse);
+
+                $serializer = Utils\JSON::createSerializer();
+                $responseData = (string) $httpResponse->getBody();
+                $obj = $serializer->deserialize($responseData, '\Gsmservice\Gateway\Models\Errors\ErrorResponse', 'json', DeserializationContext::create()->setRequireAllRequiredProperties(true));
                 throw $obj->toException();
             } else {
                 throw new \Gsmservice\Gateway\Models\Errors\SDKException('Unknown content type received', $statusCode, $httpResponse->getBody()->getContents(), $httpResponse);
@@ -97,29 +174,68 @@ class Sms
      * @return Operations\SendSmsResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
-    public function send(Components\SmsMessage|array $request): Operations\SendSmsResponse
+    public function send(Components\SmsMessage|array $request, ?Options $options = null): Operations\SendSmsResponse
     {
+        $retryConfig = null;
+        if ($options) {
+            $retryConfig = $options->retryConfig;
+        }
+        if ($retryConfig === null && $this->sdkConfiguration->retryConfig) {
+            $retryConfig = $this->sdkConfiguration->retryConfig;
+        } else {
+            $retryConfig = new Retry\RetryConfigBackoff(
+                initialIntervalMs: 500,
+                maxIntervalMs: 60000,
+                exponent: 1.5,
+                maxElapsedTimeMs: 3600000,
+                retryConnectionErrors: true,
+            );
+        }
+        $retryCodes = null;
+        if ($options) {
+            $retryCodes = $options->retryCodes;
+        }
+        if ($retryCodes === null) {
+            $retryCodes = [
+                '5XX',
+            ];
+        }
         $baseUrl = $this->sdkConfiguration->getServerUrl();
         $url = Utils\Utils::generateUrl($baseUrl, '/messages/sms');
-        $options = ['http_errors' => false];
+        $urlOverride = null;
+        $httpOptions = ['http_errors' => false];
         $body = Utils\Utils::serializeRequestBody($request, 'request', 'json');
         if ($body === null) {
             throw new \Exception('Request body is required');
         }
-        $options = array_merge_recursive($options, $body);
-        $options['headers']['Accept'] = 'application/json';
-        $options['headers']['user-agent'] = $this->sdkConfiguration->userAgent;
+        $httpOptions = array_merge_recursive($httpOptions, $body);
+        $httpOptions['headers']['Accept'] = 'application/json';
+        $httpOptions['headers']['user-agent'] = $this->sdkConfiguration->userAgent;
         $httpRequest = new \GuzzleHttp\Psr7\Request('POST', $url);
-
-
-        $httpResponse = $this->sdkConfiguration->securityClient->send($httpRequest, $options);
+        $hookContext = new HookContext('sendSms', null, $this->sdkConfiguration->securitySource);
+        $httpRequest = $this->sdkConfiguration->hooks->beforeRequest(new Hooks\BeforeRequestContext($hookContext), $httpRequest);
+        $httpOptions = Utils\Utils::convertHeadersToOptions($httpRequest, $httpOptions);
+        $httpRequest = Utils\Utils::removeHeaders($httpRequest);
+        try {
+            $httpResponse = RetryUtils::retryWrapper(fn () => $this->sdkConfiguration->client->send($httpRequest, $httpOptions), $retryConfig, $retryCodes);
+        } catch (\GuzzleHttp\Exception\GuzzleException $error) {
+            $res = $this->sdkConfiguration->hooks->afterError(new Hooks\AfterErrorContext($hookContext), null, $error);
+            $httpResponse = $res;
+        }
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 
         $statusCode = $httpResponse->getStatusCode();
-        if ($statusCode == 200) {
+        if (Utils\Utils::matchStatusCodes($statusCode, ['400', '401', '403', '4XX', '5XX'])) {
+            $res = $this->sdkConfiguration->hooks->afterError(new Hooks\AfterErrorContext($hookContext), $httpResponse, null);
+            $httpResponse = $res;
+        }
+        if (Utils\Utils::matchStatusCodes($statusCode, ['200'])) {
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $httpResponse = $this->sdkConfiguration->hooks->afterSuccess(new Hooks\AfterSuccessContext($hookContext), $httpResponse);
+
                 $serializer = Utils\JSON::createSerializer();
-                $obj = $serializer->deserialize((string) $httpResponse->getBody(), 'array<\Gsmservice\Gateway\Models\Components\Message>', 'json', DeserializationContext::create()->setRequireAllRequiredProperties(true));
+                $responseData = (string) $httpResponse->getBody();
+                $obj = $serializer->deserialize($responseData, 'array<\Gsmservice\Gateway\Models\Components\Message>', 'json', DeserializationContext::create()->setRequireAllRequiredProperties(true));
                 $response = new Operations\SendSmsResponse(
                     statusCode: $statusCode,
                     contentType: $contentType,
@@ -131,10 +247,24 @@ class Sms
             } else {
                 throw new \Gsmservice\Gateway\Models\Errors\SDKException('Unknown content type received', $statusCode, $httpResponse->getBody()->getContents(), $httpResponse);
             }
-        } elseif ($statusCode == 400 || $statusCode == 401 || $statusCode == 403 || $statusCode >= 400 && $statusCode < 500 || $statusCode >= 500 && $statusCode < 600) {
+        } elseif (Utils\Utils::matchStatusCodes($statusCode, ['400', '401', '403', '4XX'])) {
             if (Utils\Utils::matchContentType($contentType, 'application/problem+json')) {
+                $httpResponse = $this->sdkConfiguration->hooks->afterSuccess(new Hooks\AfterSuccessContext($hookContext), $httpResponse);
+
                 $serializer = Utils\JSON::createSerializer();
-                $obj = $serializer->deserialize((string) $httpResponse->getBody(), '\Gsmservice\Gateway\Models\Errors\ErrorResponse', 'json', DeserializationContext::create()->setRequireAllRequiredProperties(true));
+                $responseData = (string) $httpResponse->getBody();
+                $obj = $serializer->deserialize($responseData, '\Gsmservice\Gateway\Models\Errors\ErrorResponse', 'json', DeserializationContext::create()->setRequireAllRequiredProperties(true));
+                throw $obj->toException();
+            } else {
+                throw new \Gsmservice\Gateway\Models\Errors\SDKException('Unknown content type received', $statusCode, $httpResponse->getBody()->getContents(), $httpResponse);
+            }
+        } elseif (Utils\Utils::matchStatusCodes($statusCode, ['5XX'])) {
+            if (Utils\Utils::matchContentType($contentType, 'application/problem+json')) {
+                $httpResponse = $this->sdkConfiguration->hooks->afterSuccess(new Hooks\AfterSuccessContext($hookContext), $httpResponse);
+
+                $serializer = Utils\JSON::createSerializer();
+                $responseData = (string) $httpResponse->getBody();
+                $obj = $serializer->deserialize($responseData, '\Gsmservice\Gateway\Models\Errors\ErrorResponse', 'json', DeserializationContext::create()->setRequireAllRequiredProperties(true));
                 throw $obj->toException();
             } else {
                 throw new \Gsmservice\Gateway\Models\Errors\SDKException('Unknown content type received', $statusCode, $httpResponse->getBody()->getContents(), $httpResponse);

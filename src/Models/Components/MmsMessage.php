@@ -17,17 +17,27 @@ class MmsMessage
      *
      * @var string|array<string>|PhoneNumberWithCid|array<PhoneNumberWithCid> $recipients
      */
-    #[\JMS\Serializer\Annotation\SerializedName('recipients')]
-    #[\JMS\Serializer\Annotation\Type('string|array<string>|\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid|array<\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid>')]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('recipients')]
+    #[\Speakeasy\Serializer\Annotation\Type('string|array<string>|\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid|array<\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid>')]
     public string|array|PhoneNumberWithCid $recipients;
+
+    /**
+     * Attachments for the message. You can pass here images, audio and video files bodies. To set one attachment please pass a `string` with attachment body encoded by `base64_encode()` function. To set multiple attachments - pass an `array` of `strings` with attachment bodies encoded by `base64_encode()` function. Max 3 attachments per message.
+     *
+     * @var string|array<string>|null $attachments
+     */
+    #[\Speakeasy\Serializer\Annotation\SerializedName('attachments')]
+    #[\Speakeasy\Serializer\Annotation\Type('string|array<string>|null')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
+    public string|array|null $attachments = null;
 
     /**
      * MMS message subject
      *
      * @var ?string $subject
      */
-    #[\JMS\Serializer\Annotation\SerializedName('subject')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('subject')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $subject = null;
 
     /**
@@ -35,41 +45,33 @@ class MmsMessage
      *
      * @var ?string $message
      */
-    #[\JMS\Serializer\Annotation\SerializedName('message')]
-    public ?string $message;
-
-    /**
-     * Attachments for the message. You can pass here images, audio and video files bodies. To set one attachment please pass a `string` with attachment body encoded by `base64_encode()` function. To set multiple attachments - pass an `array` of `strings` with attachment bodies encoded by `base64_encode()` function. Max 3 attachments per message.
-     *
-     * @var string|array<string>|null $attachments
-     */
-    #[\JMS\Serializer\Annotation\SerializedName('attachments')]
-    #[\JMS\Serializer\Annotation\Type('string|array<string>')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
-    public string|array|null $attachments = null;
+    #[\Speakeasy\Serializer\Annotation\SerializedName('message')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
+    public ?string $message = null;
 
     /**
      * Scheduled future date and time of sending the message (in ISO 8601 format). If missing or null - message will be sent immediately
      *
      * @var ?\DateTime $date
      */
-    #[\JMS\Serializer\Annotation\SerializedName('date')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('date')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?\DateTime $date = null;
 
     /**
      * @param  string|array<string>|PhoneNumberWithCid|array<PhoneNumberWithCid>  $recipients
-     * @param  ?string  $message
      * @param  string|array<string>|null  $attachments
      * @param  ?string  $subject
+     * @param  ?string  $message
      * @param  ?\DateTime  $date
+     * @phpstan-pure
      */
-    public function __construct(string|array|PhoneNumberWithCid $recipients, ?string $message = null, string|array|null $attachments = null, ?string $subject = null, ?\DateTime $date = null)
+    public function __construct(string|array|PhoneNumberWithCid $recipients, string|array|null $attachments = null, ?string $subject = null, ?string $message = null, ?\DateTime $date = null)
     {
         $this->recipients = $recipients;
-        $this->message = $message;
         $this->attachments = $attachments;
         $this->subject = $subject;
+        $this->message = $message;
         $this->date = $date;
     }
 }

@@ -17,8 +17,8 @@ class PingResponse
      *
      * @var ?string $status
      */
-    #[\JMS\Serializer\Annotation\SerializedName('status')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('status')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $status = null;
 
     /**
@@ -26,8 +26,8 @@ class PingResponse
      *
      * @var ?string $version
      */
-    #[\JMS\Serializer\Annotation\SerializedName('version')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('version')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $version = null;
 
     /**
@@ -35,14 +35,15 @@ class PingResponse
      *
      * @var ?bool $sandbox
      */
-    #[\JMS\Serializer\Annotation\SerializedName('sandbox')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('sandbox')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?bool $sandbox = null;
 
     /**
      * @param  ?string  $status
      * @param  ?string  $version
      * @param  ?bool  $sandbox
+     * @phpstan-pure
      */
     public function __construct(?string $status = null, ?string $version = null, ?bool $sandbox = null)
     {

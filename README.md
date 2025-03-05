@@ -15,12 +15,21 @@ Also you can refer to the [REST API documentation](https://api.gsmservice.pl/res
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
+<!-- $toc-max-depth=2 -->
+* [GSMService.pl Messaging REST API SDK for PHP](#gsmservicepl-messaging-rest-api-sdk-for-php)
+  * [Additional documentation:](#additional-documentation)
+  * [SDK Installation](#sdk-installation)
+  * [Requeirements:](#requeirements)
+  * [SDK Example Usage](#sdk-example-usage)
+  * [Authentication](#authentication)
+  * [Available Resources and Operations](#available-resources-and-operations)
+  * [Retries](#retries)
+  * [Error Handling](#error-handling)
+  * [Server Selection](#server-selection)
+* [Development](#development)
+  * [Maturity](#maturity)
+  * [Contributions](#contributions)
 
-* [SDK Installation](#sdk-installation)
-* [SDK Example Usage](#sdk-example-usage)
-* [Available Resources and Operations](#available-resources-and-operations)
-* [Error Handling](#error-handling)
-* [Server Selection](#server-selection)
 <!-- End Table of Contents [toc] -->
 
 <!-- Start SDK Installation [installation] -->
@@ -50,9 +59,11 @@ require 'vendor/autoload.php';
 use Gsmservice\Gateway;
 use Gsmservice\Gateway\Models\Components;
 
-$security = '<YOUR API ACCESS TOKEN>';
-
-$sdk = Gateway\Client::builder()->setSecurity($security)->build();
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
 
 $request = [
     new Components\SmsMessage(
@@ -60,11 +71,6 @@ $request = [
             '+48999999999',
         ],
         message: 'To jest treść wiadomości',
-        sender: 'Bramka SMS',
-        type: Components\SmsType::SmsPro,
-        unicode: true,
-        flash: false,
-        date: null,
     ),
 ];
 
@@ -89,21 +95,22 @@ require 'vendor/autoload.php';
 use Gsmservice\Gateway;
 use Gsmservice\Gateway\Models\Components;
 
-$security = '<YOUR API ACCESS TOKEN>';
-
-$sdk = Gateway\Client::builder()->setSecurity($security)->build();
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
 
 $request = [
     new Components\MmsMessage(
         recipients: [
             '+48999999999',
         ],
-        message: 'To jest treść wiadomości',
         attachments: [
             '<file_body in base64 format>',
         ],
         subject: 'To jest temat wiadomości',
-        date: null,
+        message: 'To jest treść wiadomości',
     ),
 ];
 
@@ -116,6 +123,43 @@ if ($response->messages !== null) {
 }
 ```
 <!-- End SDK Example Usage [usage] -->
+
+<!-- Start Authentication [security] -->
+## Authentication
+
+### Per-Client Security Schemes
+
+This SDK supports the following security scheme globally:
+
+| Name     | Type | Scheme      |
+| -------- | ---- | ----------- |
+| `bearer` | http | HTTP Bearer |
+
+To authenticate with the API the `bearer` parameter must be set when initializing the SDK. For example:
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+
+
+$response = $sdk->accounts->get(
+
+);
+
+if ($response->accountResponse !== null) {
+    // handle response
+}
+```
+<!-- End Authentication [security] -->
 
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
@@ -135,13 +179,13 @@ if ($response->messages !== null) {
 
 ### [incoming](docs/sdks/incoming/README.md)
 
-* [list](docs/sdks/incoming/README.md#list) - List the received SMS messages
 * [getByIds](docs/sdks/incoming/README.md#getbyids) - Get the incoming messages by IDs
+* [list](docs/sdks/incoming/README.md#list) - List the received SMS messages
 
 ### [outgoing](docs/sdks/outgoing/README.md)
 
-* [getByIds](docs/sdks/outgoing/README.md#getbyids) - Get the messages details and status by IDs
 * [cancelScheduled](docs/sdks/outgoing/README.md#cancelscheduled) - Cancel a scheduled messages
+* [getByIds](docs/sdks/outgoing/README.md#getbyids) - Get the messages details and status by IDs
 * [list](docs/sdks/outgoing/README.md#list) - Lists the history of sent messages
 
 #### [outgoing->mms](docs/sdks/mms/README.md)
@@ -156,13 +200,87 @@ if ($response->messages !== null) {
 
 ### [senders](docs/sdks/senders/README.md)
 
-* [list](docs/sdks/senders/README.md#list) - List allowed senders names
 * [add](docs/sdks/senders/README.md#add) - Add a new sender name
 * [delete](docs/sdks/senders/README.md#delete) - Delete a sender name
+* [list](docs/sdks/senders/README.md#list) - List allowed senders names
 * [setDefault](docs/sdks/senders/README.md#setdefault) - Set default sender name
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
+
+<!-- Start Retries [retries] -->
+## Retries
+
+Some of the endpoints in this SDK support retries. If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API. However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
+
+To change the default retry strategy for a single API call, simply provide an `Options` object built with a `RetryConfig` object to the call:
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Utils\Retry;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+
+
+$response = $sdk->accounts->get(
+    options: Utils\Options->builder()->setRetryConfig(
+        new Retry\RetryConfigBackoff(
+            initialInterval: 1,
+            maxInterval:     50,
+            exponent:        1.1,
+            maxElapsedTime:  100,
+            retryConnectionErrors: false,
+        ))->build()
+);
+
+if ($response->accountResponse !== null) {
+    // handle response
+}
+```
+
+If you'd like to override the default retry strategy for all operations that support retries, you can pass a `RetryConfig` object to the `SDKBuilder->setRetryConfig` function when initializing the SDK:
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Utils\Retry;
+
+$sdk = Gateway\Client::builder()
+    ->setRetryConfig(
+        new Retry\RetryConfigBackoff(
+            initialInterval: 1,
+            maxInterval:     50,
+            exponent:        1.1,
+            maxElapsedTime:  100,
+            retryConnectionErrors: false,
+        )
+  )
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+
+
+$response = $sdk->accounts->get(
+
+);
+
+if ($response->accountResponse !== null) {
+    // handle response
+}
+```
+<!-- End Retries [retries] -->
 
 <!-- Start Error Handling [errors] -->
 ## Error Handling
@@ -180,9 +298,10 @@ By default an API error will raise a `Errors\SDKException` exception, which has 
 
 When custom error responses are specified for an operation, the SDK may also throw their associated exception. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `get` method throws the following exceptions:
 
-| Error Type               | Status Code              | Content Type             |
-| ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 401, 403, 4XX, 5XX       | application/problem+json |
+| Error Type           | Status Code   | Content Type             |
+| -------------------- | ------------- | ------------------------ |
+| Errors\ErrorResponse | 401, 403, 4XX | application/problem+json |
+| Errors\ErrorResponse | 5XX           | application/problem+json |
 
 ### Example
 
@@ -192,10 +311,13 @@ declare(strict_types=1);
 require 'vendor/autoload.php';
 
 use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Errors;
 
-$security = '<YOUR API ACCESS TOKEN>';
-
-$sdk = Gateway\Client::builder()->setSecurity($security)->build();
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
 
 try {
     $response = $sdk->accounts->get(
@@ -205,6 +327,9 @@ try {
     if ($response->accountResponse !== null) {
         // handle response
     }
+} catch (Errors\ErrorResponseThrowable $e) {
+    // handle $e->$container data
+    throw $e;
 } catch (Errors\ErrorResponseThrowable $e) {
     // handle $e->$container data
     throw $e;
@@ -218,22 +343,69 @@ try {
 <!-- Start Server Selection [server] -->
 ## Server Selection
 
-## Server Selection
-
 ### Select Server by Name
 
-You can override the default server globally by passing a server name to the `server: str` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the names associated with the available servers:
+You can override the default server globally using the `setServer(string $serverName)` builder method when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the names associated with the available servers:
 
-| Name | Server | Variables |
-| ----- | ------ | --------- |
-| `prod` | `https://api.gsmservice.pl/rest` | None |
-| `sandbox` | `https://api.gsmservice.pl/rest-sandbox` | None |
+| Name      | Server                                   | Description           |
+| --------- | ---------------------------------------- | --------------------- |
+| `prod`    | `https://api.gsmservice.pl/rest`         | Production system     |
+| `sandbox` | `https://api.gsmservice.pl/rest-sandbox` | Test system (SANDBOX) |
+
+#### Example
+
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+
+$sdk = Gateway\Client::builder()
+    ->setServer('sandbox')
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
 
 
+
+$response = $sdk->accounts->get(
+
+);
+
+if ($response->accountResponse !== null) {
+    // handle response
+}
+```
 
 ### Override Server URL Per-Client
 
-The default server can also be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
+The default server can also be overridden globally using the `setServerUrl(string $serverUrl)` builder method when initializing the SDK client instance. For example:
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+
+$sdk = Gateway\Client::builder()
+    ->setServerURL('https://api.gsmservice.pl/rest')
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+
+
+$response = $sdk->accounts->get(
+
+);
+
+if ($response->accountResponse !== null) {
+    // handle response
+}
+```
 <!-- End Server Selection [server] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->

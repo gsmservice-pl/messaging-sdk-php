@@ -17,8 +17,8 @@ class IncomingMessage
      *
      * @var ?int $id
      */
-    #[\JMS\Serializer\Annotation\SerializedName('id')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('id')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?int $id = null;
 
     /**
@@ -26,8 +26,8 @@ class IncomingMessage
      *
      * @var ?string $login
      */
-    #[\JMS\Serializer\Annotation\SerializedName('login')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('login')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $login = null;
 
     /**
@@ -35,8 +35,8 @@ class IncomingMessage
      *
      * @var ?string $recipient
      */
-    #[\JMS\Serializer\Annotation\SerializedName('recipient')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('recipient')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $recipient = null;
 
     /**
@@ -44,26 +44,17 @@ class IncomingMessage
      *
      * @var ?string $sender
      */
-    #[\JMS\Serializer\Annotation\SerializedName('sender')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('sender')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $sender = null;
-
-    /**
-     * Sender name (matched with phonebook)
-     *
-     * @var ?string $phonebookSenderName
-     */
-    #[\JMS\Serializer\Annotation\SerializedName('phonebook_sender_name')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
-    public ?string $phonebookSenderName = null;
 
     /**
      * Date and time of message receipt in ISO 8601 format
      *
      * @var ?\DateTime $date
      */
-    #[\JMS\Serializer\Annotation\SerializedName('date')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('date')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?\DateTime $date = null;
 
     /**
@@ -71,17 +62,26 @@ class IncomingMessage
      *
      * @var ?string $message
      */
-    #[\JMS\Serializer\Annotation\SerializedName('message')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('message')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $message = null;
+
+    /**
+     * Sender name (matched with phonebook)
+     *
+     * @var ?string $phonebookSenderName
+     */
+    #[\Speakeasy\Serializer\Annotation\SerializedName('phonebook_sender_name')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
+    public ?string $phonebookSenderName = null;
 
     /**
      * Dedicated Mobile Originated service number (if the message was received on this number)
      *
      * @var ?string $dedicatedNumber
      */
-    #[\JMS\Serializer\Annotation\SerializedName('dedicated_number')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('dedicated_number')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $dedicatedNumber = null;
 
     /**
@@ -89,8 +89,8 @@ class IncomingMessage
      *
      * @var ?string $dedicatedPrefix
      */
-    #[\JMS\Serializer\Annotation\SerializedName('dedicated_prefix')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('dedicated_prefix')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $dedicatedPrefix = null;
 
     /**
@@ -103,6 +103,7 @@ class IncomingMessage
      * @param  ?string  $phonebookSenderName
      * @param  ?string  $dedicatedNumber
      * @param  ?string  $dedicatedPrefix
+     * @phpstan-pure
      */
     public function __construct(?int $id = null, ?string $login = null, ?string $recipient = null, ?string $sender = null, ?\DateTime $date = null, ?string $message = null, ?string $phonebookSenderName = null, ?string $dedicatedNumber = null, ?string $dedicatedPrefix = null)
     {

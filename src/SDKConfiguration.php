@@ -7,31 +7,35 @@
 declare(strict_types=1);
 
 namespace Gsmservice\Gateway;
+use Gsmservice\Gateway\Utils\Retry\RetryConfig;
 
 class SDKConfiguration
 {
-    public ?\GuzzleHttp\ClientInterface $defaultClient = null;
+    public ?\GuzzleHttp\ClientInterface $client = null;
 
-    public ?\GuzzleHttp\ClientInterface $securityClient = null;
-
-    public ?Models\Components\Security $security = null;
-
-    /** @var pure-Closure(): string */
+    public Hooks\SDKHooks $hooks;
+    /** @var ?pure-Closure(): Models\Components\Security */
     public ?\Closure $securitySource = null;
-
     public string $serverUrl = '';
 
     public string $server = '';
 
     public string $language = 'php';
 
-    public string $openapiDocVersion = '1.1.2';
+    public string $openapiDocVersion = '1.2.1';
 
-    public string $sdkVersion = '2.1.5';
+    public string $sdkVersion = '2.5.16';
 
-    public string $genVersion = '2.438.15';
+    public string $genVersion = '2.539.1';
 
-    public string $userAgent = 'speakeasy-sdk/php 2.1.5 2.438.15 1.1.2 gsmservice-pl/messaging-sdk-php';
+    public string $userAgent = 'speakeasy-sdk/php 2.5.16 2.539.1 1.2.1 gsmservice-pl/messaging-sdk-php';
+
+    public ?RetryConfig $retryConfig = null;
+
+    public function __construct()
+    {
+        $this->hooks = new Hooks\SDKHooks();
+    }
 
     public function getServerUrl(): string
     {
@@ -48,19 +52,44 @@ class SDKConfiguration
     }
     public function hasSecurity(): bool
     {
-        return $this->security !== null || $this->securitySource !== null;
+        return $this->securitySource !== null;
     }
 
     public function getSecurity(): ?Models\Components\Security
     {
-        if ($this->securitySource !== null) {
-            $security = new Models\Components\Security(
-                bearer: $this->securitySource->call($this)
-            );
+        return $this->securitySource->call($this);
+    }
 
-            return $security;
-        } else {
-            return $this->security;
+    /**
+     * @return Utils\ServerDetails
+     */
+    public function getServerDetails(): Utils\ServerDetails
+    {
+        if ($this->serverUrl !== '') {
+            return new Utils\ServerDetails(rtrim($this->serverUrl, '/'), []);
         }
+
+        return new Utils\ServerDetails(Client::SERVERS[$this->server], []);
+
+    }
+
+    public function getTemplatedServerUrl(): string
+    {
+        if ($this->serverUrl) {
+            return Utils\Utils::templateUrl($this->serverUrl.trim('/'), []);
+        }
+
+        return Utils\Utils::templateUrl($this->getServerUrl(), []);
+    }
+
+    public function initHooks(\GuzzleHttp\ClientInterface $client): \GuzzleHttp\ClientInterface
+    {
+        $preHooksUrl = $this->getTemplatedServerUrl();
+        $ret = $this->hooks->sdkInit($preHooksUrl, $client);
+        if ($preHooksUrl != $ret->url) {
+            $this->serverUrl = $ret->url;
+        }
+
+        return $ret->client;
     }
 }

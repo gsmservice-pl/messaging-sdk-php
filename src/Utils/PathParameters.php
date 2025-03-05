@@ -15,10 +15,10 @@ class PathParameters
     /**
      * @param  string  $type
      * @param  mixed  $pathParams
-     * @param  array<string,array<string,array<string,string>>>  $globals
+     * @param  array<string,array<string,array<string,string>>>|null  $globals
      * @return array<string,string>
      */
-    public function parsePathParams(string $type, mixed $pathParams, array $globals): array
+    public function parsePathParams(string $type, mixed $pathParams, ?array $globals): array
     {
         $parsed = [];
 
@@ -71,6 +71,10 @@ class PathParameters
             case 'object':
                 $vals = [];
 
+                if ($value instanceof \Brick\Math\BigDecimal || $value instanceof \Brick\Math\BigInteger || $value instanceof \Brick\DateTime\LocalDate || $value instanceof \DateTime || $value instanceof \UnitEnum) {
+                    $pathParams[$metadata->name] = valToString($value, $metadata->encodingArray());
+                    break;
+                }
                 foreach ($value as $field => $fieldValue) { /** @phpstan-ignore-line */
                     if ($fieldValue === null) {
                         continue;
@@ -82,9 +86,9 @@ class PathParameters
                     }
 
                     if ($metadata->explode) {
-                        $vals[] = sprintf('%s=%s', $fieldMetadata->name, valToString($fieldValue, ['dateTimeFormat' => $fieldMetadata->dateTimeFormat]));
+                        $vals[] = sprintf('%s=%s', $fieldMetadata->name, valToString($fieldValue, $fieldMetadata->encodingArray()));
                     } else {
-                        $vals[] = sprintf('%s,%s', $fieldMetadata->name, valToString($fieldValue, ['dateTimeFormat' => $fieldMetadata->dateTimeFormat]));
+                        $vals[] = sprintf('%s,%s', $fieldMetadata->name, valToString($fieldValue, $fieldMetadata->encodingArray()));
                     }
                 }
 

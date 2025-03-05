@@ -44,6 +44,7 @@ class PingResponse
      * @param  int  $statusCode
      * @param  \Psr\Http\Message\ResponseInterface  $rawResponse
      * @param  ?Components\PingResponse  $pingResponse
+     * @phpstan-pure
      */
     public function __construct(string $contentType, int $statusCode, \Psr\Http\Message\ResponseInterface $rawResponse, ?Components\PingResponse $pingResponse = null)
     {

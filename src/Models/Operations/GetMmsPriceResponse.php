@@ -33,13 +33,6 @@ class GetMmsPriceResponse
     public \Psr\Http\Message\ResponseInterface $rawResponse;
 
     /**
-     * The request was processed successfully. Please check the price and the details of particular messages in `$prices`
-     *
-     * @var ?array<Components\Price> $prices
-     */
-    public ?array $prices = null;
-
-    /**
      * $headers
      *
      * @var array<string, array<string>> $headers
@@ -47,11 +40,19 @@ class GetMmsPriceResponse
     public array $headers;
 
     /**
+     * The request was processed successfully. Please check the price and the details of particular messages in `$prices`
+     *
+     * @var ?array<Components\Price> $prices
+     */
+    public ?array $prices = null;
+
+    /**
      * @param  string  $contentType
      * @param  int  $statusCode
      * @param  \Psr\Http\Message\ResponseInterface  $rawResponse
      * @param  array<string, array<string>>  $headers
      * @param  ?array<Components\Price>  $prices
+     * @phpstan-pure
      */
     public function __construct(string $contentType, int $statusCode, \Psr\Http\Message\ResponseInterface $rawResponse, ?array $prices = null, ?array $headers = [])
     {

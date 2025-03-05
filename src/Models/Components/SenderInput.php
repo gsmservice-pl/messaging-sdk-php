@@ -17,7 +17,7 @@ class SenderInput
      *
      * @var string $sender
      */
-    #[\JMS\Serializer\Annotation\SerializedName('sender')]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('sender')]
     public string $sender;
 
     /**
@@ -25,12 +25,13 @@ class SenderInput
      *
      * @var string $description
      */
-    #[\JMS\Serializer\Annotation\SerializedName('description')]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('description')]
     public string $description;
 
     /**
      * @param  string  $sender
      * @param  string  $description
+     * @phpstan-pure
      */
     public function __construct(string $sender, string $description)
     {

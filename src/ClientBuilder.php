@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Gsmservice\Gateway;
 
+use Gsmservice\Gateway\Utils\Retry;
+
 /**
  * ClientBuilder is used to configure and build an instance of the SDK.
  */
@@ -26,7 +28,7 @@ class ClientBuilder
      */
     public function setClient(\GuzzleHttp\ClientInterface $client): ClientBuilder
     {
-        $this->sdkConfig->defaultClient = $client;
+        $this->sdkConfig->client = $client;
 
         return $this;
     }
@@ -42,7 +44,7 @@ class ClientBuilder
         $security = new Models\Components\Security(
             bearer: $bearer
         );
-        $this->sdkConfig->security = $security;
+        $this->sdkConfig->securitySource = fn () => $security;
 
         return $this;
     }
@@ -56,7 +58,7 @@ class ClientBuilder
      */
     public function setSecuritySource(\Closure $securitySource): ClientBuilder
     {
-        $this->sdkConfig->securitySource = $securitySource;
+        $this->sdkConfig->securitySource = fn () => new Models\Components\Security(bearer: $securitySource());
 
         return $this;
     }
@@ -88,6 +90,13 @@ class ClientBuilder
         return $this;
     }
 
+    public function setRetryConfig(Retry\RetryConfig $config): ClientBuilder
+    {
+        $this->sdkConfig->retryConfig = $config;
+
+        return $this;
+    }
+
     /**
      * build is used to build the SDK with any of the configured options.
      *
@@ -95,16 +104,13 @@ class ClientBuilder
      */
     public function build(): Client
     {
-        if ($this->sdkConfig->defaultClient === null) {
-            $this->sdkConfig->defaultClient = new \GuzzleHttp\Client([
+        if ($this->sdkConfig->client === null) {
+            $this->sdkConfig->client = new \GuzzleHttp\Client([
                 'timeout' => 60,
             ]);
         }
         if ($this->sdkConfig->hasSecurity()) {
-            $this->sdkConfig->securityClient = Utils\Utils::configureSecurityClient($this->sdkConfig->defaultClient, $this->sdkConfig->getSecurity());
-        }
-        if ($this->sdkConfig->securityClient === null) {
-            $this->sdkConfig->securityClient = $this->sdkConfig->defaultClient;
+            $this->sdkConfig->client = Utils\Utils::configureSecurityClient($this->sdkConfig->client, $this->sdkConfig->getSecurity());
         }
 
         return new Client($this->sdkConfig);

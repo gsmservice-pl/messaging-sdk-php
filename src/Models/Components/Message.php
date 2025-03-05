@@ -13,31 +13,13 @@ namespace Gsmservice\Gateway\Models\Components;
 class Message
 {
     /**
-     * Unique message identifier
-     *
-     * @var ?int $id
-     */
-    #[\JMS\Serializer\Annotation\SerializedName('id')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
-    public ?int $id = null;
-
-    /**
-     * Custom message ID assigned by the User
-     *
-     * @var ?string $cid
-     */
-    #[\JMS\Serializer\Annotation\SerializedName('cid')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
-    public ?string $cid = null;
-
-    /**
      * Message type (SmsType::SmsPro -> SMS PRO, SmsType::SmsEco -> SMS ECO, SmsType::SmsTwoWay ->SMS 2WAY, SmsType::Mms -> MMS)
      *
      * @var ?MessageType $type
      */
-    #[\JMS\Serializer\Annotation\SerializedName('type')]
-    #[\JMS\Serializer\Annotation\Type('\Gsmservice\Gateway\Models\Components\MessageType|null')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('type')]
+    #[\Speakeasy\Serializer\Annotation\Type('\Gsmservice\Gateway\Models\Components\MessageType|null')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?MessageType $type = null;
 
     /**
@@ -45,53 +27,17 @@ class Message
      *
      * @var ?string $recipient
      */
-    #[\JMS\Serializer\Annotation\SerializedName('recipient')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('recipient')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $recipient = null;
-
-    /**
-     * Message sender name
-     *
-     * @var ?string $sender
-     */
-    #[\JMS\Serializer\Annotation\SerializedName('sender')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
-    public ?string $sender = null;
-
-    /**
-     * The count of parts that message consists of
-     *
-     * @var ?int $parts
-     */
-    #[\JMS\Serializer\Annotation\SerializedName('parts')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
-    public ?int $parts = null;
-
-    /**
-     * Sending date and time (in ISO 8601 format)
-     *
-     * @var ?\DateTime $sentDate
-     */
-    #[\JMS\Serializer\Annotation\SerializedName('sent_date')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
-    public ?\DateTime $sentDate = null;
-
-    /**
-     * Date and time of last status change (in ISO 8601 format)
-     *
-     * @var ?\DateTime $statusDate
-     */
-    #[\JMS\Serializer\Annotation\SerializedName('status_date')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
-    public ?\DateTime $statusDate = null;
 
     /**
      * Message status code
      *
      * @var ?string $statusCode
      */
-    #[\JMS\Serializer\Annotation\SerializedName('status_code')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('status_code')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $statusCode = null;
 
     /**
@@ -99,8 +45,8 @@ class Message
      *
      * @var ?string $statusDescription
      */
-    #[\JMS\Serializer\Annotation\SerializedName('status_description')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('status_description')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?string $statusDescription = null;
 
     /**
@@ -108,8 +54,8 @@ class Message
      *
      * @var ?bool $unicode
      */
-    #[\JMS\Serializer\Annotation\SerializedName('unicode')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('unicode')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?bool $unicode = null;
 
     /**
@@ -117,8 +63,8 @@ class Message
      *
      * @var ?bool $flash
      */
-    #[\JMS\Serializer\Annotation\SerializedName('flash')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('flash')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?bool $flash = null;
 
     /**
@@ -126,9 +72,63 @@ class Message
      *
      * @var ?float $price
      */
-    #[\JMS\Serializer\Annotation\SerializedName('price')]
-    #[\JMS\Serializer\Annotation\SkipWhenNull]
+    #[\Speakeasy\Serializer\Annotation\SerializedName('price')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
     public ?float $price = null;
+
+    /**
+     * Unique message identifier
+     *
+     * @var ?int $id
+     */
+    #[\Speakeasy\Serializer\Annotation\SerializedName('id')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
+    public ?int $id = null;
+
+    /**
+     * Custom message ID assigned by the User
+     *
+     * @var ?string $cid
+     */
+    #[\Speakeasy\Serializer\Annotation\SerializedName('cid')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
+    public ?string $cid = null;
+
+    /**
+     * Message sender name
+     *
+     * @var ?string $sender
+     */
+    #[\Speakeasy\Serializer\Annotation\SerializedName('sender')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
+    public ?string $sender = null;
+
+    /**
+     * The count of parts that message consists of
+     *
+     * @var ?int $parts
+     */
+    #[\Speakeasy\Serializer\Annotation\SerializedName('parts')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
+    public ?int $parts = null;
+
+    /**
+     * Sending date and time (in ISO 8601 format)
+     *
+     * @var ?\DateTime $sentDate
+     */
+    #[\Speakeasy\Serializer\Annotation\SerializedName('sent_date')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
+    public ?\DateTime $sentDate = null;
+
+    /**
+     * Date and time of last status change (in ISO 8601 format)
+     *
+     * @var ?\DateTime $statusDate
+     */
+    #[\Speakeasy\Serializer\Annotation\SerializedName('status_date')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
+    public ?\DateTime $statusDate = null;
 
     /**
      * @param  ?MessageType  $type
@@ -144,6 +144,7 @@ class Message
      * @param  ?int  $parts
      * @param  ?\DateTime  $sentDate
      * @param  ?\DateTime  $statusDate
+     * @phpstan-pure
      */
     public function __construct(?MessageType $type = null, ?string $recipient = null, ?string $statusCode = null, ?string $statusDescription = null, ?bool $unicode = null, ?bool $flash = null, ?float $price = null, ?int $id = null, ?string $cid = null, ?string $sender = null, ?int $parts = null, ?\DateTime $sentDate = null, ?\DateTime $statusDate = null)
     {
