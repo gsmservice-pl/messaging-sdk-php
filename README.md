@@ -1,22 +1,22 @@
 [![Packagist Version](https://img.shields.io/packagist/v/gsmservice-pl/messaging-sdk-php)](https://packagist.org/packages/gsmservice-pl/messaging-sdk-php)
 [![GitHub License](https://img.shields.io/github/license/gsmservice-pl/messaging-sdk-php)](https://github.com/gsmservice-pl/messaging-sdk-php/blob/main/LICENSE)
 [![Static Badge](https://img.shields.io/badge/built_by-Speakeasy-yellow)](https://www.speakeasy.com/?utm_source=gsmservice-pl/messaging-sdk-php&utm_campaign=php)
-# GSMService.pl Messaging REST API SDK for PHP
+# SzybkiSMS.pl Messaging REST API SDK for PHP (powered by GSMService.pl)
 
-This package includes Messaging SDK for PHP (>8.2) to send SMS & MMS messages directly from your app via https://bramka.gsmservice.pl messaging platform.
+This package includes Messaging SDK for PHP (>8.2) to send SMS & MMS messages directly from your app via https://szybkisms.pl messaging platform.
 
 ## Additional documentation:
 
 A documentation of all methods and types is available below in section [Available Resources and Operations
 ](#available-resources-and-operations).
 
-Also you can refer to the [REST API documentation](https://api.gsmservice.pl/rest/) for additional details about the basics of this SDK.
+Also you can refer to the [REST API documentation](https://api.szybkisms.pl/rest/) for additional details about the basics of this SDK.
 <!-- No Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
-* [GSMService.pl Messaging REST API SDK for PHP](#gsmservicepl-messaging-rest-api-sdk-for-php)
+* [SzybkiSMS.pl Messaging REST API SDK for PHP (powered by GSMService.pl)](#szybkismspl-messaging-rest-api-sdk-for-php-powered-by-gsmservicepl)
   * [Additional documentation:](#additional-documentation)
   * [SDK Installation](#sdk-installation)
   * [Requeirements:](#requeirements)
@@ -347,10 +347,10 @@ try {
 
 You can override the default server globally using the `setServer(string $serverName)` builder method when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the names associated with the available servers:
 
-| Name      | Server                                   | Description           |
-| --------- | ---------------------------------------- | --------------------- |
-| `prod`    | `https://api.gsmservice.pl/rest`         | Production system     |
-| `sandbox` | `https://api.gsmservice.pl/rest-sandbox` | Test system (SANDBOX) |
+| Name      | Server                                  | Description           |
+| --------- | --------------------------------------- | --------------------- |
+| `prod`    | `https://api.szybkisms.pl/rest`         | Production system     |
+| `sandbox` | `https://api.szybkisms.pl/rest-sandbox` | Test system (SANDBOX) |
 
 #### Example
 
@@ -390,7 +390,7 @@ require 'vendor/autoload.php';
 use Gsmservice\Gateway;
 
 $sdk = Gateway\Client::builder()
-    ->setServerURL('https://api.gsmservice.pl/rest')
+    ->setServerURL('https://api.szybkisms.pl/rest')
     ->setSecurity(
         '<YOUR API ACCESS TOKEN>'
     )

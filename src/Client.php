@@ -39,9 +39,9 @@ class Client
 
     public const SERVERS = [
         /** Production system */
-        Client::SERVER_PROD => 'https://api.gsmservice.pl/rest',
+        Client::SERVER_PROD => 'https://api.szybkisms.pl/rest',
         /** Test system (SANDBOX) */
-        Client::SERVER_SANDBOX => 'https://api.gsmservice.pl/rest-sandbox',
+        Client::SERVER_SANDBOX => 'https://api.szybkisms.pl/rest-sandbox',
     ];
 
     public Accounts $accounts;

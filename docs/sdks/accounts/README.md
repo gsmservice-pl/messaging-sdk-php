@@ -10,7 +10,7 @@
 
 ## get
 
-Get current account balance and other details of your account. You can check also account limit and if account is main one. Main accounts have unlimited privileges and using [User Panel](https://panel.gsmservice.pl) you can create as many subaccounts as you need.
+Get current account balance and other details of your account. You can check also account limit and if account is main one. Main accounts have unlimited privileges and using [User Panel](https://panel.szybkisms.pl) you can create as many subaccounts as you need.
  
 This method doesn't get any parameters. As a successful result an `GetAccountDetailsResponse` object will be returned with properties describing details of current account you are logged in to using API Access Token.
 
@@ -53,7 +53,7 @@ if ($response->accountResponse !== null) {
 
 ## getSubaccount
 
-Check account balance and other details such subcredit balance of a subaccount. Subaccounts are additional users who can access your account services and the details. You can restrict access level and setup privileges to subaccounts using [user panel](https://panel.gsmservice.pl).
+Check account balance and other details such subcredit balance of a subaccount. Subaccounts are additional users who can access your account services and the details. You can restrict access level and setup privileges to subaccounts using [user panel](https://panel.szybkisms.pl).
 
 This method accepts an `userLogin` parameter. You should pass the full subaccount login to access its data. 
 
