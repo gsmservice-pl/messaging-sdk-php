@@ -5,10 +5,54 @@
 
 ### Available Operations
 
+* [list](#list) - List allowed senders names
 * [add](#add) - Add a new sender name
 * [delete](#delete) - Delete a sender name
-* [list](#list) - List allowed senders names
 * [setDefault](#setdefault) - Set default sender name
+
+## list
+
+Get a list of allowed senders defined in your account. The method doesn't get any parameters.
+
+As a successful result a `ListSendersResponse` object will be returned with an array of `Sender` as `$senders` property, each object per single sender.
+
+### Example Usage
+
+<!-- UsageSnippet language="php" operationID="listSenders" method="get" path="/senders" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+
+
+$response = $sdk->senders->list(
+
+);
+
+if ($response->senders !== null) {
+    // handle response
+}
+```
+
+### Response
+
+**[?Operations\ListSendersResponse](../../Models/Operations/ListSendersResponse.md)**
+
+### Errors
+
+| Error Type               | Status Code              | Content Type             |
+| ------------------------ | ------------------------ | ------------------------ |
+| Errors\ErrorResponse     | 400, 401, 403, 4XX       | application/problem+json |
+| Errors\ErrorResponse     | 5XX                      | application/problem+json |
 
 ## add
 
@@ -18,6 +62,7 @@ As a successful result a `AddSenderResponse` object will be returned with a prop
 
 ### Example Usage
 
+<!-- UsageSnippet language="php" operationID="addSender" method="post" path="/senders" -->
 ```php
 declare(strict_types=1);
 
@@ -71,6 +116,7 @@ As a successful response a `DeleteSenderResponse` will be returned with `$status
 
 ### Example Usage
 
+<!-- UsageSnippet language="php" operationID="deleteSender" method="delete" path="/senders/{sender}" -->
 ```php
 declare(strict_types=1);
 
@@ -112,49 +158,6 @@ if ($response->statusCode === 200) {
 | Errors\ErrorResponse     | 400, 401, 403, 404, 4XX  | application/problem+json |
 | Errors\ErrorResponse     | 5XX                      | application/problem+json |
 
-## list
-
-Get a list of allowed senders defined in your account. The method doesn't get any parameters.
-
-As a successful result a `ListSendersResponse` object will be returned with an array of `Sender` as `$senders` property, each object per single sender.
-
-### Example Usage
-
-```php
-declare(strict_types=1);
-
-require 'vendor/autoload.php';
-
-use Gsmservice\Gateway;
-
-$sdk = Gateway\Client::builder()
-    ->setSecurity(
-        '<YOUR API ACCESS TOKEN>'
-    )
-    ->build();
-
-
-
-$response = $sdk->senders->list(
-
-);
-
-if ($response->senders !== null) {
-    // handle response
-}
-```
-
-### Response
-
-**[?Operations\ListSendersResponse](../../Models/Operations/ListSendersResponse.md)**
-
-### Errors
-
-| Error Type               | Status Code              | Content Type             |
-| ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 400, 401, 403, 4XX       | application/problem+json |
-| Errors\ErrorResponse     | 5XX                      | application/problem+json |
-
 ## setDefault
 
 Set default sender name to one of the senders names already defined on your account. This method accepts a **sender name** parameter to set it as default on your account.
@@ -163,6 +166,7 @@ As a successful response a `SetDefaultSenderResponse` will be returned with `$st
 
 ### Example Usage
 
+<!-- UsageSnippet language="php" operationID="setDefaultSender" method="patch" path="/senders/{sender}" -->
 ```php
 declare(strict_types=1);
 

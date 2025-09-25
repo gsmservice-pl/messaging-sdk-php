@@ -65,14 +65,11 @@ $sdk = Gateway\Client::builder()
     )
     ->build();
 
-$request = [
-    new Components\SmsMessage(
-        recipients: [
-            '+48999999999',
-        ],
-        message: 'To jest treść wiadomości',
-    ),
-];
+$request = new Components\SmsMessage(
+    recipients: '+48999999999',
+    message: 'This is SMS message content.',
+    unicode: true,
+);
 
 $response = $sdk->outgoing->sms->send(
     request: $request
@@ -101,18 +98,12 @@ $sdk = Gateway\Client::builder()
     )
     ->build();
 
-$request = [
-    new Components\MmsMessage(
-        recipients: [
-            '+48999999999',
-        ],
-        attachments: [
-            '<file_body in base64 format>',
-        ],
-        subject: 'To jest temat wiadomości',
-        message: 'To jest treść wiadomości',
-    ),
-];
+$request = new Components\MmsMessage(
+    recipients: '+48999999999',
+    subject: 'This is a subject of the message',
+    message: 'This is MMS message content.',
+    attachments: '<file body in base64 format>',
+);
 
 $response = $sdk->outgoing->mms->send(
     request: $request
@@ -179,13 +170,13 @@ if ($response->accountResponse !== null) {
 
 ### [incoming](docs/sdks/incoming/README.md)
 
-* [getByIds](docs/sdks/incoming/README.md#getbyids) - Get the incoming messages by IDs
 * [list](docs/sdks/incoming/README.md#list) - List the received SMS messages
+* [getByIds](docs/sdks/incoming/README.md#getbyids) - Get the incoming messages by IDs
 
 ### [outgoing](docs/sdks/outgoing/README.md)
 
-* [cancelScheduled](docs/sdks/outgoing/README.md#cancelscheduled) - Cancel a scheduled messages
 * [getByIds](docs/sdks/outgoing/README.md#getbyids) - Get the messages details and status by IDs
+* [cancelScheduled](docs/sdks/outgoing/README.md#cancelscheduled) - Cancel a scheduled messages
 * [list](docs/sdks/outgoing/README.md#list) - Lists the history of sent messages
 
 #### [outgoing->mms](docs/sdks/mms/README.md)
@@ -200,9 +191,9 @@ if ($response->accountResponse !== null) {
 
 ### [senders](docs/sdks/senders/README.md)
 
+* [list](docs/sdks/senders/README.md#list) - List allowed senders names
 * [add](docs/sdks/senders/README.md#add) - Add a new sender name
 * [delete](docs/sdks/senders/README.md#delete) - Delete a sender name
-* [list](docs/sdks/senders/README.md#list) - List allowed senders names
 * [setDefault](docs/sdks/senders/README.md#setdefault) - Set default sender name
 
 </details>

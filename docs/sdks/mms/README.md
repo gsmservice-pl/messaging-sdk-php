@@ -19,6 +19,7 @@ As a successful result an `GetMmsPriceResponse` object will be returned with `$p
 
 ### Example Usage
 
+<!-- UsageSnippet language="php" operationID="getMmsPrice" method="post" path="/messages/mms/price" -->
 ```php
 declare(strict_types=1);
 
@@ -33,19 +34,12 @@ $sdk = Gateway\Client::builder()
     )
     ->build();
 
-$request = [
-    new Components\MmsMessage(
-        recipients: new Components\PhoneNumberWithCid(
-            nr: '+48999999999',
-            cid: 'my-id-1113',
-        ),
-        attachments: [
-            '<file_body in base64 format>',
-        ],
-        subject: 'To jest temat wiadomości',
-        message: 'To jest treść wiadomości',
-    ),
-];
+$request = new Components\MmsMessage(
+    recipients: '+48999999999',
+    subject: 'This is a subject of the message',
+    message: 'This is MMS message content.',
+    attachments: '<file body in base64 format>',
+);
 
 $response = $sdk->outgoing->mms->getPrice(
     request: $request
@@ -83,6 +77,7 @@ As a successful result a `SendMmsResponse` object will be returned with `$messag
 
 ### Example Usage
 
+<!-- UsageSnippet language="php" operationID="sendMms" method="post" path="/messages/mms" -->
 ```php
 declare(strict_types=1);
 
@@ -97,18 +92,12 @@ $sdk = Gateway\Client::builder()
     )
     ->build();
 
-$request = [
-    new Components\MmsMessage(
-        recipients: [
-            '+48999999999',
-        ],
-        attachments: [
-            '<file_body in base64 format>',
-        ],
-        subject: 'To jest temat wiadomości',
-        message: 'To jest treść wiadomości',
-    ),
-];
+$request = new Components\MmsMessage(
+    recipients: '+48999999999',
+    subject: 'This is a subject of the message',
+    message: 'This is MMS message content.',
+    attachments: '<file body in base64 format>',
+);
 
 $response = $sdk->outgoing->mms->send(
     request: $request

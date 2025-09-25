@@ -16,6 +16,7 @@ This method doesn't get any parameters. As a successful result an `GetAccountDet
 
 ### Example Usage
 
+<!-- UsageSnippet language="php" operationID="getAccountDetails" method="get" path="/account" -->
 ```php
 declare(strict_types=1);
 
@@ -61,6 +62,7 @@ As a successful result a `GetSubaccountDetailsResponse` object will be returned 
 
 ### Example Usage
 
+<!-- UsageSnippet language="php" operationID="getSubaccountDetails" method="get" path="/account/{user_login}" -->
 ```php
 declare(strict_types=1);
 

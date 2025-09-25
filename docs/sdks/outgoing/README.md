@@ -5,62 +5,9 @@
 
 ### Available Operations
 
-* [cancelScheduled](#cancelscheduled) - Cancel a scheduled messages
 * [getByIds](#getbyids) - Get the messages details and status by IDs
+* [cancelScheduled](#cancelscheduled) - Cancel a scheduled messages
 * [list](#list) - Lists the history of sent messages
-
-## cancelScheduled
-
-Cancel messages using their `ids` which were scheduled to be sent at a specific time. You have to pass an `array` of the unique message IDs, which were returned after sending a message. This method will accept maximum 50 identifiers in one call. You can cancel only messages with *SCHEDULED* status.
- 
-As a successful result a `CancelMessagesResponse` object will be returned, with `$cancelledMessages` property containing array of `CancelledMessage` object. The `status` property of each `CancelledMessage` object will contain a status code of operation - `204` if a particular message was cancelled successfully and other code if an error occured.
- 
-`CancelMessagesResponse` object will also contain `$headers` array property where you can find `X-Success-Count` (a count of messages which were cancelled successfully), `X-Error-Count` (count of messages which were not cancelled) and `X-Sandbox` (if a request was made in Sandbox or Production system) elements.
-
-### Example Usage
-
-```php
-declare(strict_types=1);
-
-require 'vendor/autoload.php';
-
-use Gsmservice\Gateway;
-
-$sdk = Gateway\Client::builder()
-    ->setSecurity(
-        '<YOUR API ACCESS TOKEN>'
-    )
-    ->build();
-
-
-
-$response = $sdk->outgoing->cancelScheduled(
-    ids: [
-        43456,
-    ]
-);
-
-if ($response->cancelledMessages !== null) {
-    // handle response
-}
-```
-
-### Parameters
-
-| Parameter                                                                                                    | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `ids`                                                                                                        | array<*int*>                                                                                                 | :heavy_check_mark:                                                                                           | Array of Message IDs assigned by the system. The system will accept a maximum of 50 identifiers in one call. |
-
-### Response
-
-**[?Operations\CancelMessagesResponse](../../Models/Operations/CancelMessagesResponse.md)**
-
-### Errors
-
-| Error Type               | Status Code              | Content Type             |
-| ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 400, 401, 403, 404, 4XX  | application/problem+json |
-| Errors\ErrorResponse     | 5XX                      | application/problem+json |
 
 ## getByIds
 
@@ -70,6 +17,7 @@ As a successful result a `GetMessagesResponse` object will be returned containin
 
 ### Example Usage
 
+<!-- UsageSnippet language="php" operationID="getMessages" method="get" path="/messages/{ids}" -->
 ```php
 declare(strict_types=1);
 
@@ -113,6 +61,60 @@ if ($response->messages !== null) {
 | Errors\ErrorResponse     | 400, 401, 403, 404, 4XX  | application/problem+json |
 | Errors\ErrorResponse     | 5XX                      | application/problem+json |
 
+## cancelScheduled
+
+Cancel messages using their `ids` which were scheduled to be sent at a specific time. You have to pass an `array` of the unique message IDs, which were returned after sending a message. This method will accept maximum 50 identifiers in one call. You can cancel only messages with *SCHEDULED* status.
+ 
+As a successful result a `CancelMessagesResponse` object will be returned, with `$cancelledMessages` property containing array of `CancelledMessage` object. The `status` property of each `CancelledMessage` object will contain a status code of operation - `204` if a particular message was cancelled successfully and other code if an error occured.
+ 
+`CancelMessagesResponse` object will also contain `$headers` array property where you can find `X-Success-Count` (a count of messages which were cancelled successfully), `X-Error-Count` (count of messages which were not cancelled) and `X-Sandbox` (if a request was made in Sandbox or Production system) elements.
+
+### Example Usage
+
+<!-- UsageSnippet language="php" operationID="cancelMessages" method="delete" path="/messages/{ids}" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+
+
+$response = $sdk->outgoing->cancelScheduled(
+    ids: [
+        43456,
+    ]
+);
+
+if ($response->cancelledMessages !== null) {
+    // handle response
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                    | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `ids`                                                                                                        | array<*int*>                                                                                                 | :heavy_check_mark:                                                                                           | Array of Message IDs assigned by the system. The system will accept a maximum of 50 identifiers in one call. |
+
+### Response
+
+**[?Operations\CancelMessagesResponse](../../Models/Operations/CancelMessagesResponse.md)**
+
+### Errors
+
+| Error Type               | Status Code              | Content Type             |
+| ------------------------ | ------------------------ | ------------------------ |
+| Errors\ErrorResponse     | 400, 401, 403, 404, 4XX  | application/problem+json |
+| Errors\ErrorResponse     | 5XX                      | application/problem+json |
+
 ## list
 
 Get the details and current status of all of sent messages from your account message history. This method supports pagination so you have to pass as parameters a `$page` value (number of page with messages which you want to access) and a `$limit` value (max of messages per page). Messages are fetched from the latest one. This method will accept maximum **50** as `$limit` parameter value.
@@ -121,6 +123,7 @@ As a successful result a `ListMessagesResponse` object will be returned containi
 
 ### Example Usage
 
+<!-- UsageSnippet language="php" operationID="listMessages" method="get" path="/messages" -->
 ```php
 declare(strict_types=1);
 

@@ -17,14 +17,11 @@ $sdk = Gateway\Client::builder()
     )
     ->build();
 
-$request = [
-    new Components\SmsMessage(
-        recipients: [
-            '+48999999999',
-        ],
-        message: 'To jest treść wiadomości',
-    ),
-];
+$request = new Components\SmsMessage(
+    recipients: '+48999999999',
+    message: 'This is SMS message content.',
+    unicode: true,
+);
 
 $response = $sdk->outgoing->sms->send(
     request: $request
@@ -53,18 +50,12 @@ $sdk = Gateway\Client::builder()
     )
     ->build();
 
-$request = [
-    new Components\MmsMessage(
-        recipients: [
-            '+48999999999',
-        ],
-        attachments: [
-            '<file_body in base64 format>',
-        ],
-        subject: 'To jest temat wiadomości',
-        message: 'To jest treść wiadomości',
-    ),
-];
+$request = new Components\MmsMessage(
+    recipients: '+48999999999',
+    subject: 'This is a subject of the message',
+    message: 'This is MMS message content.',
+    attachments: '<file body in base64 format>',
+);
 
 $response = $sdk->outgoing->mms->send(
     request: $request

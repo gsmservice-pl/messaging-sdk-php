@@ -75,7 +75,17 @@ class Client
         $this->incoming = new Incoming($this->sdkConfiguration);
         $this->common = new Common($this->sdkConfiguration);
         $this->senders = new Senders($this->sdkConfiguration);
-        $this->sdkConfiguration->client = $this->sdkConfiguration->initHooks($this->sdkConfiguration->client);
+        $this->initHooks();
 
+    }
+
+    private function initHooks(): void
+    {
+        $preHooksUrl = $this->sdkConfiguration->getTemplatedServerUrl();
+        $ret = $this->sdkConfiguration->hooks->sdkInit($preHooksUrl, $this->sdkConfiguration->client);
+        if ($preHooksUrl != $ret->url) {
+            $this->sdkConfiguration->serverUrl = $ret->url;
+        }
+        $this->sdkConfiguration->client = $ret->client;
     }
 }

@@ -15,6 +15,7 @@ As a successful result a `PingResponse` object will be returned.
 
 ### Example Usage
 
+<!-- UsageSnippet language="php" operationID="ping" method="get" path="/ping" -->
 ```php
 declare(strict_types=1);
 

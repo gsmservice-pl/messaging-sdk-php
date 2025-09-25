@@ -22,13 +22,13 @@ class SDKConfiguration
 
     public string $language = 'php';
 
-    public string $openapiDocVersion = '1.2.1';
+    public string $openapiDocVersion = '1.2.2';
 
-    public string $sdkVersion = '3.0.1';
+    public string $sdkVersion = '3.1.2';
 
-    public string $genVersion = '2.539.1';
+    public string $genVersion = '2.716.5';
 
-    public string $userAgent = 'speakeasy-sdk/php 3.0.1 2.539.1 1.2.1 gsmservice-pl/messaging-sdk-php';
+    public string $userAgent = 'speakeasy-sdk/php 3.1.2 2.716.5 1.2.2 gsmservice-pl/messaging-sdk-php';
 
     public ?RetryConfig $retryConfig = null;
 
@@ -80,16 +80,5 @@ class SDKConfiguration
         }
 
         return Utils\Utils::templateUrl($this->getServerUrl(), []);
-    }
-
-    public function initHooks(\GuzzleHttp\ClientInterface $client): \GuzzleHttp\ClientInterface
-    {
-        $preHooksUrl = $this->getTemplatedServerUrl();
-        $ret = $this->hooks->sdkInit($preHooksUrl, $client);
-        if ($preHooksUrl != $ret->url) {
-            $this->serverUrl = $ret->url;
-        }
-
-        return $ret->client;
     }
 }

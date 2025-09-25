@@ -19,6 +19,7 @@ As a successful result a `GetSmsPriceResponse` object will be returned with `$pr
 
 ### Example Usage
 
+<!-- UsageSnippet language="php" operationID="getSmsPrice" method="post" path="/messages/sms/price" -->
 ```php
 declare(strict_types=1);
 
@@ -33,15 +34,11 @@ $sdk = Gateway\Client::builder()
     )
     ->build();
 
-$request = [
-    new Components\SmsMessage(
-        recipients: new Components\PhoneNumberWithCid(
-            nr: '+48999999999',
-            cid: 'my-id-1113',
-        ),
-        message: 'To jest treść wiadomości',
-    ),
-];
+$request = new Components\SmsMessage(
+    recipients: '+48999999999',
+    message: 'This is SMS message content.',
+    unicode: true,
+);
 
 $response = $sdk->outgoing->sms->getPrice(
     request: $request
@@ -79,6 +76,7 @@ As a successful result a `SendSmsResponse` object will be returned with `$messag
 
 ### Example Usage
 
+<!-- UsageSnippet language="php" operationID="sendSms" method="post" path="/messages/sms" -->
 ```php
 declare(strict_types=1);
 
@@ -93,14 +91,11 @@ $sdk = Gateway\Client::builder()
     )
     ->build();
 
-$request = [
-    new Components\SmsMessage(
-        recipients: [
-            '+48999999999',
-        ],
-        message: 'To jest treść wiadomości',
-    ),
-];
+$request = new Components\SmsMessage(
+    recipients: '+48999999999',
+    message: 'This is SMS message content.',
+    unicode: true,
+);
 
 $response = $sdk->outgoing->sms->send(
     request: $request
