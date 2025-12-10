@@ -22,16 +22,6 @@ class MmsMessage
     public string|array|PhoneNumberWithCid $recipients;
 
     /**
-     * Attachments for the message. You can pass here images, audio and video files bodies. To set one attachment please pass a `string` with attachment body encoded by `base64_encode()` function. To set multiple attachments - pass an `array` of `strings` with attachment bodies encoded by `base64_encode()` function. Max 3 attachments per message.
-     *
-     * @var string|array<string>|null $attachments
-     */
-    #[\Speakeasy\Serializer\Annotation\SerializedName('attachments')]
-    #[\Speakeasy\Serializer\Annotation\Type('string|array<string>|null')]
-    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
-    public string|array|null $attachments = null;
-
-    /**
      * MMS message subject
      *
      * @var ?string $subject
@@ -50,6 +40,16 @@ class MmsMessage
     public ?string $message = null;
 
     /**
+     * Attachments for the message. You can pass here images, audio and video files bodies. To set one attachment please pass a `string` with attachment body encoded by `base64_encode()` function. To set multiple attachments - pass an `array` of `strings` with attachment bodies encoded by `base64_encode()` function. Max 3 attachments per message.
+     *
+     * @var string|array<string>|null $attachments
+     */
+    #[\Speakeasy\Serializer\Annotation\SerializedName('attachments')]
+    #[\Speakeasy\Serializer\Annotation\Type('string|array<string>|null')]
+    #[\Speakeasy\Serializer\Annotation\SkipWhenNull]
+    public string|array|null $attachments = null;
+
+    /**
      * Scheduled future date and time of sending the message (in ISO 8601 format). If missing or null - message will be sent immediately
      *
      * @var ?\DateTime $date
@@ -60,18 +60,18 @@ class MmsMessage
 
     /**
      * @param  string|array<string>|PhoneNumberWithCid|array<PhoneNumberWithCid>  $recipients
-     * @param  string|array<string>|null  $attachments
      * @param  ?string  $subject
      * @param  ?string  $message
+     * @param  string|array<string>|null  $attachments
      * @param  ?\DateTime  $date
      * @phpstan-pure
      */
-    public function __construct(string|array|PhoneNumberWithCid $recipients, string|array|null $attachments = null, ?string $subject = null, ?string $message = null, ?\DateTime $date = null)
+    public function __construct(string|array|PhoneNumberWithCid $recipients, ?string $subject = null, ?string $message = null, string|array|null $attachments = null, ?\DateTime $date = null)
     {
         $this->recipients = $recipients;
-        $this->attachments = $attachments;
         $this->subject = $subject;
         $this->message = $message;
+        $this->attachments = $attachments;
         $this->date = $date;
     }
 }

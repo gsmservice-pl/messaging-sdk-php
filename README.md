@@ -158,38 +158,38 @@ if ($response->accountResponse !== null) {
 <details open>
 <summary>Available methods</summary>
 
-### [accounts](docs/sdks/accounts/README.md)
+### [Accounts](docs/sdks/accounts/README.md)
 
 * [get](docs/sdks/accounts/README.md#get) - Get account details
 * [getSubaccount](docs/sdks/accounts/README.md#getsubaccount) - Get subaccount details
 
-
-### [common](docs/sdks/common/README.md)
+### [Common](docs/sdks/common/README.md)
 
 * [ping](docs/sdks/common/README.md#ping) - Checks API availability and version
 
-### [incoming](docs/sdks/incoming/README.md)
+### [Incoming](docs/sdks/incoming/README.md)
 
 * [list](docs/sdks/incoming/README.md#list) - List the received SMS messages
 * [getByIds](docs/sdks/incoming/README.md#getbyids) - Get the incoming messages by IDs
+* [removeByIds](docs/sdks/incoming/README.md#removebyids) - Remove the incoming messages from your inbox
 
-### [outgoing](docs/sdks/outgoing/README.md)
+### [Outgoing](docs/sdks/outgoing/README.md)
 
 * [getByIds](docs/sdks/outgoing/README.md#getbyids) - Get the messages details and status by IDs
 * [cancelScheduled](docs/sdks/outgoing/README.md#cancelscheduled) - Cancel a scheduled messages
 * [list](docs/sdks/outgoing/README.md#list) - Lists the history of sent messages
 
-#### [outgoing->mms](docs/sdks/mms/README.md)
+#### [Outgoing.Mms](docs/sdks/mms/README.md)
 
 * [getPrice](docs/sdks/mms/README.md#getprice) - Check the price of MMS Messages
 * [send](docs/sdks/mms/README.md#send) - Send MMS Messages
 
-#### [outgoing->sms](docs/sdks/sms/README.md)
+#### [Outgoing.Sms](docs/sdks/sms/README.md)
 
 * [getPrice](docs/sdks/sms/README.md#getprice) - Check the price of SMS Messages
 * [send](docs/sdks/sms/README.md#send) - Send SMS Messages
 
-### [senders](docs/sdks/senders/README.md)
+### [Senders](docs/sdks/senders/README.md)
 
 * [list](docs/sdks/senders/README.md#list) - List allowed senders names
 * [add](docs/sdks/senders/README.md#add) - Add a new sender name
@@ -353,7 +353,7 @@ require 'vendor/autoload.php';
 use Gsmservice\Gateway;
 
 $sdk = Gateway\Client::builder()
-    ->setServer('sandbox')
+    ->setServer('prod')
     ->setSecurity(
         '<YOUR API ACCESS TOKEN>'
     )

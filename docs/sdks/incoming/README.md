@@ -1,5 +1,4 @@
 # Incoming
-(*incoming*)
 
 ## Overview
 
@@ -7,6 +6,7 @@
 
 * [list](#list) - List the received SMS messages
 * [getByIds](#getbyids) - Get the incoming messages by IDs
+* [removeByIds](#removebyids) - Remove the incoming messages from your inbox
 
 ## list
 
@@ -111,4 +111,62 @@ if ($response->incomingMessages !== null) {
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
 | Errors\ErrorResponse     | 400, 401, 404, 4XX       | application/problem+json |
+| Errors\ErrorResponse     | 5XX                      | application/problem+json |
+
+## removeByIds
+
+Remove incoming messages from your inbox using their `ids`. You have to pass the unique incoming message IDs as path parameter. If you want to remove multiple incoming messages at once, please separate their IDs with a comma. The system will accept maximum 50 identifiers in one call. If you need to remove larger volume of incoming messages, please split it to several separate requests.
+ 
+As a successful result an array with `RemovedIncomingMessage` objects will be returned, each object per single incoming message id. The `status` property will contain a status code of operation - `204` if incoming message was removed successfully and other code if an error occured with removing a given incoming message. In case of an error, an `error` property will contain `ErrorResponse` object with the details of an error.
+ 
+Response will also include meta-data headers: `X-Success-Count` (a count of incoming messages which were removed successfully), `X-Error-Count` (count of incoming messages which were not removed) and `X-Sandbox` (if a request was made in Sandbox or Production system).
+ 
+If you pass duplicated incoming message IDs in one call, API will process them only once. This request have to be authenticated using **API Access Token**.
+
+In case of an error, the `ErrorResponse` object will be returned with proper HTTP header status code (our error response complies with [RFC 9457](https://www.rfc-editor.org/rfc/rfc7807)).
+
+### Example Usage
+
+<!-- UsageSnippet language="php" operationID="removeIncomingMessages" method="delete" path="/incoming/{ids}" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+
+
+$response = $sdk->incoming->removeByIds(
+    ids: [
+        43456,
+    ]
+);
+
+if ($response->removedIncomingMessages !== null) {
+    // handle response
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                    | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `ids`                                                                                                        | array<*int*>                                                                                                 | :heavy_check_mark:                                                                                           | Array of Message IDs assigned by the system. The system will accept a maximum of 50 identifiers in one call. |
+
+### Response
+
+**[?Operations\RemoveIncomingMessagesResponse](../../Models/Operations/RemoveIncomingMessagesResponse.md)**
+
+### Errors
+
+| Error Type               | Status Code              | Content Type             |
+| ------------------------ | ------------------------ | ------------------------ |
+| Errors\ErrorResponse     | 400, 401, 403, 404, 4XX  | application/problem+json |
 | Errors\ErrorResponse     | 5XX                      | application/problem+json |

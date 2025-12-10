@@ -22,13 +22,13 @@ class SDKConfiguration
 
     public string $language = 'php';
 
-    public string $openapiDocVersion = '1.2.2';
+    public string $openapiDocVersion = '1.2.3';
 
-    public string $sdkVersion = '3.1.2';
+    public string $sdkVersion = '3.2.3';
 
-    public string $genVersion = '2.716.5';
+    public string $genVersion = '2.779.0';
 
-    public string $userAgent = 'speakeasy-sdk/php 3.1.2 2.716.5 1.2.2 gsmservice-pl/messaging-sdk-php';
+    public string $userAgent = 'speakeasy-sdk/php 3.2.3 2.779.0 1.2.3 gsmservice-pl/messaging-sdk-php';
 
     public ?RetryConfig $retryConfig = null;
 
