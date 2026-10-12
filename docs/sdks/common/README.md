@@ -43,5 +43,6 @@ if ($response->pingResponse !== null) {
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
+| Errors\ErrorResponse     | 405                      | application/problem+json |
 | Errors\ErrorResponse     | 400, 4XX                 | application/problem+json |
 | Errors\ErrorResponse     | 503, 5XX                 | application/problem+json |

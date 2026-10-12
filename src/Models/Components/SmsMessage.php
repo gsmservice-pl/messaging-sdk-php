@@ -15,7 +15,7 @@ class SmsMessage
     /**
      * The recipient number or multiple recipients numbers of single message. To set one recipient, simply pass here a `string` with his phone number. To set multiple recipients, pass here a simple `array` of `string`. Optionally you can also set custom id (user identifier) for each message - pass `PhoneNumberWithCid` object (in case of single recipient) or `Array` of `PhoneNumberWithCid` (in case of multiple recipients).
      *
-     * @var string|array<string>|PhoneNumberWithCid|array<PhoneNumberWithCid> $recipients
+     * @var string|array<string>|\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid|array<\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid> $recipients
      */
     #[\Speakeasy\Serializer\Annotation\SerializedName('recipients')]
     #[\Speakeasy\Serializer\Annotation\Type('string|array<string>|\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid|array<\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid>')]
@@ -41,7 +41,7 @@ class SmsMessage
     /**
      * SMS type (SmsType::SmsPro -> SMS PRO, SmsType::SmsEco -> SMS ECO, SmsType::SmsTwoWay ->SMS 2WAY)
      *
-     * @var ?SmsType $type
+     * @var ?\Gsmservice\Gateway\Models\Components\SmsType $type
      */
     #[\Speakeasy\Serializer\Annotation\SerializedName('type')]
     #[\Speakeasy\Serializer\Annotation\Type('\Gsmservice\Gateway\Models\Components\SmsType|null')]
@@ -76,10 +76,10 @@ class SmsMessage
     public ?\DateTime $date = null;
 
     /**
-     * @param  string|array<string>|PhoneNumberWithCid|array<PhoneNumberWithCid>  $recipients
+     * @param  string|array<string>|\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid|array<\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid>  $recipients
      * @param  string  $message
      * @param  ?string  $sender
-     * @param  ?SmsType  $type
+     * @param  ?\Gsmservice\Gateway\Models\Components\SmsType  $type
      * @param  ?bool  $unicode
      * @param  ?bool  $flash
      * @param  ?\DateTime  $date

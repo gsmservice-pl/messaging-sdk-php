@@ -16,9 +16,171 @@ As a successful result an `GetMmsPriceResponse` object will be returned with `$p
 
 `GetMmsPriceResponse` object will include also `$headers` array with `X-Success-Count` (a count of messages which were processed successfully) and `X-Error-Count` (count of messages which were rejected) elements.
 
-### Example Usage
+### Example Usage: bulk
 
-<!-- UsageSnippet language="php" operationID="getMmsPrice" method="post" path="/messages/mms/price" -->
+<!-- UsageSnippet language="php" operationID="getMmsPrice" method="post" path="/messages/mms/price" example="bulk" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = [
+    new Components\MmsMessage(
+        recipients: '+48999999999',
+        subject: 'This is a subject of the first message',
+        message: 'This is first MMS message content',
+        attachments: 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+    ),
+    new Components\MmsMessage(
+        recipients: '+48999888777',
+        subject: 'This is a subject of the second message',
+        message: 'This is second MMS message content',
+        attachments: 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+    ),
+];
+
+$response = $sdk->outgoing->mms->getPrice(
+    request: $request
+);
+
+if ($response->prices !== null) {
+    // handle response
+}
+```
+### Example Usage: bulk_cid
+
+<!-- UsageSnippet language="php" operationID="getMmsPrice" method="post" path="/messages/mms/price" example="bulk_cid" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = [
+    new Components\MmsMessage(
+        recipients: new Components\PhoneNumberWithCid(
+            nr: '+48999999999',
+            cid: 'custom-id-A44445T',
+        ),
+        subject: 'This is a subject of the first message',
+        message: 'This is first MMS message content',
+        attachments: 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+    ),
+    new Components\MmsMessage(
+        recipients: new Components\PhoneNumberWithCid(
+            nr: '+48999888777',
+            cid: 'custom-id-F44445R',
+        ),
+        subject: 'This is a subject of the second message',
+        message: 'This is second MMS message content',
+        attachments: 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+    ),
+];
+
+$response = $sdk->outgoing->mms->getPrice(
+    request: $request
+);
+
+if ($response->prices !== null) {
+    // handle response
+}
+```
+### Example Usage: multi
+
+<!-- UsageSnippet language="php" operationID="getMmsPrice" method="post" path="/messages/mms/price" example="multi" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = new Components\MmsMessage(
+    recipients: [
+        '+48999999999',
+        '+48999888777',
+    ],
+    subject: 'This is a subject of the message',
+    message: 'This is MMS message content.',
+    attachments: 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+);
+
+$response = $sdk->outgoing->mms->getPrice(
+    request: $request
+);
+
+if ($response->prices !== null) {
+    // handle response
+}
+```
+### Example Usage: multi_cid
+
+<!-- UsageSnippet language="php" operationID="getMmsPrice" method="post" path="/messages/mms/price" example="multi_cid" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = new Components\MmsMessage(
+    recipients: [
+        new Components\PhoneNumberWithCid(
+            nr: '+48999999999',
+            cid: 'custom-id-A44445T',
+        ),
+        new Components\PhoneNumberWithCid(
+            nr: '+48999888777',
+            cid: 'custom-id-F44445R',
+        ),
+    ],
+    subject: 'This is a subject of the message',
+    message: 'This is MMS message content',
+    attachments: 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+);
+
+$response = $sdk->outgoing->mms->getPrice(
+    request: $request
+);
+
+if ($response->prices !== null) {
+    // handle response
+}
+```
+### Example Usage: single
+
+<!-- UsageSnippet language="php" operationID="getMmsPrice" method="post" path="/messages/mms/price" example="single" -->
 ```php
 declare(strict_types=1);
 
@@ -37,7 +199,42 @@ $request = new Components\MmsMessage(
     recipients: '+48999999999',
     subject: 'This is a subject of the message',
     message: 'This is MMS message content.',
-    attachments: '<file body in base64 format>',
+    attachments: 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+);
+
+$response = $sdk->outgoing->mms->getPrice(
+    request: $request
+);
+
+if ($response->prices !== null) {
+    // handle response
+}
+```
+### Example Usage: single_cid
+
+<!-- UsageSnippet language="php" operationID="getMmsPrice" method="post" path="/messages/mms/price" example="single_cid" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = new Components\MmsMessage(
+    recipients: new Components\PhoneNumberWithCid(
+        nr: '+48999999999',
+        cid: 'custom-id-A44445T',
+    ),
+    subject: 'This is a subject of the message',
+    message: 'This is MMS message content',
+    attachments: 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
 );
 
 $response = $sdk->outgoing->mms->getPrice(
@@ -63,7 +260,8 @@ if ($response->prices !== null) {
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 400, 401, 4XX            | application/problem+json |
+| Errors\ErrorResponse     | 401, 405                 | application/problem+json |
+| Errors\ErrorResponse     | 400, 415, 4XX            | application/problem+json |
 | Errors\ErrorResponse     | 5XX                      | application/problem+json |
 
 ## send
@@ -74,9 +272,171 @@ As a successful result a `SendMmsResponse` object will be returned with `$messag
 
 `SendMmsResponse` will also include `$headers` array with `X-Success-Count` (a count of messages which were processed successfully), `X-Error-Count` (count of messages which were rejected) and `X-Sandbox` (if a request was made in Sandbox or Production system) elements.
 
-### Example Usage
+### Example Usage: bulk
 
-<!-- UsageSnippet language="php" operationID="sendMms" method="post" path="/messages/mms" -->
+<!-- UsageSnippet language="php" operationID="sendMms" method="post" path="/messages/mms" example="bulk" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = [
+    new Components\MmsMessage(
+        recipients: '+48999999999',
+        subject: 'This is a subject of the first message',
+        message: 'This is first MMS message content',
+        attachments: 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+    ),
+    new Components\MmsMessage(
+        recipients: '+48999888777',
+        subject: 'This is a subject of the second message',
+        message: 'This is second MMS message content',
+        attachments: 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+    ),
+];
+
+$response = $sdk->outgoing->mms->send(
+    request: $request
+);
+
+if ($response->messages !== null) {
+    // handle response
+}
+```
+### Example Usage: bulk_cid
+
+<!-- UsageSnippet language="php" operationID="sendMms" method="post" path="/messages/mms" example="bulk_cid" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = [
+    new Components\MmsMessage(
+        recipients: new Components\PhoneNumberWithCid(
+            nr: '+48999999999',
+            cid: 'custom-id-A44445T',
+        ),
+        subject: 'This is a subject of the first message',
+        message: 'This is first MMS message content',
+        attachments: 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+    ),
+    new Components\MmsMessage(
+        recipients: new Components\PhoneNumberWithCid(
+            nr: '+48999888777',
+            cid: 'custom-id-F44445R',
+        ),
+        subject: 'This is a subject of the second message',
+        message: 'This is second MMS message content',
+        attachments: 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+    ),
+];
+
+$response = $sdk->outgoing->mms->send(
+    request: $request
+);
+
+if ($response->messages !== null) {
+    // handle response
+}
+```
+### Example Usage: multi
+
+<!-- UsageSnippet language="php" operationID="sendMms" method="post" path="/messages/mms" example="multi" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = new Components\MmsMessage(
+    recipients: [
+        '+48999999999',
+        '+48999888777',
+    ],
+    subject: 'This is a subject of the message',
+    message: 'This is MMS message content.',
+    attachments: 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+);
+
+$response = $sdk->outgoing->mms->send(
+    request: $request
+);
+
+if ($response->messages !== null) {
+    // handle response
+}
+```
+### Example Usage: multi_cid
+
+<!-- UsageSnippet language="php" operationID="sendMms" method="post" path="/messages/mms" example="multi_cid" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = new Components\MmsMessage(
+    recipients: [
+        new Components\PhoneNumberWithCid(
+            nr: '+48999999999',
+            cid: 'custom-id-A44445T',
+        ),
+        new Components\PhoneNumberWithCid(
+            nr: '+48999888777',
+            cid: 'custom-id-F44445R',
+        ),
+    ],
+    subject: 'This is a subject of the message',
+    message: 'This is MMS message content',
+    attachments: 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+);
+
+$response = $sdk->outgoing->mms->send(
+    request: $request
+);
+
+if ($response->messages !== null) {
+    // handle response
+}
+```
+### Example Usage: single
+
+<!-- UsageSnippet language="php" operationID="sendMms" method="post" path="/messages/mms" example="single" -->
 ```php
 declare(strict_types=1);
 
@@ -95,7 +455,42 @@ $request = new Components\MmsMessage(
     recipients: '+48999999999',
     subject: 'This is a subject of the message',
     message: 'This is MMS message content.',
-    attachments: '<file body in base64 format>',
+    attachments: 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+);
+
+$response = $sdk->outgoing->mms->send(
+    request: $request
+);
+
+if ($response->messages !== null) {
+    // handle response
+}
+```
+### Example Usage: single_cid
+
+<!-- UsageSnippet language="php" operationID="sendMms" method="post" path="/messages/mms" example="single_cid" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = new Components\MmsMessage(
+    recipients: new Components\PhoneNumberWithCid(
+        nr: '+48999999999',
+        cid: 'custom-id-A44445T',
+    ),
+    subject: 'This is a subject of the message',
+    message: 'This is MMS message content',
+    attachments: 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
 );
 
 $response = $sdk->outgoing->mms->send(
@@ -121,5 +516,6 @@ if ($response->messages !== null) {
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 400, 401, 403, 4XX       | application/problem+json |
+| Errors\ErrorResponse     | 401, 405                 | application/problem+json |
+| Errors\ErrorResponse     | 400, 403, 415, 4XX       | application/problem+json |
 | Errors\ErrorResponse     | 5XX                      | application/problem+json |

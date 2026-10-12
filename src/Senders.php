@@ -51,11 +51,11 @@ class Senders
      * Add a new sender name
      *
      * Define a new allowed sender on your account. You should pass as parameter a `SenderInput` object with two properties: `sender` (defines sender name) and `description`. Please carefully fill this property with the extensive description of a sender name (what will be its use, what the name mean, etc).
-     *
+     * 
      * As a successful result a `AddSenderResponse` object will be returned with a property `$sender` containing a `Sender` object with details and status of added sender name.
      *
-     * @param  Components\SenderInput  $request
-     * @return Operations\AddSenderResponse
+     * @param  \Gsmservice\Gateway\Models\Components\SenderInput  $request
+     * @return \Gsmservice\Gateway\Models\Operations\AddSenderResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
     public function add(Components\SenderInput $request, ?Options $options = null): Operations\AddSenderResponse
@@ -108,11 +108,12 @@ class Senders
         }
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 
-        $statusCode = $httpResponse->getStatusCode();
-        if (Utils\Utils::matchStatusCodes($statusCode, ['400', '401', '403', '4XX', '5XX'])) {
+        if (Utils\Utils::matchStatusCodes($httpResponse->getStatusCode(), ['4XX', '5XX'])) {
             $res = $this->sdkConfiguration->hooks->afterError(new Hooks\AfterErrorContext($hookContext), $httpResponse, null);
             $httpResponse = $res;
         }
+
+        $statusCode = $httpResponse->getStatusCode();
         if (Utils\Utils::matchStatusCodes($statusCode, ['201'])) {
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $httpResponse = $this->sdkConfiguration->hooks->afterSuccess(new Hooks\AfterSuccessContext($hookContext), $httpResponse);
@@ -131,7 +132,18 @@ class Senders
             } else {
                 throw new \Gsmservice\Gateway\Models\Errors\SDKException('Unknown content type received', $statusCode, $httpResponse->getBody()->getContents(), $httpResponse);
             }
-        } elseif (Utils\Utils::matchStatusCodes($statusCode, ['400', '401', '403', '4XX'])) {
+        } elseif (Utils\Utils::matchStatusCodes($statusCode, ['401', '405'])) {
+            if (Utils\Utils::matchContentType($contentType, 'application/problem+json')) {
+                $httpResponse = $this->sdkConfiguration->hooks->afterSuccess(new Hooks\AfterSuccessContext($hookContext), $httpResponse);
+
+                $serializer = Utils\JSON::createSerializer();
+                $responseData = (string) $httpResponse->getBody();
+                $obj = $serializer->deserialize($responseData, '\Gsmservice\Gateway\Models\Errors\ErrorResponse', 'json', DeserializationContext::create()->setRequireAllRequiredProperties(true));
+                throw $obj->toException();
+            } else {
+                throw new \Gsmservice\Gateway\Models\Errors\SDKException('Unknown content type received', $statusCode, $httpResponse->getBody()->getContents(), $httpResponse);
+            }
+        } elseif (Utils\Utils::matchStatusCodes($statusCode, ['400', '403', '415', '422', '4XX'])) {
             if (Utils\Utils::matchContentType($contentType, 'application/problem+json')) {
                 $httpResponse = $this->sdkConfiguration->hooks->afterSuccess(new Hooks\AfterSuccessContext($hookContext), $httpResponse);
 
@@ -162,11 +174,11 @@ class Senders
      * Delete a sender name
      *
      * Removes defined sender name from your account. This method accepts **sender name** as parameter. Sender name will be deleted immediately.
-     *
+     * 
      * As a successful response a `DeleteSenderResponse` will be returned with `$statusCode` = *204* property.
      *
      * @param  string  $sender
-     * @return Operations\DeleteSenderResponse
+     * @return \Gsmservice\Gateway\Models\Operations\DeleteSenderResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
     public function delete(string $sender, ?Options $options = null): Operations\DeleteSenderResponse
@@ -217,11 +229,12 @@ class Senders
         }
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 
-        $statusCode = $httpResponse->getStatusCode();
-        if (Utils\Utils::matchStatusCodes($statusCode, ['400', '401', '403', '404', '4XX', '5XX'])) {
+        if (Utils\Utils::matchStatusCodes($httpResponse->getStatusCode(), ['4XX', '5XX'])) {
             $res = $this->sdkConfiguration->hooks->afterError(new Hooks\AfterErrorContext($hookContext), $httpResponse, null);
             $httpResponse = $res;
         }
+
+        $statusCode = $httpResponse->getStatusCode();
         if (Utils\Utils::matchStatusCodes($statusCode, ['204'])) {
             $httpResponse = $this->sdkConfiguration->hooks->afterSuccess(new Hooks\AfterSuccessContext($hookContext), $httpResponse);
 
@@ -230,7 +243,18 @@ class Senders
                 contentType: $contentType,
                 rawResponse: $httpResponse
             );
-        } elseif (Utils\Utils::matchStatusCodes($statusCode, ['400', '401', '403', '404', '4XX'])) {
+        } elseif (Utils\Utils::matchStatusCodes($statusCode, ['401', '405'])) {
+            if (Utils\Utils::matchContentType($contentType, 'application/problem+json')) {
+                $httpResponse = $this->sdkConfiguration->hooks->afterSuccess(new Hooks\AfterSuccessContext($hookContext), $httpResponse);
+
+                $serializer = Utils\JSON::createSerializer();
+                $responseData = (string) $httpResponse->getBody();
+                $obj = $serializer->deserialize($responseData, '\Gsmservice\Gateway\Models\Errors\ErrorResponse', 'json', DeserializationContext::create()->setRequireAllRequiredProperties(true));
+                throw $obj->toException();
+            } else {
+                throw new \Gsmservice\Gateway\Models\Errors\SDKException('Unknown content type received', $statusCode, $httpResponse->getBody()->getContents(), $httpResponse);
+            }
+        } elseif (Utils\Utils::matchStatusCodes($statusCode, ['403', '404', '4XX'])) {
             if (Utils\Utils::matchContentType($contentType, 'application/problem+json')) {
                 $httpResponse = $this->sdkConfiguration->hooks->afterSuccess(new Hooks\AfterSuccessContext($hookContext), $httpResponse);
 
@@ -261,10 +285,10 @@ class Senders
      * List allowed senders names
      *
      * Get a list of allowed senders defined in your account. The method doesn't get any parameters.
-     *
+     * 
      * As a successful result a `ListSendersResponse` object will be returned with an array of `Sender` as `$senders` property, each object per single sender.
      *
-     * @return Operations\ListSendersResponse
+     * @return \Gsmservice\Gateway\Models\Operations\ListSendersResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
     public function list(?Options $options = null): Operations\ListSendersResponse
@@ -312,11 +336,12 @@ class Senders
         }
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 
-        $statusCode = $httpResponse->getStatusCode();
-        if (Utils\Utils::matchStatusCodes($statusCode, ['400', '401', '403', '4XX', '5XX'])) {
+        if (Utils\Utils::matchStatusCodes($httpResponse->getStatusCode(), ['4XX', '5XX'])) {
             $res = $this->sdkConfiguration->hooks->afterError(new Hooks\AfterErrorContext($hookContext), $httpResponse, null);
             $httpResponse = $res;
         }
+
+        $statusCode = $httpResponse->getStatusCode();
         if (Utils\Utils::matchStatusCodes($statusCode, ['200'])) {
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $httpResponse = $this->sdkConfiguration->hooks->afterSuccess(new Hooks\AfterSuccessContext($hookContext), $httpResponse);
@@ -334,7 +359,18 @@ class Senders
             } else {
                 throw new \Gsmservice\Gateway\Models\Errors\SDKException('Unknown content type received', $statusCode, $httpResponse->getBody()->getContents(), $httpResponse);
             }
-        } elseif (Utils\Utils::matchStatusCodes($statusCode, ['400', '401', '403', '4XX'])) {
+        } elseif (Utils\Utils::matchStatusCodes($statusCode, ['401', '405'])) {
+            if (Utils\Utils::matchContentType($contentType, 'application/problem+json')) {
+                $httpResponse = $this->sdkConfiguration->hooks->afterSuccess(new Hooks\AfterSuccessContext($hookContext), $httpResponse);
+
+                $serializer = Utils\JSON::createSerializer();
+                $responseData = (string) $httpResponse->getBody();
+                $obj = $serializer->deserialize($responseData, '\Gsmservice\Gateway\Models\Errors\ErrorResponse', 'json', DeserializationContext::create()->setRequireAllRequiredProperties(true));
+                throw $obj->toException();
+            } else {
+                throw new \Gsmservice\Gateway\Models\Errors\SDKException('Unknown content type received', $statusCode, $httpResponse->getBody()->getContents(), $httpResponse);
+            }
+        } elseif (Utils\Utils::matchStatusCodes($statusCode, ['400', '403', '4XX'])) {
             if (Utils\Utils::matchContentType($contentType, 'application/problem+json')) {
                 $httpResponse = $this->sdkConfiguration->hooks->afterSuccess(new Hooks\AfterSuccessContext($hookContext), $httpResponse);
 
@@ -365,11 +401,11 @@ class Senders
      * Set default sender name
      *
      * Set default sender name to one of the senders names already defined on your account. This method accepts a **sender name** parameter to set it as default on your account.
-     *
+     * 
      * As a successful response a `SetDefaultSenderResponse` will be returned with `$statusCode` = **204** property.
      *
      * @param  string  $sender
-     * @return Operations\SetDefaultSenderResponse
+     * @return \Gsmservice\Gateway\Models\Operations\SetDefaultSenderResponse
      * @throws \Gsmservice\Gateway\Models\Errors\SDKException
      */
     public function setDefault(string $sender, ?Options $options = null): Operations\SetDefaultSenderResponse
@@ -405,7 +441,7 @@ class Senders
         $url = Utils\Utils::generateUrl($baseUrl, '/senders/{sender}', Operations\SetDefaultSenderRequest::class, $request);
         $urlOverride = null;
         $httpOptions = ['http_errors' => false];
-        $httpOptions['headers']['Accept'] = 'application/json;q=1, application/problem+json;q=0';
+        $httpOptions['headers']['Accept'] = 'application/problem+json';
         $httpOptions['headers']['user-agent'] = $this->sdkConfiguration->userAgent;
         $httpRequest = new \GuzzleHttp\Psr7\Request('PATCH', $url);
         $hookContext = new HookContext($this->sdkConfiguration, $baseUrl, 'setDefaultSender', null, $this->sdkConfiguration->securitySource);
@@ -420,11 +456,12 @@ class Senders
         }
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 
-        $statusCode = $httpResponse->getStatusCode();
-        if (Utils\Utils::matchStatusCodes($statusCode, ['400', '401', '403', '404', '4XX', '5XX'])) {
+        if (Utils\Utils::matchStatusCodes($httpResponse->getStatusCode(), ['4XX', '5XX'])) {
             $res = $this->sdkConfiguration->hooks->afterError(new Hooks\AfterErrorContext($hookContext), $httpResponse, null);
             $httpResponse = $res;
         }
+
+        $statusCode = $httpResponse->getStatusCode();
         if (Utils\Utils::matchStatusCodes($statusCode, ['204'])) {
             $httpResponse = $this->sdkConfiguration->hooks->afterSuccess(new Hooks\AfterSuccessContext($hookContext), $httpResponse);
 
@@ -433,8 +470,8 @@ class Senders
                 contentType: $contentType,
                 rawResponse: $httpResponse
             );
-        } elseif (Utils\Utils::matchStatusCodes($statusCode, ['404'])) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+        } elseif (Utils\Utils::matchStatusCodes($statusCode, ['401', '405'])) {
+            if (Utils\Utils::matchContentType($contentType, 'application/problem+json')) {
                 $httpResponse = $this->sdkConfiguration->hooks->afterSuccess(new Hooks\AfterSuccessContext($hookContext), $httpResponse);
 
                 $serializer = Utils\JSON::createSerializer();
@@ -444,7 +481,7 @@ class Senders
             } else {
                 throw new \Gsmservice\Gateway\Models\Errors\SDKException('Unknown content type received', $statusCode, $httpResponse->getBody()->getContents(), $httpResponse);
             }
-        } elseif (Utils\Utils::matchStatusCodes($statusCode, ['400', '401', '403', '4XX'])) {
+        } elseif (Utils\Utils::matchStatusCodes($statusCode, ['400', '403', '404', '409', '4XX'])) {
             if (Utils\Utils::matchContentType($contentType, 'application/problem+json')) {
                 $httpResponse = $this->sdkConfiguration->hooks->afterSuccess(new Hooks\AfterSuccessContext($hookContext), $httpResponse);
 

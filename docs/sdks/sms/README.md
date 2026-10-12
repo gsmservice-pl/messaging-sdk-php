@@ -16,9 +16,165 @@ As a successful result a `GetSmsPriceResponse` object will be returned with `$pr
 
 `GetSmsPriceResponse` object will include also `$headers` array with `X-Success-Count` (a count of messages which were processed successfully) and `X-Error-Count` (count of messages which were rejected) elements.
 
-### Example Usage
+### Example Usage: bulk
 
-<!-- UsageSnippet language="php" operationID="getSmsPrice" method="post" path="/messages/sms/price" -->
+<!-- UsageSnippet language="php" operationID="getSmsPrice" method="post" path="/messages/sms/price" example="bulk" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = [
+    new Components\SmsMessage(
+        recipients: '+48999999999',
+        message: 'This is first SMS message content',
+        unicode: true,
+    ),
+    new Components\SmsMessage(
+        recipients: '+48999888777',
+        message: 'This is second SMS message content',
+        unicode: true,
+    ),
+];
+
+$response = $sdk->outgoing->sms->getPrice(
+    request: $request
+);
+
+if ($response->prices !== null) {
+    // handle response
+}
+```
+### Example Usage: bulk_cid
+
+<!-- UsageSnippet language="php" operationID="getSmsPrice" method="post" path="/messages/sms/price" example="bulk_cid" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = [
+    new Components\SmsMessage(
+        recipients: new Components\PhoneNumberWithCid(
+            nr: '+48999999999',
+            cid: 'custom-id-A44445T',
+        ),
+        message: 'This is first SMS message content',
+        unicode: true,
+    ),
+    new Components\SmsMessage(
+        recipients: new Components\PhoneNumberWithCid(
+            nr: '+48999888777',
+            cid: 'custom-id-F44445R',
+        ),
+        message: 'This is second SMS message content',
+        unicode: true,
+    ),
+];
+
+$response = $sdk->outgoing->sms->getPrice(
+    request: $request
+);
+
+if ($response->prices !== null) {
+    // handle response
+}
+```
+### Example Usage: multi
+
+<!-- UsageSnippet language="php" operationID="getSmsPrice" method="post" path="/messages/sms/price" example="multi" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = new Components\SmsMessage(
+    recipients: [
+        '+48999999999',
+        '+48999888777',
+    ],
+    message: 'This is SMS message content.',
+    unicode: true,
+);
+
+$response = $sdk->outgoing->sms->getPrice(
+    request: $request
+);
+
+if ($response->prices !== null) {
+    // handle response
+}
+```
+### Example Usage: multi_cid
+
+<!-- UsageSnippet language="php" operationID="getSmsPrice" method="post" path="/messages/sms/price" example="multi_cid" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = new Components\SmsMessage(
+    recipients: [
+        new Components\PhoneNumberWithCid(
+            nr: '+48999999999',
+            cid: 'custom-id-A44445T',
+        ),
+        new Components\PhoneNumberWithCid(
+            nr: '+48999888777',
+            cid: 'custom-id-F44445R',
+        ),
+    ],
+    message: 'This is SMS message content',
+    unicode: true,
+);
+
+$response = $sdk->outgoing->sms->getPrice(
+    request: $request
+);
+
+if ($response->prices !== null) {
+    // handle response
+}
+```
+### Example Usage: single
+
+<!-- UsageSnippet language="php" operationID="getSmsPrice" method="post" path="/messages/sms/price" example="single" -->
 ```php
 declare(strict_types=1);
 
@@ -47,6 +203,40 @@ if ($response->prices !== null) {
     // handle response
 }
 ```
+### Example Usage: single_cid
+
+<!-- UsageSnippet language="php" operationID="getSmsPrice" method="post" path="/messages/sms/price" example="single_cid" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = new Components\SmsMessage(
+    recipients: new Components\PhoneNumberWithCid(
+        nr: '+48999999999',
+        cid: 'custom-id-A44445T',
+    ),
+    message: 'This is SMS message content',
+    unicode: true,
+);
+
+$response = $sdk->outgoing->sms->getPrice(
+    request: $request
+);
+
+if ($response->prices !== null) {
+    // handle response
+}
+```
 
 ### Parameters
 
@@ -62,7 +252,8 @@ if ($response->prices !== null) {
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 400, 401, 4XX            | application/problem+json |
+| Errors\ErrorResponse     | 401, 405                 | application/problem+json |
+| Errors\ErrorResponse     | 400, 415, 4XX            | application/problem+json |
 | Errors\ErrorResponse     | 5XX                      | application/problem+json |
 
 ## send
@@ -73,9 +264,165 @@ As a successful result a `SendSmsResponse` object will be returned with `$messag
 
 `SendSmsResponse` will also include `$headers` array with `X-Success-Count` (a count of messages which were processed successfully), `X-Error-Count` (count of messages which were rejected) and `X-Sandbox` (if a request was made in Sandbox or Production system) elements.
 
-### Example Usage
+### Example Usage: bulk
 
-<!-- UsageSnippet language="php" operationID="sendSms" method="post" path="/messages/sms" -->
+<!-- UsageSnippet language="php" operationID="sendSms" method="post" path="/messages/sms" example="bulk" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = [
+    new Components\SmsMessage(
+        recipients: '+48999999999',
+        message: 'This is first SMS message content',
+        unicode: true,
+    ),
+    new Components\SmsMessage(
+        recipients: '+48999888777',
+        message: 'This is second SMS message content',
+        unicode: true,
+    ),
+];
+
+$response = $sdk->outgoing->sms->send(
+    request: $request
+);
+
+if ($response->messages !== null) {
+    // handle response
+}
+```
+### Example Usage: bulk_cid
+
+<!-- UsageSnippet language="php" operationID="sendSms" method="post" path="/messages/sms" example="bulk_cid" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = [
+    new Components\SmsMessage(
+        recipients: new Components\PhoneNumberWithCid(
+            nr: '+48999999999',
+            cid: 'custom-id-A44445T',
+        ),
+        message: 'This is first SMS message content',
+        unicode: true,
+    ),
+    new Components\SmsMessage(
+        recipients: new Components\PhoneNumberWithCid(
+            nr: '+48999888777',
+            cid: 'custom-id-F44445R',
+        ),
+        message: 'This is second SMS message content',
+        unicode: true,
+    ),
+];
+
+$response = $sdk->outgoing->sms->send(
+    request: $request
+);
+
+if ($response->messages !== null) {
+    // handle response
+}
+```
+### Example Usage: multi
+
+<!-- UsageSnippet language="php" operationID="sendSms" method="post" path="/messages/sms" example="multi" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = new Components\SmsMessage(
+    recipients: [
+        '+48999999999',
+        '+48999888777',
+    ],
+    message: 'This is SMS message content.',
+    unicode: true,
+);
+
+$response = $sdk->outgoing->sms->send(
+    request: $request
+);
+
+if ($response->messages !== null) {
+    // handle response
+}
+```
+### Example Usage: multi_cid
+
+<!-- UsageSnippet language="php" operationID="sendSms" method="post" path="/messages/sms" example="multi_cid" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = new Components\SmsMessage(
+    recipients: [
+        new Components\PhoneNumberWithCid(
+            nr: '+48999999999',
+            cid: 'custom-id-A44445T',
+        ),
+        new Components\PhoneNumberWithCid(
+            nr: '+48999888777',
+            cid: 'custom-id-F44445R',
+        ),
+    ],
+    message: 'This is SMS message content',
+    unicode: true,
+);
+
+$response = $sdk->outgoing->sms->send(
+    request: $request
+);
+
+if ($response->messages !== null) {
+    // handle response
+}
+```
+### Example Usage: single
+
+<!-- UsageSnippet language="php" operationID="sendSms" method="post" path="/messages/sms" example="single" -->
 ```php
 declare(strict_types=1);
 
@@ -104,6 +451,40 @@ if ($response->messages !== null) {
     // handle response
 }
 ```
+### Example Usage: single_cid
+
+<!-- UsageSnippet language="php" operationID="sendSms" method="post" path="/messages/sms" example="single_cid" -->
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Gsmservice\Gateway;
+use Gsmservice\Gateway\Models\Components;
+
+$sdk = Gateway\Client::builder()
+    ->setSecurity(
+        '<YOUR API ACCESS TOKEN>'
+    )
+    ->build();
+
+$request = new Components\SmsMessage(
+    recipients: new Components\PhoneNumberWithCid(
+        nr: '+48999999999',
+        cid: 'custom-id-A44445T',
+    ),
+    message: 'This is SMS message content',
+    unicode: true,
+);
+
+$response = $sdk->outgoing->sms->send(
+    request: $request
+);
+
+if ($response->messages !== null) {
+    // handle response
+}
+```
 
 ### Parameters
 
@@ -119,5 +500,6 @@ if ($response->messages !== null) {
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 400, 401, 403, 4XX       | application/problem+json |
+| Errors\ErrorResponse     | 401, 405                 | application/problem+json |
+| Errors\ErrorResponse     | 400, 403, 415, 4XX       | application/problem+json |
 | Errors\ErrorResponse     | 5XX                      | application/problem+json |

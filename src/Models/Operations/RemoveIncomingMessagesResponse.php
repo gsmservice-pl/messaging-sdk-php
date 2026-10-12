@@ -42,7 +42,7 @@ class RemoveIncomingMessagesResponse
     /**
      * The request was processed successfully. Please check the status of incoming messages in response body.
      *
-     * @var ?array<Components\RemovedIncomingMessage> $removedIncomingMessages
+     * @var ?array<\Gsmservice\Gateway\Models\Components\RemovedIncomingMessage> $removedIncomingMessages
      */
     public ?array $removedIncomingMessages = null;
 
@@ -51,7 +51,7 @@ class RemoveIncomingMessagesResponse
      * @param  int  $statusCode
      * @param  \Psr\Http\Message\ResponseInterface  $rawResponse
      * @param  array<string, array<string>>  $headers
-     * @param  ?array<Components\RemovedIncomingMessage>  $removedIncomingMessages
+     * @param  ?array<\Gsmservice\Gateway\Models\Components\RemovedIncomingMessage>  $removedIncomingMessages
      * @phpstan-pure
      */
     public function __construct(string $contentType, int $statusCode, \Psr\Http\Message\ResponseInterface $rawResponse, ?array $removedIncomingMessages = null, ?array $headers = [])

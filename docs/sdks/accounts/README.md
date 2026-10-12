@@ -48,7 +48,8 @@ if ($response->accountResponse !== null) {
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 401, 403, 4XX            | application/problem+json |
+| Errors\ErrorResponse     | 401, 405                 | application/problem+json |
+| Errors\ErrorResponse     | 403, 4XX                 | application/problem+json |
 | Errors\ErrorResponse     | 5XX                      | application/problem+json |
 
 ## getSubaccount
@@ -100,5 +101,6 @@ if ($response->accountResponse !== null) {
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 401, 403, 404, 4XX       | application/problem+json |
+| Errors\ErrorResponse     | 401, 405                 | application/problem+json |
+| Errors\ErrorResponse     | 403, 404, 4XX            | application/problem+json |
 | Errors\ErrorResponse     | 5XX                      | application/problem+json |

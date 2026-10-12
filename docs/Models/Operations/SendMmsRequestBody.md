@@ -9,7 +9,7 @@ To send a single MMS or messages with the same content to multiple recipients, p
 
 ```php
 /**
-* @var Components\MmsMessage
+* @var \Gsmservice\Gateway\Models\Components\MmsMessage
 */
 Components\MmsMessage $value = /* values here */
 ```
@@ -18,7 +18,7 @@ Components\MmsMessage $value = /* values here */
 
 ```php
 /**
-* @var array<Components\MmsMessage>
+* @var array<\Gsmservice\Gateway\Models\Components\MmsMessage>
 */
 array $value = /* values here */
 ```

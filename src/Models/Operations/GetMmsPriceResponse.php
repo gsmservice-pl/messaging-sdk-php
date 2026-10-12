@@ -42,7 +42,7 @@ class GetMmsPriceResponse
     /**
      * The request was processed successfully. Please check the price and the details of particular messages in `$prices`
      *
-     * @var ?array<Components\Price> $prices
+     * @var ?array<\Gsmservice\Gateway\Models\Components\Price> $prices
      */
     public ?array $prices = null;
 
@@ -51,7 +51,7 @@ class GetMmsPriceResponse
      * @param  int  $statusCode
      * @param  \Psr\Http\Message\ResponseInterface  $rawResponse
      * @param  array<string, array<string>>  $headers
-     * @param  ?array<Components\Price>  $prices
+     * @param  ?array<\Gsmservice\Gateway\Models\Components\Price>  $prices
      * @phpstan-pure
      */
     public function __construct(string $contentType, int $statusCode, \Psr\Http\Message\ResponseInterface $rawResponse, ?array $prices = null, ?array $headers = [])

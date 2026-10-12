@@ -15,14 +15,14 @@ class MmsMessage
     /**
      * The recipient number or multiple recipients numbers of single message. To set one recipient, simply pass here a `string` with his phone number. To set multiple recipients, pass here a simple `array` of `string`. Optionally you can also set custom id (user identifier) for each message - pass `PhoneNumberWithCid` object (in case of single recipient) or `Array` of `PhoneNumberWithCid` (in case of multiple recipients).
      *
-     * @var string|array<string>|PhoneNumberWithCid|array<PhoneNumberWithCid> $recipients
+     * @var string|array<string>|\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid|array<\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid> $recipients
      */
     #[\Speakeasy\Serializer\Annotation\SerializedName('recipients')]
     #[\Speakeasy\Serializer\Annotation\Type('string|array<string>|\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid|array<\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid>')]
     public string|array|PhoneNumberWithCid $recipients;
 
     /**
-     * MMS message subject
+     * MMS message subject. Missing or null is treated as an empty subject.
      *
      * @var ?string $subject
      */
@@ -31,7 +31,7 @@ class MmsMessage
     public ?string $subject = null;
 
     /**
-     * MMS message content
+     * MMS message content. Missing or null is treated as empty text; a message may contain attachments.
      *
      * @var ?string $message
      */
@@ -59,7 +59,7 @@ class MmsMessage
     public ?\DateTime $date = null;
 
     /**
-     * @param  string|array<string>|PhoneNumberWithCid|array<PhoneNumberWithCid>  $recipients
+     * @param  string|array<string>|\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid|array<\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid>  $recipients
      * @param  ?string  $subject
      * @param  ?string  $message
      * @param  string|array<string>|null  $attachments

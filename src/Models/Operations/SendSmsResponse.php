@@ -42,7 +42,7 @@ class SendSmsResponse
     /**
      * The request was processed successfully. Please check statuses of particular messages in `$messages` array.
      *
-     * @var ?array<Components\Message> $messages
+     * @var ?array<\Gsmservice\Gateway\Models\Components\Message> $messages
      */
     public ?array $messages = null;
 
@@ -51,7 +51,7 @@ class SendSmsResponse
      * @param  int  $statusCode
      * @param  \Psr\Http\Message\ResponseInterface  $rawResponse
      * @param  array<string, array<string>>  $headers
-     * @param  ?array<Components\Message>  $messages
+     * @param  ?array<\Gsmservice\Gateway\Models\Components\Message>  $messages
      * @phpstan-pure
      */
     public function __construct(string $contentType, int $statusCode, \Psr\Http\Message\ResponseInterface $rawResponse, ?array $messages = null, ?array $headers = [])

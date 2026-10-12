@@ -57,7 +57,8 @@ if ($response->messages !== null) {
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 400, 401, 403, 404, 4XX  | application/problem+json |
+| Errors\ErrorResponse     | 401, 405                 | application/problem+json |
+| Errors\ErrorResponse     | 400, 403, 404, 4XX       | application/problem+json |
 | Errors\ErrorResponse     | 5XX                      | application/problem+json |
 
 ## cancelScheduled
@@ -111,7 +112,8 @@ if ($response->cancelledMessages !== null) {
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 400, 401, 403, 404, 4XX  | application/problem+json |
+| Errors\ErrorResponse     | 401, 405                 | application/problem+json |
+| Errors\ErrorResponse     | 400, 403, 404, 4XX       | application/problem+json |
 | Errors\ErrorResponse     | 5XX                      | application/problem+json |
 
 ## list
@@ -164,5 +166,6 @@ if ($response->messages !== null) {
 
 | Error Type               | Status Code              | Content Type             |
 | ------------------------ | ------------------------ | ------------------------ |
-| Errors\ErrorResponse     | 400, 401, 403, 404, 4XX  | application/problem+json |
+| Errors\ErrorResponse     | 401, 405                 | application/problem+json |
+| Errors\ErrorResponse     | 400, 403, 404, 4XX       | application/problem+json |
 | Errors\ErrorResponse     | 5XX                      | application/problem+json |

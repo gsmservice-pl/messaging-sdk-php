@@ -24,7 +24,7 @@ class AccountResponse
     /**
      * Account type
      *
-     * @var ?AccountType $accountType
+     * @var ?\Gsmservice\Gateway\Models\Components\AccountType $accountType
      */
     #[\Speakeasy\Serializer\Annotation\SerializedName('account_type')]
     #[\Speakeasy\Serializer\Annotation\Type('\Gsmservice\Gateway\Models\Components\AccountType|null')]
@@ -87,7 +87,7 @@ class AccountResponse
 
     /**
      * @param  ?string  $login
-     * @param  ?AccountType  $accountType
+     * @param  ?\Gsmservice\Gateway\Models\Components\AccountType  $accountType
      * @param  ?float  $limit
      * @param  ?float  $credit
      * @param  ?string  $currency

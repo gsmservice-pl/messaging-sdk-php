@@ -42,7 +42,7 @@ class AddSenderResponse
     /**
      * The request was processed successfully (sender created)
      *
-     * @var ?Components\Sender $sender
+     * @var ?\Gsmservice\Gateway\Models\Components\Sender $sender
      */
     public ?Components\Sender $sender = null;
 
@@ -51,7 +51,7 @@ class AddSenderResponse
      * @param  int  $statusCode
      * @param  \Psr\Http\Message\ResponseInterface  $rawResponse
      * @param  array<string, array<string>>  $headers
-     * @param  ?Components\Sender  $sender
+     * @param  ?\Gsmservice\Gateway\Models\Components\Sender  $sender
      * @phpstan-pure
      */
     public function __construct(string $contentType, int $statusCode, \Psr\Http\Message\ResponseInterface $rawResponse, ?Components\Sender $sender = null, ?array $headers = [])

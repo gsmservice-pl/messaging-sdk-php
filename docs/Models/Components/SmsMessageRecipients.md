@@ -27,7 +27,7 @@ array $value = /* values here */
 
 ```php
 /**
-* @var Components\PhoneNumberWithCid
+* @var \Gsmservice\Gateway\Models\Components\PhoneNumberWithCid
 */
 Components\PhoneNumberWithCid $value = /* values here */
 ```
@@ -36,7 +36,7 @@ Components\PhoneNumberWithCid $value = /* values here */
 
 ```php
 /**
-* @var array<Components\PhoneNumberWithCid>
+* @var array<\Gsmservice\Gateway\Models\Components\PhoneNumberWithCid>
 */
 array $value = /* values here */
 ```

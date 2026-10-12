@@ -15,7 +15,7 @@ class Message
     /**
      * Message type (SmsType::SmsPro -> SMS PRO, SmsType::SmsEco -> SMS ECO, SmsType::SmsTwoWay ->SMS 2WAY, SmsType::Mms -> MMS)
      *
-     * @var ?MessageType $type
+     * @var ?\Gsmservice\Gateway\Models\Components\MessageType $type
      */
     #[\Speakeasy\Serializer\Annotation\SerializedName('type')]
     #[\Speakeasy\Serializer\Annotation\Type('\Gsmservice\Gateway\Models\Components\MessageType|null')]
@@ -32,7 +32,7 @@ class Message
     public ?string $recipient = null;
 
     /**
-     * Message status code
+     * Message-processing status, e.g. QUEUED or REJECTED. Sending results use HTTP 200; further delivery status is available in message history.
      *
      * @var ?string $statusCode
      */
@@ -41,7 +41,7 @@ class Message
     public ?string $statusCode = null;
 
     /**
-     * Human redable description of message status
+     * Human-readable description of the message status and any rejection reason.
      *
      * @var ?string $statusDescription
      */
@@ -131,7 +131,7 @@ class Message
     public ?\DateTime $statusDate = null;
 
     /**
-     * @param  ?MessageType  $type
+     * @param  ?\Gsmservice\Gateway\Models\Components\MessageType  $type
      * @param  ?string  $recipient
      * @param  ?string  $statusCode
      * @param  ?string  $statusDescription

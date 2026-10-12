@@ -42,7 +42,7 @@ class CancelMessagesResponse
     /**
      * The request was processed successfully. Please check the status of messages cancellation in `$cancelledMessages` array.
      *
-     * @var ?array<Components\CancelledMessage> $cancelledMessages
+     * @var ?array<\Gsmservice\Gateway\Models\Components\CancelledMessage> $cancelledMessages
      */
     public ?array $cancelledMessages = null;
 
@@ -51,7 +51,7 @@ class CancelMessagesResponse
      * @param  int  $statusCode
      * @param  \Psr\Http\Message\ResponseInterface  $rawResponse
      * @param  array<string, array<string>>  $headers
-     * @param  ?array<Components\CancelledMessage>  $cancelledMessages
+     * @param  ?array<\Gsmservice\Gateway\Models\Components\CancelledMessage>  $cancelledMessages
      * @phpstan-pure
      */
     public function __construct(string $contentType, int $statusCode, \Psr\Http\Message\ResponseInterface $rawResponse, ?array $cancelledMessages = null, ?array $headers = [])

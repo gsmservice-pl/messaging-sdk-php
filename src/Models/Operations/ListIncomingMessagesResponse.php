@@ -42,7 +42,7 @@ class ListIncomingMessagesResponse
     /**
      * The request was processed successfully. Please check received messages details in `$incomingMessages` array.
      *
-     * @var ?array<Components\IncomingMessage> $incomingMessages
+     * @var ?array<\Gsmservice\Gateway\Models\Components\IncomingMessage> $incomingMessages
      */
     public ?array $incomingMessages = null;
 
@@ -51,7 +51,7 @@ class ListIncomingMessagesResponse
      * @param  int  $statusCode
      * @param  \Psr\Http\Message\ResponseInterface  $rawResponse
      * @param  array<string, array<string>>  $headers
-     * @param  ?array<Components\IncomingMessage>  $incomingMessages
+     * @param  ?array<\Gsmservice\Gateway\Models\Components\IncomingMessage>  $incomingMessages
      * @phpstan-pure
      */
     public function __construct(string $contentType, int $statusCode, \Psr\Http\Message\ResponseInterface $rawResponse, ?array $incomingMessages = null, ?array $headers = [])

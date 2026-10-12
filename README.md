@@ -102,7 +102,7 @@ $request = new Components\MmsMessage(
     recipients: '+48999999999',
     subject: 'This is a subject of the message',
     message: 'This is MMS message content.',
-    attachments: '<file body in base64 format>',
+    attachments: 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
 );
 
 $response = $sdk->outgoing->mms->send(
@@ -289,10 +289,11 @@ By default an API error will raise a `Errors\SDKException` exception, which has 
 
 When custom error responses are specified for an operation, the SDK may also throw their associated exception. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `get` method throws the following exceptions:
 
-| Error Type           | Status Code   | Content Type             |
-| -------------------- | ------------- | ------------------------ |
-| Errors\ErrorResponse | 401, 403, 4XX | application/problem+json |
-| Errors\ErrorResponse | 5XX           | application/problem+json |
+| Error Type           | Status Code | Content Type             |
+| -------------------- | ----------- | ------------------------ |
+| Errors\ErrorResponse | 401, 405    | application/problem+json |
+| Errors\ErrorResponse | 403, 4XX    | application/problem+json |
+| Errors\ErrorResponse | 5XX         | application/problem+json |
 
 ### Example
 
@@ -318,6 +319,9 @@ try {
     if ($response->accountResponse !== null) {
         // handle response
     }
+} catch (Errors\ErrorResponseThrowable $e) {
+    // handle $e->$container data
+    throw $e;
 } catch (Errors\ErrorResponseThrowable $e) {
     // handle $e->$container data
     throw $e;

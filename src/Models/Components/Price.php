@@ -9,13 +9,13 @@ declare(strict_types=1);
 namespace Gsmservice\Gateway\Models\Components;
 
 
-/** Price - An object with the properties and price of a single message */
+/** Price - The pricing result for a single message, returned as part of an HTTP 200 response. */
 class Price
 {
     /**
      * Message type (SmsType::SmsPro -> SMS PRO, SmsType::SmsEco -> SMS ECO, SmsType::SmsTwoWay ->SMS 2WAY, SmsType::Mms -> MMS)
      *
-     * @var ?MessageType $type
+     * @var ?\Gsmservice\Gateway\Models\Components\MessageType $type
      */
     #[\Speakeasy\Serializer\Annotation\SerializedName('type')]
     #[\Speakeasy\Serializer\Annotation\Type('\Gsmservice\Gateway\Models\Components\MessageType|null')]
@@ -59,7 +59,7 @@ class Price
     public ?float $price = null;
 
     /**
-     * Information about a possible error
+     * Description of a pricing failure for this message, or null when pricing succeeded. The batch response uses HTTP 200.
      *
      * @var ?string $error
      */
@@ -95,7 +95,7 @@ class Price
     public ?int $parts = null;
 
     /**
-     * @param  ?MessageType  $type
+     * @param  ?\Gsmservice\Gateway\Models\Components\MessageType  $type
      * @param  ?string  $recipient
      * @param  ?bool  $unicode
      * @param  ?bool  $flash

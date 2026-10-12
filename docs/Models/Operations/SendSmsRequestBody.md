@@ -9,7 +9,7 @@ To send a single SMS or messages with the same content to multiple recipients, p
 
 ```php
 /**
-* @var Components\SmsMessage
+* @var \Gsmservice\Gateway\Models\Components\SmsMessage
 */
 Components\SmsMessage $value = /* values here */
 ```
@@ -18,7 +18,7 @@ Components\SmsMessage $value = /* values here */
 
 ```php
 /**
-* @var array<Components\SmsMessage>
+* @var array<\Gsmservice\Gateway\Models\Components\SmsMessage>
 */
 array $value = /* values here */
 ```

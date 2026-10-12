@@ -54,7 +54,7 @@ $request = new Components\MmsMessage(
     recipients: '+48999999999',
     subject: 'This is a subject of the message',
     message: 'This is MMS message content.',
-    attachments: '<file body in base64 format>',
+    attachments: 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
 );
 
 $response = $sdk->outgoing->mms->send(

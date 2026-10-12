@@ -31,9 +31,9 @@ class RemovedIncomingMessage
     public ?int $status = null;
 
     /**
-     * An object that complies with RFC 9457 containing information about a request error
+     * RFC 9457 Problem Details. See the [error catalog](https://api.szybkisms.pl/problems/) for problem types and recovery steps.
      *
-     * @var ?ErrorResponse $error
+     * @var ?\Gsmservice\Gateway\Models\Components\ErrorResponse $error
      */
     #[\Speakeasy\Serializer\Annotation\SerializedName('error')]
     #[\Speakeasy\Serializer\Annotation\Type('\Gsmservice\Gateway\Models\Components\ErrorResponse|null')]
@@ -43,7 +43,7 @@ class RemovedIncomingMessage
     /**
      * @param  ?int  $id
      * @param  ?int  $status
-     * @param  ?ErrorResponse  $error
+     * @param  ?\Gsmservice\Gateway\Models\Components\ErrorResponse  $error
      * @phpstan-pure
      */
     public function __construct(?int $id = null, ?int $status = null, ?ErrorResponse $error = null)
